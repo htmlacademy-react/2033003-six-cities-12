@@ -1,9 +1,9 @@
 import OfferCard from '../../components/offer card/offer-card';
 
-type WelcomeScreenProps = {
+type MainScreenProps = {
   numberRentalOffers: number;
 }
-function WelcomeScreen({numberRentalOffers} : WelcomeScreenProps) : JSX.Element {
+function MainScreen({numberRentalOffers} : MainScreenProps) : JSX.Element {
   const offerCards = Array.from({ length: numberRentalOffers }, (_, i) => <OfferCard key={i} />);
   return(
     <div className="page page--gray page--main">
@@ -108,4 +108,4 @@ function WelcomeScreen({numberRentalOffers} : WelcomeScreenProps) : JSX.Element 
   );
 }
 
-export default WelcomeScreen;
+export default MainScreen;
