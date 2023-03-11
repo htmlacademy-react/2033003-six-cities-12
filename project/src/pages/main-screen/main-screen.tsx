@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import OfferCard from '../../components/offer card/offer-card';
+import OfferCard from '../../components/offer-card/offer-card';
 
 type MainScreenProps = {
   numberRentalOffers: number;

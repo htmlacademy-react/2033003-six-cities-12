@@ -3,7 +3,7 @@ import { AppRoute, AuthorizationStatus } from '../../const';
 import FavoritesScreen from '../../pages/favorites-screen/favorites-screen';
 import LoginScreen from '../../pages/login-screen/login-screen';
 import MainScreen from '../../pages/main-screen/main-screen';
-import NotFoundScreen from '../../pages/notFound-screen/not-found-screen';
+import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
 import RoomScreen from '../../pages/room-screen/room-screen';
 import PrivateRoute from '../private-route/private-route';
 type AppScreenProps = {
