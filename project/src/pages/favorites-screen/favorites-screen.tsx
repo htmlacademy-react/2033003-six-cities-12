@@ -1,5 +1,7 @@
-import { Link } from 'react-router-dom';
+import { MouseEventHandler } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import Rating from '../../components/rating/rating';
+import { AppRoute } from '../../const';
 import { Offer } from '../../types/offer';
 type FavoritesScreenProps = {
   offers: Offer[];
@@ -7,6 +9,11 @@ type FavoritesScreenProps = {
 function FavoritesScreen({offers}: FavoritesScreenProps) :JSX.Element {
   const favoriteOffers = offers.filter((offer) => offer.isFavorite);
   const cities = Array.from(new Set(favoriteOffers.map((offer) => offer.city.name)));
+  const navigate = useNavigate();
+  const handleGoMainClick: MouseEventHandler<HTMLAnchorElement> = (evt) => {
+    evt.preventDefault();
+    navigate(AppRoute.Main);
+  };
 
   return(
     <div className="page">
@@ -14,7 +21,7 @@ function FavoritesScreen({offers}: FavoritesScreenProps) :JSX.Element {
         <div className="container">
           <div className="header__wrapper">
             <div className="header__left">
-              <Link className="header__logo-link" to="\">
+              <Link className="header__logo-link" to="#" onClick={handleGoMainClick}>
                 <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41"/>
               </Link>
             </div>
@@ -25,7 +32,7 @@ function FavoritesScreen({offers}: FavoritesScreenProps) :JSX.Element {
                     <div className="header__avatar-wrapper user__avatar-wrapper">
                     </div>
                     <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
-                    <span className="header__favorite-count">3</span>
+                    <span className="header__favorite-count">{favoriteOffers.length}</span>
                   </Link>
                 </li>
                 <li className="header__nav-item">

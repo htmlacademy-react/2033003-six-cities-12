@@ -138,7 +138,7 @@ export const offers : Offer[] = [
     price: 3638,
     title: 'Стильная квартира с открытой планировкой и большими окнами в современном жилом комплексе',
     type: AccommodationType.House,
-    isFavorite: true,
+    isFavorite: false,
     rating: 4.9,
     location: {
       latitude: 23.23232,
