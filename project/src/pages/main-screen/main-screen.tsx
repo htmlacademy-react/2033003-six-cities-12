@@ -1,11 +1,12 @@
 import { Link } from 'react-router-dom';
-import OfferCard from '../../components/offer-card/offer-card';
+import Offers from '../../components/offers/offers';
+import { Offer } from '../../types/offer';
+import { Review } from '../../types/review';
 
 type MainScreenProps = {
-  numberRentalOffers: number;
+  offers: Offer[];
 }
-function MainScreen({numberRentalOffers} : MainScreenProps) : JSX.Element {
-  const offerCards = Array.from({ length: numberRentalOffers }, (_, i) => <OfferCard key={i} />);
+function MainScreen({offers} : MainScreenProps) : JSX.Element {
   return(
     <div className="page page--gray page--main">
       <header className="header">
@@ -79,7 +80,7 @@ function MainScreen({numberRentalOffers} : MainScreenProps) : JSX.Element {
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{numberRentalOffers} places to stay in Amsterdam</b>
+              <b className="places__found">{offers.length} places to stay in Amsterdam</b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
                 <span className="places__sorting-type" tabIndex={0}>
@@ -96,7 +97,7 @@ function MainScreen({numberRentalOffers} : MainScreenProps) : JSX.Element {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                {offerCards}
+                <Offers offers={offers}/>
               </div>
             </section>
             <div className="cities__right-section">
