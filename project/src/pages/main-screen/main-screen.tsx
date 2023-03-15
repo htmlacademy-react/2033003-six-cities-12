@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom';
 import Offers from '../../components/offers/offers';
 import { Offer } from '../../types/offer';
-import { Review } from '../../types/review';
 
 type MainScreenProps = {
   offers: Offer[];

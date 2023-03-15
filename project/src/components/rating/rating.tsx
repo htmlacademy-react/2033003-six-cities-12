@@ -1,8 +1,7 @@
-import { Offer } from '../../types/offer';
-
 type RatingProps = {
   rating: number;
 }
+
 function Rating({rating}: RatingProps) : JSX.Element {
   const maxRating = 5;
   const ratingPercentage = (rating / maxRating) * 100;

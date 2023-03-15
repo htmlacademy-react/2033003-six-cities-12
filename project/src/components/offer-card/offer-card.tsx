@@ -1,7 +1,5 @@
-import { MouseEvent } from 'react';
 import { Link } from 'react-router-dom';
 import { Offer } from '../../types/offer';
-import { Review } from '../../types/review';
 import Rating from '../rating/rating';
 
 type OfferCardProps = {
@@ -12,13 +10,10 @@ type OfferCardProps = {
 
 function OfferCard({offer, onMouseEnter, onMouseLeave}: OfferCardProps) : JSX.Element{
   return(
-    <article 
-      className='cities__card place-card' 
-      onMouseEnter={(evt: MouseEvent<HTMLElement>) => {
-      evt.preventDefault();
-      onMouseEnter();
-      }} 
-      onMouseLeave={onMouseLeave}>
+    <article className='cities__card place-card'
+      onMouseEnter = {onMouseEnter}
+      onMouseLeave = {onMouseLeave}
+    >
       {offer.isPremium ? <div className="place-card__mark"><span>Premium</span></div> : ''}
       <div className="cities__image-wrapper place-card__image-wrapper">
         <Link to={`offer/${offer.id}`}>
@@ -42,7 +37,7 @@ function OfferCard({offer, onMouseEnter, onMouseLeave}: OfferCardProps) : JSX.El
         <div className="place-card__rating rating">
           <Rating rating={offer.rating}/>
         </div>
-        
+
         <h2 className="place-card__name">
           {/* //TODO: где должен быть title а где description */}
           <Link to="#">{offer.title}</Link>

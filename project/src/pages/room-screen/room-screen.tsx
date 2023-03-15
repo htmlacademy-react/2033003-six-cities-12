@@ -12,9 +12,9 @@ type OfferProps = {
 
 function RoomScreen({offers, reviews}: OfferProps): JSX.Element {
   const { id } = useParams<{ id: string }>();
-  const offer: Offer | null | undefined = id ? offers.find((offer) => offer.id === Number(id)) : null;
-  const offerReviews: Review[] = reviews.filter(review => review.offerId === Number(id));
-  console.log(offerReviews);
+  const offer: Offer | null | undefined = id ? offers.find((offerItem) => offerItem.id === Number(id)) : null;
+  const offerReviews: Review[] = reviews.filter((review) => review.offerId === Number(id));
+
   if(offer){
     return (
       <div className="page">
@@ -46,21 +46,21 @@ function RoomScreen({offers, reviews}: OfferProps): JSX.Element {
             </div>
           </div>
         </header>
-  
+
         <main className="page__main page__main--property">
           <section className="property">
             <div className="property__gallery-container container">
-            <div className="property__gallery">
-              {offer.images.map((picture, index) => (
-                <div key={index} className="property__image-wrapper">
-                  <img className="property__image" src={picture} alt={`Photo ${index}`} />
-                </div>
-              ))}
-            </div>
+              <div className="property__gallery">
+                {offer.images.map((picture, index) => (
+                  <div key={offer.id} className="property__image-wrapper">
+                    <img className="property__image" src={picture} alt={`Interior ${index}`} />
+                  </div>
+                ))}
+              </div>
             </div>
             <div className="property__container container">
               <div className="property__wrapper">
-              {offer.isPremium ? <div className="property__mark"><span>Premium</span></div> : ''}
+                {offer.isPremium ? <div className="property__mark"><span>Premium</span></div> : ''}
                 <div className="property__name-wrapper">
                   <h1 className="property__name">
                     {/* //TODO: где должен быть title а где description */}
@@ -82,7 +82,7 @@ function RoomScreen({offers, reviews}: OfferProps): JSX.Element {
                     {offer.type}
                   </li>
                   <li className="property__feature property__feature--bedrooms">
-                  {offer.bedrooms} Bedrooms
+                    {offer.bedrooms} Bedrooms
                   </li>
                   <li className="property__feature property__feature--adults">
                     Max {offer.maxAdults} adults
@@ -95,10 +95,8 @@ function RoomScreen({offers, reviews}: OfferProps): JSX.Element {
                 <div className="property__inside">
                   <h2 className="property__inside-title">What&apos;s inside</h2>
                   <ul className="property__inside-list">
-                    {offer.goods.map((good, index) => (
-                      <li key={index} className="property__inside-item">
-                      {good}
-                    </li>
+                    {offer.goods.map((good) => (
+                      <li key={good} className="property__inside-item">{good}</li>
                     ))}
                   </ul>
                 </div>
@@ -106,7 +104,7 @@ function RoomScreen({offers, reviews}: OfferProps): JSX.Element {
                   <h2 className="property__host-title">Meet the host</h2>
                   <div className="property__host-user user">
                     <div className={`property__avatar-wrapper ${offer.host.isPro ? 'property__avatar-wrapper--pro' : ''} user__avatar-wrapper`}>
-                      <img className="property__avatar user__avatar" src={offer.host.avatarUrl}  width="74" height="74" alt="Host avatar" />
+                      <img className="property__avatar user__avatar" src={offer.host.avatarUrl} width="74" height="74" alt="Host avatar" />
                     </div>
                     <span className="property__user-name">
                       {offer.host.name}
@@ -124,29 +122,28 @@ function RoomScreen({offers, reviews}: OfferProps): JSX.Element {
                 <section className="property__reviews reviews">
                   <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{offerReviews.length}</span></h2>
                   <ul className="reviews__list">
-                  {offerReviews.map((review, index) => (
-                      <li key={index} className="reviews__item">
-                      <div className="reviews__user user">
-                        <div className="reviews__avatar-wrapper user__avatar-wrapper">
-                          <img className="reviews__avatar user__avatar" src={review.avatar} width="54" height="54" alt="Reviews avatar" />
+                    {offerReviews.map((review, index) => (
+                      <li key={review.id} className="reviews__item">
+                        <div className="reviews__user user">
+                          <div className="reviews__avatar-wrapper user__avatar-wrapper">
+                            <img className="reviews__avatar user__avatar" src={review.avatar} width="54" height="54" alt="Reviews avatar" />
+                          </div>
+                          <span className="reviews__user-name">
+                            {review.author.split(' ')[0]}
+                          </span>
                         </div>
-                        <span className="reviews__user-name">
-                        {review.author.split(' ')[0]}
-                        </span>
-                      </div>
-                      <div className="reviews__info">
-                        <div className="reviews__rating rating">
-                          <Rating rating={review.rating}/>
-                        </div>
-                        <p className="reviews__text">
-                        {review.text}
-                        </p>
-                        <time className="reviews__time" dateTime={review.date.toISOString().split('T')[0]}>
-                        {review.date.toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}
+                        <div className="reviews__info">
+                          <div className="reviews__rating rating">
+                            <Rating rating={review.rating}/>
+                          </div>
+                          <p className="reviews__text">
+                            {review.text}
+                          </p>
+                          <time className="reviews__time" dateTime={review.date.toISOString().split('T')[0]}>
+                            {review.date.toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}
                           </time>
-                      </div>
-                    </li>
-                    ))}
+                        </div>
+                      </li>))}
                   </ul>
                   <CommentSubmissionForm/>
                 </section>
@@ -189,7 +186,7 @@ function RoomScreen({offers, reviews}: OfferProps): JSX.Element {
                     <p className="place-card__type">Private room</p>
                   </div>
                 </article>
-  
+
                 <article className="near-places__card place-card">
                   <div className="near-places__image-wrapper place-card__image-wrapper">
                     <Link to="/">
@@ -221,7 +218,7 @@ function RoomScreen({offers, reviews}: OfferProps): JSX.Element {
                     <p className="place-card__type">Apartment</p>
                   </div>
                 </article>
-  
+
                 <article className="near-places__card place-card">
                   <div className="place-card__mark">
                     <span>Premium</span>
@@ -264,6 +261,6 @@ function RoomScreen({offers, reviews}: OfferProps): JSX.Element {
     );
   }
 
-  return <NotFoundScreen/>
+  return (<NotFoundScreen/>);
 }
 export default RoomScreen;

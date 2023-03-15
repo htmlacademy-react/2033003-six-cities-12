@@ -6,12 +6,13 @@ export const offers : Offer[] = [
   {
     id: 1,
     city: {
-    name: 'Hamburg',
-    location:{
-      latitude: 53.55108460,
-      longitude: 9.99368190,
-      zoom: 3
-    }},
+      name: 'Hamburg',
+      location:{
+        latitude: 53.55108460,
+        longitude: 9.99368190,
+        zoom: 3
+      }
+    },
     previewImage: 'https://media.istockphoto.com/id/1293762741/ru/%D1%84%D0%BE%D1%82%D0%BE/%D1%81%D0%BE%D0%B2%D1%80%D0%B5%D0%BC%D0%B5%D0%BD%D0%BD%D1%8B%D0%B9-%D0%B8%D0%BD%D1%82%D0%B5%D1%80%D1%8C%D0%B5%D1%80-%D0%B3%D0%BE%D1%81%D1%82%D0%B8%D0%BD%D0%BE%D0%B9-3d-%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80.jpg?s=1024x1024&w=is&k=20&c=jmpxYdxHq_zlauJ9mY5Hze7lcIK9cKenBDcnZdew3vg=',
     isPremium: false,
     price: 3030,
@@ -23,7 +24,7 @@ export const offers : Offer[] = [
       latitude: 23.23232,
       longitude: 23.4343,
       zoom: 8
-      },
+    },
     images: [
       'https://media.istockphoto.com/id/1293762741/ru/%D1%84%D0%BE%D1%82%D0%BE/%D1%81%D0%BE%D0%B2%D1%80%D0%B5%D0%BC%D0%B5%D0%BD%D0%BD%D1%8B%D0%B9-%D0%B8%D0%BD%D1%82%D0%B5%D1%80%D1%8C%D0%B5%D1%80-%D0%B3%D0%BE%D1%81%D1%82%D0%B8%D0%BD%D0%BE%D0%B9-3d-%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80.jpg?s=1024x1024&w=is&k=20&c=jmpxYdxHq_zlauJ9mY5Hze7lcIK9cKenBDcnZdew3vg=',
       'https://images.unsplash.com/photo-1639113730940-64416c3b2a01?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHx0b3BpYy1mZWVkfDV8TThqVmJMYlRSd3N8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=60',
@@ -50,7 +51,8 @@ export const offers : Offer[] = [
         latitude: 52.377956,
         longitude: 4.897070,
         zoom: 3
-      }},
+      }
+    },
     previewImage: 'https://media.istockphoto.com/id/1188452511/ru/%D1%84%D0%BE%D1%82%D0%BE/%D1%81%D1%82%D0%B8%D0%BB%D1%8C%D0%BD%D0%B0%D1%8F-%D1%81%D0%BA%D0%B0%D0%BD%D0%B4%D0%B8%D0%BD%D0%B0%D0%B2%D1%81%D0%BA%D0%B0%D1%8F-%D0%B3%D0%BE%D1%81%D1%82%D0%B8%D0%BD%D0%B0%D1%8F-%D1%81-%D0%B4%D0%B8%D0%B7%D0%B0%D0%B9%D0%BD%D0%B5%D1%80%D1%81%D0%BA%D0%B8%D0%BC-%D0%B4%D0%B8%D0%B2%D0%B0%D0%BD%D0%BE%D0%BC-%D0%B8%D0%B7-%D0%BC%D1%8F%D1%82%D1%8B-%D0%BC%D0%B5%D0%B1%D0%B5%D0%BB%D1%8C%D1%8E-%D0%BC%D0%B0%D0%BA%D0%B5%D1%82%D0%BE%D0%BC-%D0%BF%D0%BB%D0%B0%D0%BA%D0%B0%D1%82%D0%BD%D0%BE%D0%B9-%D0%BA%D0%B0%D1%80%D1%82%D1%8B.jpg?s=1024x1024&w=is&k=20&c=PPOC34vKSrHZ7v-yIvn8CfeI5OlgrczyTqKX44RIs-U=',
     isPremium: false,
     price: 4090,
@@ -62,7 +64,7 @@ export const offers : Offer[] = [
       latitude: 23.23232,
       longitude: 23.4343,
       zoom: 8
-      },
+    },
     images: [
       'https://media.istockphoto.com/id/1188452511/ru/%D1%84%D0%BE%D1%82%D0%BE/%D1%81%D1%82%D0%B8%D0%BB%D1%8C%D0%BD%D0%B0%D1%8F-%D1%81%D0%BA%D0%B0%D0%BD%D0%B4%D0%B8%D0%BD%D0%B0%D0%B2%D1%81%D0%BA%D0%B0%D1%8F-%D0%B3%D0%BE%D1%81%D1%82%D0%B8%D0%BD%D0%B0%D1%8F-%D1%81-%D0%B4%D0%B8%D0%B7%D0%B0%D0%B9%D0%BD%D0%B5%D1%80%D1%81%D0%BA%D0%B8%D0%BC-%D0%B4%D0%B8%D0%B2%D0%B0%D0%BD%D0%BE%D0%BC-%D0%B8%D0%B7-%D0%BC%D1%8F%D1%82%D1%8B-%D0%BC%D0%B5%D0%B1%D0%B5%D0%BB%D1%8C%D1%8E-%D0%BC%D0%B0%D0%BA%D0%B5%D1%82%D0%BE%D0%BC-%D0%BF%D0%BB%D0%B0%D0%BA%D0%B0%D1%82%D0%BD%D0%BE%D0%B9-%D0%BA%D0%B0%D1%80%D1%82%D1%8B.jpg?s=1024x1024&w=is&k=20&c=PPOC34vKSrHZ7v-yIvn8CfeI5OlgrczyTqKX44RIs-U=',
       'https://media.istockphoto.com/id/1357529193/photo/3d-rendering-of-a-cozy-living-room.jpg?b=1&s=170667a&w=0&k=20&c=gwhtLAqiPAzxxAAOcHm9trkq8VaTfioCirD4q1ezAaA=',
@@ -89,7 +91,8 @@ export const offers : Offer[] = [
         latitude: 52.377956,
         longitude: 4.897071,
         zoom: 3
-      }},
+      }
+    },
     previewImage: 'https://media.istockphoto.com/id/1271897890/ru/%D1%84%D0%BE%D1%82%D0%BE/%D0%B8%D0%BD%D1%82%D0%B5%D1%80%D1%8C%D0%B5%D1%80-%D0%B3%D0%BE%D1%81%D1%82%D0%B8%D0%BD%D0%BE%D0%B9-%D0%BD%D0%B0-%D1%87%D0%B5%D1%80%D0%B4%D0%B0%D0%BA%D0%B5-%D0%BF%D1%80%D0%BE%D0%BC%D1%8B%D1%88%D0%BB%D0%B5%D0%BD%D0%BD%D1%8B%D0%B9-%D1%81%D1%82%D0%B8%D0%BB%D1%8C.jpg?s=1024x1024&w=is&k=20&c=vY5wCS3F3XC7OlWdGNjoNSl6f0KMkt_jpUmT2NxMt7E=',
     isPremium: true,
     price: 3790,
@@ -101,7 +104,7 @@ export const offers : Offer[] = [
       latitude: 23.23232,
       longitude: 23.4343,
       zoom: 8
-      },
+    },
     images: [
       'https://media.istockphoto.com/id/1271897890/ru/%D1%84%D0%BE%D1%82%D0%BE/%D0%B8%D0%BD%D1%82%D0%B5%D1%80%D1%8C%D0%B5%D1%80-%D0%B3%D0%BE%D1%81%D1%82%D0%B8%D0%BD%D0%BE%D0%B9-%D0%BD%D0%B0-%D1%87%D0%B5%D1%80%D0%B4%D0%B0%D0%BA%D0%B5-%D0%BF%D1%80%D0%BE%D0%BC%D1%8B%D1%88%D0%BB%D0%B5%D0%BD%D0%BD%D1%8B%D0%B9-%D1%81%D1%82%D0%B8%D0%BB%D1%8C.jpg?s=1024x1024&w=is&k=20&c=vY5wCS3F3XC7OlWdGNjoNSl6f0KMkt_jpUmT2NxMt7E=',
       'https://media.istockphoto.com/id/1390233984/photo/modern-luxury-bedroom.jpg?s=612x612&w=0&k=20&c=po91poqYoQTbHUpO1LD1HcxCFZVpRG-loAMWZT7YRe4=',
@@ -128,7 +131,8 @@ export const offers : Offer[] = [
         latitude: 50.85045,
         longitude: 4.34878,
         zoom: 3
-      }},
+      }
+    },
     previewImage: 'https://media.istockphoto.com/id/1274163113/ru/%D1%84%D0%BE%D1%82%D0%BE/%D0%B4%D0%BE%D0%BC%D0%B0%D1%88%D0%BD%D0%B8%D0%B9-%D0%B8%D0%BD%D1%82%D0%B5%D1%80%D1%8C%D0%B5%D1%80-%D0%BC%D0%B0%D0%BA%D0%B5%D1%82-%D1%81-%D1%82%D0%B5%D0%BC%D0%BD%D0%BE-%D0%B7%D0%B5%D0%BB%D0%B5%D0%BD%D1%8B%D0%BC-%D0%BA%D1%80%D0%B5%D1%81%D0%BB%D0%BE%D0%BC-%D1%81%D1%82%D0%BE%D0%BB-%D0%B8-%D0%B4%D0%B5%D0%BA%D0%BE%D1%80-%D0%B2-%D0%B3%D0%BE%D1%81%D1%82%D0%B8%D0%BD%D0%BE%D0%B9.jpg?s=1024x1024&w=is&k=20&c=GPZP0jL_mkwQ2RpiyXGLFn6cIEhpqqZCAnmb1-FTOQY=',
     isPremium: true,
     price: 3638,
@@ -140,15 +144,15 @@ export const offers : Offer[] = [
       latitude: 23.23232,
       longitude: 23.4343,
       zoom: 8
-      },
-      images: [
-        'https://media.istockphoto.com/id/1274163113/ru/%D1%84%D0%BE%D1%82%D0%BE/%D0%B4%D0%BE%D0%BC%D0%B0%D1%88%D0%BD%D0%B8%D0%B9-%D0%B8%D0%BD%D1%82%D0%B5%D1%80%D1%8C%D0%B5%D1%80-%D0%BC%D0%B0%D0%BA%D0%B5%D1%82-%D1%81-%D1%82%D0%B5%D0%BC%D0%BD%D0%BE-%D0%B7%D0%B5%D0%BB%D0%B5%D0%BD%D1%8B%D0%BC-%D0%BA%D1%80%D0%B5%D1%81%D0%BB%D0%BE%D0%BC-%D1%81%D1%82%D0%BE%D0%BB-%D0%B8-%D0%B4%D0%B5%D0%BA%D0%BE%D1%80-%D0%B2-%D0%B3%D0%BE%D1%81%D1%82%D0%B8%D0%BD%D0%BE%D0%B9.jpg?s=1024x1024&w=is&k=20&c=GPZP0jL_mkwQ2RpiyXGLFn6cIEhpqqZCAnmb1-FTOQY=',
-        'https://media.istockphoto.com/id/1363817537/photo/luxury-modern-house-interior-with-corner-sofa-bookshelf-and-staircase.jpg?s=612x612&w=0&k=20&c=BY9EvrgL_VsQkTketnce0yv9lTEpvZkVw0Y9NkMoxN8=',
-        'https://media.istockphoto.com/id/1407202319/photo/3d-render-of-apartment-interior-living-and-dining-room.jpg?b=1&s=170667a&w=0&k=20&c=euvmjTIMglK_KmB1pSR8HKnasNQXnTSKUP8R_-GQHLQ=',
-        'https://media.istockphoto.com/id/1357529194/photo/3d-rendering-of-a-modern-styled-living-room-with-fireplace.jpg?s=612x612&w=0&k=20&c=bBBhHQnZLal9xoH9fGhAEg33CDVF0msBfB7l9cLTU_s=',
-        'https://media.istockphoto.com/id/1357529933/photo/digitally-generated-image-of-a-fully-furnished-living-room.jpg?s=612x612&w=0&k=20&c=wv2lkL2oV9HcZKzXtvxDvRO2FKU9o209ULVWxI3RaOY=',
-        'https://media.istockphoto.com/id/1344601965/photo/contemporary-classic-white-beige-interior-with-furniture-and-decor-3d-render-illustration.jpg?s=612x612&w=0&k=20&c=fGqSwvtSf-2JwBZyr1oYXi1kd-WLpbTgp4BQ9mODhsg='
-      ],
+    },
+    images: [
+      'https://media.istockphoto.com/id/1274163113/ru/%D1%84%D0%BE%D1%82%D0%BE/%D0%B4%D0%BE%D0%BC%D0%B0%D1%88%D0%BD%D0%B8%D0%B9-%D0%B8%D0%BD%D1%82%D0%B5%D1%80%D1%8C%D0%B5%D1%80-%D0%BC%D0%B0%D0%BA%D0%B5%D1%82-%D1%81-%D1%82%D0%B5%D0%BC%D0%BD%D0%BE-%D0%B7%D0%B5%D0%BB%D0%B5%D0%BD%D1%8B%D0%BC-%D0%BA%D1%80%D0%B5%D1%81%D0%BB%D0%BE%D0%BC-%D1%81%D1%82%D0%BE%D0%BB-%D0%B8-%D0%B4%D0%B5%D0%BA%D0%BE%D1%80-%D0%B2-%D0%B3%D0%BE%D1%81%D1%82%D0%B8%D0%BD%D0%BE%D0%B9.jpg?s=1024x1024&w=is&k=20&c=GPZP0jL_mkwQ2RpiyXGLFn6cIEhpqqZCAnmb1-FTOQY=',
+      'https://media.istockphoto.com/id/1363817537/photo/luxury-modern-house-interior-with-corner-sofa-bookshelf-and-staircase.jpg?s=612x612&w=0&k=20&c=BY9EvrgL_VsQkTketnce0yv9lTEpvZkVw0Y9NkMoxN8=',
+      'https://media.istockphoto.com/id/1407202319/photo/3d-render-of-apartment-interior-living-and-dining-room.jpg?b=1&s=170667a&w=0&k=20&c=euvmjTIMglK_KmB1pSR8HKnasNQXnTSKUP8R_-GQHLQ=',
+      'https://media.istockphoto.com/id/1357529194/photo/3d-rendering-of-a-modern-styled-living-room-with-fireplace.jpg?s=612x612&w=0&k=20&c=bBBhHQnZLal9xoH9fGhAEg33CDVF0msBfB7l9cLTU_s=',
+      'https://media.istockphoto.com/id/1357529933/photo/digitally-generated-image-of-a-fully-furnished-living-room.jpg?s=612x612&w=0&k=20&c=wv2lkL2oV9HcZKzXtvxDvRO2FKU9o209ULVWxI3RaOY=',
+      'https://media.istockphoto.com/id/1344601965/photo/contemporary-classic-white-beige-interior-with-furniture-and-decor-3d-render-illustration.jpg?s=612x612&w=0&k=20&c=fGqSwvtSf-2JwBZyr1oYXi1kd-WLpbTgp4BQ9mODhsg='
+    ],
     description: 'Окна большие но все заклеены(продувает)',
     bedrooms:1,
     maxAdults: 3,

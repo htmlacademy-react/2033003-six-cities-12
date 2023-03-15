@@ -1,6 +1,5 @@
-import { MouseEvent, useState } from 'react';
+import { useState } from 'react';
 import { Offer } from '../../types/offer';
-import { Review } from '../../types/review';
 import OfferCard from '../offer-card/offer-card';
 
 type OffersProps = {
@@ -8,7 +7,7 @@ type OffersProps = {
 }
 
 function Offers({offers}: OffersProps) : JSX.Element {
-  const [activeOffer, setActiveOffer] = useState<number>(-1);
+  const [_activeOffer, setActiveOffer] = useState<number>(-1);
 
   const offerCards = offers.map((offer) => (
     <OfferCard
