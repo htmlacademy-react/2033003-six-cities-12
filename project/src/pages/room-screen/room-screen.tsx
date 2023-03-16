@@ -26,7 +26,7 @@ function RoomScreen({offers, reviews}: OfferProps): JSX.Element {
 
   return (
     <div className="page">
-      <Header/>
+      <Header offers={offers}/>
       <main className="page__main page__main--property">
         <section className="property">
           {offer && <RoomGalery offer={offer}/>}
