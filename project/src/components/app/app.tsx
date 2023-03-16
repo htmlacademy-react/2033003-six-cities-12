@@ -29,7 +29,8 @@ function App({offers, reviews}: AppScreenProps): JSX.Element {
           }
         />
         <Route path={AppRoute.Room} element={<RoomScreen offers={offers} reviews={reviews}/>}/>
-        <Route path='*' element={<NotFoundScreen/>}/>
+        <Route path={'*'} element={<NotFoundScreen/>}/>
+        <Route path={AppRoute.NotFound} element={<NotFoundScreen/>}/>
       </Routes>
     </BrowserRouter>
   );
