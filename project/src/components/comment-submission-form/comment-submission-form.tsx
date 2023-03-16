@@ -2,7 +2,7 @@ import { ChangeEvent, Fragment, useState } from 'react';
 import { ratings } from '../../const';
 
 function CommentSubmissionForm(): JSX.Element{
-  const [_rating, setRating] = useState(0);
+  const [, setRating] = useState(0);
   const [reviewText, setReviewText] = useState('');
 
   const handleRatingChange = (event: ChangeEvent<HTMLInputElement>) => {

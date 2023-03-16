@@ -7,7 +7,7 @@ type OffersProps = {
 }
 
 function Offers({offers}: OffersProps) : JSX.Element {
-  const [_activeOffer, setActiveOffer] = useState<number>(-1);
+  const [, setActiveOffer] = useState<number>(-1);
 
   return (
     <Fragment>
