@@ -52,7 +52,7 @@ function RoomScreen({offers, reviews}: OfferProps): JSX.Element {
             <div className="property__gallery-container container">
               <div className="property__gallery">
                 {offer.images.map((picture, index) => (
-                  <div key={`${offer.id}-${index}`} className="property__image-wrapper">
+                  <div key={`${offer.id}-${String(index)}`} className="property__image-wrapper">
                     <img className="property__image" src={picture} alt={`Interior ${index}`} />
                   </div>
                 ))}
@@ -63,7 +63,6 @@ function RoomScreen({offers, reviews}: OfferProps): JSX.Element {
                 {offer.isPremium ? <div className="property__mark"><span>Premium</span></div> : ''}
                 <div className="property__name-wrapper">
                   <h1 className="property__name">
-                    {/* //TODO: где должен быть title а где description */}
                     {offer.title}
                   </h1>
                   <button className="property__bookmark-button button" type="button">
@@ -95,8 +94,8 @@ function RoomScreen({offers, reviews}: OfferProps): JSX.Element {
                 <div className="property__inside">
                   <h2 className="property__inside-title">What&apos;s inside</h2>
                   <ul className="property__inside-list">
-                    {offer.goods.map((good,index) => (
-                      <li key={`${good}-${index}`} className="property__inside-item">{good}</li>
+                    {offer.goods.map((good) => (
+                      <li key={good} className="property__inside-item">{good}</li>
                     ))}
                   </ul>
                 </div>
