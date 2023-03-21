@@ -10,7 +10,7 @@ export const offers : Offer[] = [
       location:{
         latitude: 52.37022,
         longitude: 4.89517,
-        zoom: 3
+        zoom: 12
       }
     },
     previewImage: 'https://media.istockphoto.com/id/1293762741/ru/%D1%84%D0%BE%D1%82%D0%BE/%D1%81%D0%BE%D0%B2%D1%80%D0%B5%D0%BC%D0%B5%D0%BD%D0%BD%D1%8B%D0%B9-%D0%B8%D0%BD%D1%82%D0%B5%D1%80%D1%8C%D0%B5%D1%80-%D0%B3%D0%BE%D1%81%D1%82%D0%B8%D0%BD%D0%BE%D0%B9-3d-%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80.jpg?s=1024x1024&w=is&k=20&c=jmpxYdxHq_zlauJ9mY5Hze7lcIK9cKenBDcnZdew3vg=',
