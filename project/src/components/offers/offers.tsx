@@ -1,13 +1,13 @@
-import { Fragment, useState } from 'react';
+import { Fragment} from 'react';
 import { Offer } from '../../types/offer';
 import OfferCard from '../offer-card/offer-card';
 
 type OffersProps = {
   offers: Offer[];
+  setActiveOffer: (id: number) => void;
 }
 
-function Offers({offers}: OffersProps) : JSX.Element {
-  const [, setActiveOffer] = useState<number>(-1);
+function Offers({offers, setActiveOffer}: OffersProps) : JSX.Element {
 
   return (
     <Fragment>

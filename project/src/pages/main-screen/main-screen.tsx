@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import Header from '../../components/header/header';
 import LocationList from '../../components/location/location-list';
 import Map from '../../components/map/map';
@@ -8,7 +9,8 @@ type MainScreenProps = {
   offers: Offer[];
 }
 function MainScreen({offers} : MainScreenProps) : JSX.Element {
-  const currentCity = offers[0].city;
+  const [activeOfferId, setActiveOffer] = useState<number>(-1);
+  const city = offers[0].city;
   return(
     <div className="page page--gray page--main">
       <Header offers={offers}/>
@@ -21,7 +23,7 @@ function MainScreen({offers} : MainScreenProps) : JSX.Element {
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{offers.length} places to stay in {currentCity.name}</b>
+              <b className="places__found">{offers.length} places to stay in Amsterdam</b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
                 <span className="places__sorting-type" tabIndex={0}>
@@ -38,11 +40,13 @@ function MainScreen({offers} : MainScreenProps) : JSX.Element {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                <Offers offers={offers}/>
+                <Offers offers={offers} setActiveOffer={setActiveOffer}/>
               </div>
             </section>
             <div className="cities__right-section">
-              <Map city={currentCity} offers={offers}/>
+              <section className="cities__map map">
+                <Map city={city} activeOfferId={activeOfferId} offers={offers}/>
+              </section>
             </div>
           </div>
         </div>
