@@ -1,5 +1,7 @@
-import { Link } from 'react-router-dom';
+import { useState } from 'react';
 import Header from '../../components/header/header';
+import LocationList from '../../components/location/location-list';
+import Map from '../../components/map/map';
 import Offers from '../../components/offers/offers';
 import { Offer } from '../../types/offer';
 
@@ -7,47 +9,15 @@ type MainScreenProps = {
   offers: Offer[];
 }
 function MainScreen({offers} : MainScreenProps) : JSX.Element {
-
+  const [activeOfferId, setActiveOffer] = useState<number>(-1);
+  const city = offers[0].city;
   return(
     <div className="page page--gray page--main">
       <Header offers={offers}/>
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
-          <section className="locations container">
-            <ul className="locations__list tabs__list">
-              <li className="locations__item">
-                <Link className="locations__item-link tabs__item" to="#">
-                  <span>Paris</span>
-                </Link>
-              </li>
-              <li className="locations__item">
-                <Link className="locations__item-link tabs__item" to="#">
-                  <span>Cologne</span>
-                </Link>
-              </li>
-              <li className="locations__item">
-                <Link className="locations__item-link tabs__item" to="#">
-                  <span>Brussels</span>
-                </Link>
-              </li>
-              <li className="locations__item">
-                <Link className="locations__item-link tabs__item tabs__item--active" to="#">
-                  <span>Amsterdam</span>
-                </Link>
-              </li>
-              <li className="locations__item">
-                <Link className="locations__item-link tabs__item" to="#">
-                  <span>Hamburg</span>
-                </Link>
-              </li>
-              <li className="locations__item">
-                <Link className="locations__item-link tabs__item" to="#">
-                  <span>Dusseldorf</span>
-                </Link>
-              </li>
-            </ul>
-          </section>
+          <LocationList/>
         </div>
         <div className="cities">
           <div className="cities__places-container container">
@@ -70,11 +40,13 @@ function MainScreen({offers} : MainScreenProps) : JSX.Element {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                <Offers offers={offers}/>
+                <Offers offers={offers} setActiveOffer={setActiveOffer}/>
               </div>
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map"></section>
+              <section className="cities__map map">
+                <Map city={city} activeOfferId={activeOfferId} offers={offers}/>
+              </section>
             </div>
           </div>
         </div>

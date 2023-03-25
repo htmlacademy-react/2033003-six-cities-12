@@ -6,11 +6,11 @@ export const offers : Offer[] = [
   {
     id: 1,
     city: {
-      name: 'Hamburg',
+      name: 'Amsterdam',
       location:{
-        latitude: 53.55108460,
-        longitude: 9.99368190,
-        zoom: 3
+        latitude: 52.37022,
+        longitude: 4.89517,
+        zoom: 12
       }
     },
     previewImage: 'https://media.istockphoto.com/id/1293762741/ru/%D1%84%D0%BE%D1%82%D0%BE/%D1%81%D0%BE%D0%B2%D1%80%D0%B5%D0%BC%D0%B5%D0%BD%D0%BD%D1%8B%D0%B9-%D0%B8%D0%BD%D1%82%D0%B5%D1%80%D1%8C%D0%B5%D1%80-%D0%B3%D0%BE%D1%81%D1%82%D0%B8%D0%BD%D0%BE%D0%B9-3d-%D1%80%D0%B5%D0%BD%D0%B4%D0%B5%D1%80.jpg?s=1024x1024&w=is&k=20&c=jmpxYdxHq_zlauJ9mY5Hze7lcIK9cKenBDcnZdew3vg=',
@@ -21,8 +21,8 @@ export const offers : Offer[] = [
     isFavorite: true,
     rating: 4.5,
     location: {
-      latitude: 23.23232,
-      longitude: 23.4343,
+      latitude: 52.3909553943508,
+      longitude: 4.85309666406198,
       zoom: 8
     },
     images: [
@@ -48,8 +48,8 @@ export const offers : Offer[] = [
     city: {
       name: 'Amsterdam',
       location:{
-        latitude: 52.377956,
-        longitude: 4.897070,
+        latitude: 52.37022,
+        longitude: 4.89517,
         zoom: 3
       }
     },
@@ -61,8 +61,8 @@ export const offers : Offer[] = [
     isFavorite: true,
     rating: 4.8,
     location: {
-      latitude: 23.23232,
-      longitude: 23.4343,
+      latitude: 52.3609553943508,
+      longitude: 4.85309666406198,
       zoom: 8
     },
     images: [
@@ -88,8 +88,8 @@ export const offers : Offer[] = [
     city: {
       name: 'Amsterdam',
       location:{
-        latitude: 52.377956,
-        longitude: 4.897071,
+        latitude: 52.37022,
+        longitude: 4.89517,
         zoom: 3
       }
     },
@@ -101,8 +101,8 @@ export const offers : Offer[] = [
     isFavorite: false,
     rating: 3.5,
     location: {
-      latitude: 23.23232,
-      longitude: 23.4343,
+      latitude: 52.377956,
+      longitude: 4.897071,
       zoom: 8
     },
     images: [
@@ -126,10 +126,10 @@ export const offers : Offer[] = [
   },{
     id: 4,
     city: {
-      name: 'Brussels',
+      name: 'Amsterdam',
       location:{
-        latitude: 50.85045,
-        longitude: 4.34878,
+        latitude: 52.37022,
+        longitude: 4.89517,
         zoom: 3
       }
     },
@@ -141,8 +141,8 @@ export const offers : Offer[] = [
     isFavorite: false,
     rating: 4.9,
     location: {
-      latitude: 23.23232,
-      longitude: 23.4343,
+      latitude: 52.3809553943508,
+      longitude: 4.939309666406198,
       zoom: 8
     },
     images: [
