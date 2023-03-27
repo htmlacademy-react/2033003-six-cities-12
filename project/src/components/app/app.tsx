@@ -11,10 +11,11 @@ import PrivateRoute from '../private-route/private-route';
 
 type AppScreenProps = {
   offers: Offer[];
+  nearbyOffers: Offer[];
   reviews: Review[];
 }
 
-function App({offers, reviews}: AppScreenProps): JSX.Element {
+function App({offers, nearbyOffers, reviews}: AppScreenProps): JSX.Element {
   return (
     <BrowserRouter>
       <Routes>
@@ -28,7 +29,7 @@ function App({offers, reviews}: AppScreenProps): JSX.Element {
             </PrivateRoute>
           }
         />
-        <Route path={AppRoute.Room} element={<RoomScreen offers={offers} reviews={reviews}/>}/>
+        <Route path={AppRoute.Room} element={<RoomScreen offers={offers} nearbyOffers={nearbyOffers} reviews={reviews}/>}/>
         <Route path={'*'} element={<NotFoundScreen/>}/>
         <Route path={AppRoute.NotFound} element={<NotFoundScreen/>}/>
       </Routes>

@@ -6,12 +6,14 @@ type OfferCardProps = {
   offer: Offer;
   onMouseEnter: () => void;
   onMouseLeave: () => void;
+  isNearby?: boolean;
 }
 
-function OfferCard({offer, onMouseEnter, onMouseLeave}: OfferCardProps) : JSX.Element{
+function OfferCard({offer, onMouseEnter, onMouseLeave, isNearby}: OfferCardProps) : JSX.Element{
   const{id, previewImage, title, price, rating, type, isPremium, isFavorite} = offer;
+  
   return(
-    <article className='cities__card place-card'
+    <article className={`place-card ${isNearby ? 'near-places__card' : 'cities__card'}`}
       onMouseEnter = {onMouseEnter}
       onMouseLeave = {onMouseLeave}
     >

@@ -1,6 +1,7 @@
 import { Navigate, useParams } from 'react-router-dom';
 import Header from '../../components/header/header';
-import NearPlaces from '../../components/near-places/near-places';
+import Map from '../../components/map/map';
+import Offers from '../../components/offers/offers';
 import Rating from '../../components/rating/rating';
 import ReviewList from '../../components/review-list/review-list';
 import RoomGalery from '../../components/room-galery/room-galery';
@@ -10,10 +11,11 @@ import { Review as ReviewType } from '../../types/review';
 
 type OfferProps = {
   offers: Offer[];
+  nearbyOffers: Offer[];
   reviews: ReviewType[];
 }
 
-function RoomScreen({offers, reviews}: OfferProps): JSX.Element {
+function RoomScreen({offers, nearbyOffers, reviews}: OfferProps): JSX.Element {
   const { id } = useParams<{ id: string }>();
   const offer: Offer | null | undefined = id ? offers.find((offerItem) => offerItem.id === Number(id)) : null;
 
@@ -21,7 +23,7 @@ function RoomScreen({offers, reviews}: OfferProps): JSX.Element {
     return <Navigate to={AppRoute.NotFound} />;
   }
 
-  const { title, price, rating, type, isPremium, bedrooms, maxAdults, host, description, goods } = offer ?? {};
+  const { title, price, rating, type, isPremium, bedrooms, maxAdults, host, description, goods, city } = offer ?? {};
   const offerReviews: ReviewType[] = reviews.filter((review) => review.offerId === Number(id));
 
   return (
@@ -93,10 +95,15 @@ function RoomScreen({offers, reviews}: OfferProps): JSX.Element {
               <ReviewList reviews={offerReviews}/>
             </div>
           </div>
-          <section className="property__map map"></section>
+          <Map city={city} activeOfferId={Number(id)} offers={nearbyOffers}/>
         </section>
         <div className="container">
-          <NearPlaces/>
+          <section className="near-places places">
+            <h2 className="near-places__title">Other places in the neighbourhood</h2>
+            <div className="near-places__list places__list">
+              <Offers offers={nearbyOffers} isNearby/>
+            </div>
+          </section>
         </div>
       </main>
     </div>
