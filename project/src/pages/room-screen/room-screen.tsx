@@ -17,7 +17,8 @@ type OfferProps = {
 
 function RoomScreen({offers, nearbyOffers, reviews}: OfferProps): JSX.Element {
   const { id } = useParams<{ id: string }>();
-  const offer: Offer | null | undefined = id ? offers.find((offerItem) => offerItem.id === Number(id)) : null;
+  const allOffers: Offer[] = offers.concat(nearbyOffers);
+  const offer: Offer | null | undefined = id ? allOffers.find((offerItem) => offerItem.id === Number(id)) : null;
 
   if (!offer) {
     return <Navigate to={AppRoute.NotFound} />;
@@ -25,6 +26,13 @@ function RoomScreen({offers, nearbyOffers, reviews}: OfferProps): JSX.Element {
 
   const { title, price, rating, type, isPremium, bedrooms, maxAdults, host, description, goods, city } = offer ?? {};
   const offerReviews: ReviewType[] = reviews.filter((review) => review.offerId === Number(id));
+
+  const nearbyOffersWithoutCurrent = nearbyOffers.filter((offerItem) => offerItem.id !== Number(id));
+
+  const nearbyOffersWithCurrent: Offer[] = [
+    ...nearbyOffersWithoutCurrent,
+    offer,
+  ];
 
   return (
     <div className="page">
@@ -95,7 +103,7 @@ function RoomScreen({offers, nearbyOffers, reviews}: OfferProps): JSX.Element {
               <ReviewList reviews={offerReviews}/>
             </div>
           </div>
-          <Map city={city} activeOfferId={Number(id)} offers={nearbyOffers}/>
+          <Map city={city} activeOfferId={Number(id)} offers={nearbyOffersWithCurrent}/>
         </section>
         <div className="container">
           <section className="near-places places">
