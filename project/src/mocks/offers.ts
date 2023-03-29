@@ -50,7 +50,7 @@ export const offers : Offer[] = [
       location:{
         latitude: 52.37022,
         longitude: 4.89517,
-        zoom: 3
+        zoom: 12
       }
     },
     previewImage: 'https://media.istockphoto.com/id/1188452511/ru/%D1%84%D0%BE%D1%82%D0%BE/%D1%81%D1%82%D0%B8%D0%BB%D1%8C%D0%BD%D0%B0%D1%8F-%D1%81%D0%BA%D0%B0%D0%BD%D0%B4%D0%B8%D0%BD%D0%B0%D0%B2%D1%81%D0%BA%D0%B0%D1%8F-%D0%B3%D0%BE%D1%81%D1%82%D0%B8%D0%BD%D0%B0%D1%8F-%D1%81-%D0%B4%D0%B8%D0%B7%D0%B0%D0%B9%D0%BD%D0%B5%D1%80%D1%81%D0%BA%D0%B8%D0%BC-%D0%B4%D0%B8%D0%B2%D0%B0%D0%BD%D0%BE%D0%BC-%D0%B8%D0%B7-%D0%BC%D1%8F%D1%82%D1%8B-%D0%BC%D0%B5%D0%B1%D0%B5%D0%BB%D1%8C%D1%8E-%D0%BC%D0%B0%D0%BA%D0%B5%D1%82%D0%BE%D0%BC-%D0%BF%D0%BB%D0%B0%D0%BA%D0%B0%D1%82%D0%BD%D0%BE%D0%B9-%D0%BA%D0%B0%D1%80%D1%82%D1%8B.jpg?s=1024x1024&w=is&k=20&c=PPOC34vKSrHZ7v-yIvn8CfeI5OlgrczyTqKX44RIs-U=',
@@ -90,7 +90,7 @@ export const offers : Offer[] = [
       location:{
         latitude: 52.37022,
         longitude: 4.89517,
-        zoom: 3
+        zoom: 12
       }
     },
     previewImage: 'https://media.istockphoto.com/id/1271897890/ru/%D1%84%D0%BE%D1%82%D0%BE/%D0%B8%D0%BD%D1%82%D0%B5%D1%80%D1%8C%D0%B5%D1%80-%D0%B3%D0%BE%D1%81%D1%82%D0%B8%D0%BD%D0%BE%D0%B9-%D0%BD%D0%B0-%D1%87%D0%B5%D1%80%D0%B4%D0%B0%D0%BA%D0%B5-%D0%BF%D1%80%D0%BE%D0%BC%D1%8B%D1%88%D0%BB%D0%B5%D0%BD%D0%BD%D1%8B%D0%B9-%D1%81%D1%82%D0%B8%D0%BB%D1%8C.jpg?s=1024x1024&w=is&k=20&c=vY5wCS3F3XC7OlWdGNjoNSl6f0KMkt_jpUmT2NxMt7E=',
@@ -130,7 +130,7 @@ export const offers : Offer[] = [
       location:{
         latitude: 52.37022,
         longitude: 4.89517,
-        zoom: 3
+        zoom: 12
       }
     },
     previewImage: 'https://media.istockphoto.com/id/1274163113/ru/%D1%84%D0%BE%D1%82%D0%BE/%D0%B4%D0%BE%D0%BC%D0%B0%D1%88%D0%BD%D0%B8%D0%B9-%D0%B8%D0%BD%D1%82%D0%B5%D1%80%D1%8C%D0%B5%D1%80-%D0%BC%D0%B0%D0%BA%D0%B5%D1%82-%D1%81-%D1%82%D0%B5%D0%BC%D0%BD%D0%BE-%D0%B7%D0%B5%D0%BB%D0%B5%D0%BD%D1%8B%D0%BC-%D0%BA%D1%80%D0%B5%D1%81%D0%BB%D0%BE%D0%BC-%D1%81%D1%82%D0%BE%D0%BB-%D0%B8-%D0%B4%D0%B5%D0%BA%D0%BE%D1%80-%D0%B2-%D0%B3%D0%BE%D1%81%D1%82%D0%B8%D0%BD%D0%BE%D0%B9.jpg?s=1024x1024&w=is&k=20&c=GPZP0jL_mkwQ2RpiyXGLFn6cIEhpqqZCAnmb1-FTOQY=',
@@ -164,4 +164,125 @@ export const offers : Offer[] = [
     },
     goods:['Wi-Fi', 'Towels', 'Heating', 'Coffee machine', 'Baby seat', 'Kitchen', 'Cabel TV', 'Fridge']
   },
+];
+
+export const nearbyOffers: Offer[] = [
+  {
+    id: 10,
+    city: {
+      name: 'Amsterdam',
+      location:{
+        latitude: 52.37022,
+        longitude: 4.89517,
+        zoom: 12
+      }
+    },
+    previewImage: 'https://plus.unsplash.com/premium_photo-1674480166107-14e50937d4ec?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80',
+    isPremium: true,
+    price: 320,
+    title: 'Старинный особняк с видом на каналы',
+    type: AccommodationType.Hotel,
+    isFavorite: false,
+    rating: 4.9,
+    location: {
+      latitude: 52.37337,
+      longitude: 4.88306,
+      zoom: 14
+    },
+    images: [
+      'https://images.unsplash.com/photo-1558980668-76a70ebf4344',
+      'https://images.unsplash.com/photo-1559589953-3c222e94bdb7',
+      'https://images.unsplash.com/photo-1567183386824-812dd29df05b',
+      'https://images.unsplash.com/photo-1573488130722-0a71e6e3d6e3',
+      'https://images.unsplash.com/photo-1593071458588-2e32df36c7d2'
+    ],
+    description: 'Исторический особняк с высокими потолками, расположенный на берегу канала. Отличное место для проживания в тихом и уютном районе Амстердама.',
+    bedrooms:3,
+    maxAdults: 2,
+    host:{
+      id: 1,
+      avatarUrl:`${AVATAR_URL}?rnd=${Math.random()}`,
+      name: 'Petr',
+      isPro: true,
+    },
+    goods:['Washing machine', 'Towels', 'Heating', 'Coffee machine', 'Kitchen', 'Dishwasher', 'Cabel TV', 'Fridge']
+  },{
+    id: 11,
+    city: {
+      name: 'Amsterdam',
+      location:{
+        latitude: 52.37022,
+        longitude: 4.89517,
+        zoom: 12
+      }
+    },
+    previewImage: 'https://images.unsplash.com/photo-1503174971373-b1f69850bded?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTd8fGludGVyaW9yJTIwZGVzaWdufGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60',
+    isPremium: true,
+    price: 220,
+    title: 'Просторный лофт в центре Амстердама',
+    type: AccommodationType.Apartment,
+    isFavorite: false,
+    rating: 4.8,
+    location: {
+      latitude: 52.37536,
+      longitude: 4.88196,
+      zoom: 14
+    },
+    images: [
+      'https://images.unsplash.com/photo-1523117582613-a54d3cc7163a',
+      'https://images.unsplash.com/photo-1519681393784-d120267933ba',
+      'https://images.unsplash.com/photo-1560070921-ebf8b446b74b',
+      'https://images.unsplash.com/photo-1522184216316-d2feaebe17c2',
+      'https://images.unsplash.com/photo-1494526585095-c41746248156'
+    ],
+    description: 'Просторный лофт с большими окнами, расположенный в самом центре Амстердама. Идеальное место для отдыха после насыщенного дня в городе.',
+    bedrooms:3,
+    maxAdults: 2,
+    host:{
+      id: 3,
+      avatarUrl:`${AVATAR_URL}?rnd=${Math.random()}`,
+      name: 'Petr',
+      isPro: true,
+    },
+    goods:['Washing machine', 'Towels', 'Heating', 'Coffee machine', 'Kitchen', 'Dishwasher', 'Cabel TV', 'Fridge']
+  },{
+    id: 12,
+    city: {
+      name: 'Amsterdam',
+      location:{
+        latitude: 52.37022,
+        longitude: 4.89517,
+        zoom: 12
+      }
+    },
+    previewImage: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750',
+    isPremium: false,
+    price: 150,
+    title: 'Уютная квартира в центре Амстердама',
+    type: AccommodationType.Apartment,
+    isFavorite: true,
+    rating: 4.5,
+    location: {
+      latitude: 52.36662,
+      longitude: 4.89468,
+      zoom: 14
+    },
+    images: [
+      'https://images.unsplash.com/photo-1512917774080-9991f1c4c750',
+      'https://images.unsplash.com/photo-1512918701928-6a62be1f8c6b',
+      'https://images.unsplash.com/photo-1512918218160-1f1a97c1b68f',
+      'https://images.unsplash.com/photo-1512917495181-11ee8c9d3545',
+      'https://images.unsplash.com/photo-1512917346961-95955ef86f7b'
+    ],
+    description: 'Прекрасная квартира в самом сердце Амстердама. Идеально подходит для пары или небольшой семьи, которые хотят насладиться городом.',
+    bedrooms: 1,
+    maxAdults: 2,
+    host:{
+      id: 2,
+      avatarUrl:`${AVATAR_URL}?rnd=${Math.random()}`,
+      name: 'Petr',
+      isPro: true,
+    },
+    goods:['Wi-Fi', 'Towels', 'Heating', 'Coffee machine', 'Kitchen', 'Cabel TV', 'Fridge']
+  }
 ];

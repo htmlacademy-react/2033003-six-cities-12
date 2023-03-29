@@ -4,10 +4,11 @@ import OfferCard from '../offer-card/offer-card';
 
 type OffersProps = {
   offers: Offer[];
-  setActiveOffer: (id: number) => void;
+  setActiveOffer?: (id: number) => void;
+  isNearby?: boolean;
 }
 
-function Offers({offers, setActiveOffer}: OffersProps) : JSX.Element {
+function Offers({offers, setActiveOffer, isNearby = false}: OffersProps) : JSX.Element {
 
   return (
     <Fragment>
@@ -15,8 +16,9 @@ function Offers({offers, setActiveOffer}: OffersProps) : JSX.Element {
         <OfferCard
           key={offer.id}
           offer={offer}
-          onMouseEnter={() => setActiveOffer(offer.id)}
-          onMouseLeave={() => setActiveOffer(-1)}
+          onMouseEnter={() => setActiveOffer && setActiveOffer(offer.id)}
+          onMouseLeave={() => setActiveOffer && setActiveOffer(-1)}
+          isNearby={isNearby}
         />
       ))}
     </Fragment>

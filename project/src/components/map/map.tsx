@@ -27,9 +27,13 @@ type MapProps = {
 function Map({city, activeOfferId, offers }: MapProps): JSX.Element {
   const mapRef = useRef<HTMLDivElement>(null);
   const map = useMap(mapRef, city);
+  const markers = useRef<Marker[]>([]);
 
   useEffect(() => {
     if (map) {
+      markers.current.forEach((markerItem) => markerItem.removeFrom(map));
+      markers.current = [];
+
       offers.forEach((offer) => {
         const marker = new Marker({
           lat: offer.location.latitude,
@@ -40,9 +44,24 @@ function Map({city, activeOfferId, offers }: MapProps): JSX.Element {
         }else{
           marker.setIcon(defaultCustomIcon).addTo(map);
         }
+        markers.current.push(marker);
       });
     }
-  }, [map, offers, activeOfferId]);
+    return () => {
+      if (map) {
+        markers.current.forEach((markerItem) => markerItem.removeFrom(map));
+        markers.current = [];
+        offers.forEach((offer) => {
+          const marker = new Marker({
+            lat: offer.location.latitude,
+            lng: offer.location.longitude,
+          });
+          marker.setIcon(defaultCustomIcon).addTo(map);
+          markers.current.push(marker);
+        });
+      }
+    };
+  }, [map, offers, activeOfferId, markers]);
   return (
     <div style={{ height: '500px' }} ref={mapRef} />
   );
