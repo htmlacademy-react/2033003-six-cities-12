@@ -6,7 +6,7 @@ export const offers : Offer[] = [
   {
     id: 1,
     city: {
-      name: 'Amsterdam',
+      name: 'Paris',
       location:{
         latitude: 52.37022,
         longitude: 4.89517,

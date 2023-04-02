@@ -2,12 +2,15 @@ import Location from './location';
 
 const LOCATIONS = ['Paris','Cologne','Brussels','Amsterdam','Hamburg','Dusseldorf'];
 
-function LocationList():JSX.Element{
+type LocationListProps = {
+  selectedCityName: string;
+}
+function LocationList({selectedCityName}: LocationListProps):JSX.Element{
   return(
     <section className="locations container">
       <ul className="locations__list tabs__list">
-        {LOCATIONS.map((location) => (
-          <Location key={location} location={location}/>))}
+        {LOCATIONS.map((locationName) => (
+          <Location key={locationName} locationName={locationName} selectedCityName={selectedCityName}/>))}
       </ul>
     </section>
   );

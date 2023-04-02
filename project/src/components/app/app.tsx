@@ -16,6 +16,7 @@ type AppScreenProps = {
 }
 
 function App({offers, nearbyOffers, reviews}: AppScreenProps): JSX.Element {
+
   return (
     <BrowserRouter>
       <Routes>
