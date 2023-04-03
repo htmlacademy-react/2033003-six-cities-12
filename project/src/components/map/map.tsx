@@ -27,41 +27,29 @@ type MapProps = {
 function Map({city, activeOfferId, offers }: MapProps): JSX.Element {
   const mapRef = useRef<HTMLDivElement>(null);
   const map = useMap(mapRef, city);
-  const markers = useRef<Marker[]>([]);
 
   useEffect(() => {
-    if (map) {
-      markers.current.forEach((markerItem) => markerItem.removeFrom(map));
-      markers.current = [];
+    let markers: Marker[] = [];
 
-      offers.forEach((offer) => {
-        const marker = new Marker({
-          lat: offer.location.latitude,
-          lng: offer.location.longitude,
-        });
-        if(offer.id === activeOfferId){
-          marker.setIcon(currentCustomIcon).addTo(map);
-        }else{
-          marker.setIcon(defaultCustomIcon).addTo(map);
-        }
-        markers.current.push(marker);
-      });
-    }
-    return () => {
-      if (map) {
-        markers.current.forEach((markerItem) => markerItem.removeFrom(map));
-        markers.current = [];
+      if(map){
         offers.forEach((offer) => {
           const marker = new Marker({
             lat: offer.location.latitude,
             lng: offer.location.longitude,
           });
-          marker.setIcon(defaultCustomIcon).addTo(map);
-          markers.current.push(marker);
+          if (offer.id === activeOfferId) {
+            marker.setIcon(currentCustomIcon);
+          } else {
+            marker.setIcon(defaultCustomIcon);
+          }
+          marker.addTo(map);
+          markers.push(marker);
         });
+        return () => {
+          markers.forEach((marker) => marker.removeFrom(map));
+        };
       }
-    };
-  }, [map, offers, activeOfferId, markers]);
+  }, [city, activeOfferId, offers, map]);
   return (
     <div style={{ height: '500px' }} ref={mapRef} />
   );
