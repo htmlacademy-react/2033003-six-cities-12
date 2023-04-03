@@ -103,7 +103,7 @@ function RoomScreen({offers, nearbyOffers, reviews}: OfferProps): JSX.Element {
               <ReviewList reviews={offerReviews}/>
             </div>
           </div>
-          <Map city={city} activeOfferId={Number(id)} offers={nearbyOffersWithCurrent}/>
+          <Map city={city} activeOfferId={Number(id)} offers={nearbyOffersWithCurrent} wrapperClassName={'property__map'}/>
         </section>
         <div className="container">
           <section className="near-places places">

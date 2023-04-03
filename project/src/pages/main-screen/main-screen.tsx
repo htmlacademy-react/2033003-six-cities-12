@@ -54,11 +54,9 @@ function MainScreen({offers} : MainScreenProps) : JSX.Element {
                 <p className="cities__status-description">We could not find any property available at the moment in {selectedCityName}</p>
               </div>
             </section>}
-          <div className="cities__right-section">
-            <section className="cities__map map">
-              {city && <Map city={city} activeOfferId={activeOfferId} offers={cityOffers}/>}
-            </section>
-          </div>
+            <div className="cities__right-section">
+              {city && <Map city={city} activeOfferId={activeOfferId} offers={cityOffers} wrapperClassName={'cities__map'}/>}
+            </div>
         </div>
       </div>
     </div>

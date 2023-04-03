@@ -7,6 +7,7 @@ const initialState: RootState = {
   locationName: 'Paris',
   offers: offers
 };
+
 const reducer = createReducer(initialState, (builder) => {
   builder
     .addCase(changeCity, (state, action) => {
@@ -14,7 +15,7 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setOffers, (state, action) => {
       state.offers = action.payload;
-    })
+    });
 });
 
 export {reducer};
