@@ -8,8 +8,8 @@ export const offers : Offer[] = [
     city: {
       name: 'Paris',
       location:{
-        latitude: 52.37022,
-        longitude: 4.89517,
+        latitude: 48.8566,
+        longitude: 2.3522,
         zoom: 12
       }
     },
@@ -21,8 +21,8 @@ export const offers : Offer[] = [
     isFavorite: true,
     rating: 4.5,
     location: {
-      latitude: 52.3909553943508,
-      longitude: 4.85309666406198,
+      latitude: 48.876703,
+      longitude: 2.362060,
       zoom: 8
     },
     images: [
