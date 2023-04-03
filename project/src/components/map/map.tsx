@@ -38,7 +38,7 @@ function Map({city, activeOfferId, offers, wrapperClassName}: MapProps): JSX.Ele
 
     if(map){
       offers.forEach((offer) => {
-        const marker = new Marker({
+        const marker: Marker = new Marker({
           lat: offer.location.latitude,
           lng: offer.location.longitude,
         });
@@ -58,7 +58,7 @@ function Map({city, activeOfferId, offers, wrapperClassName}: MapProps): JSX.Ele
 
   return (
     <section className={`${wrapperClassName} map`}>
-      <div ref={mapRef} />
+      <div style={mapStyles} ref={mapRef} />
     </section>
   );
 }
