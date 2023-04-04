@@ -3,6 +3,7 @@ import { Offer } from './offer.js';
 
 export type RootState = {
   locationName: string;
+  sortingMethod: string;
   offers: Offer[];
 }
 
