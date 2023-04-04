@@ -8,14 +8,16 @@ import RoomScreen from '../../pages/room-screen/room-screen';
 import { Offer } from '../../types/offer';
 import { Review } from '../../types/review';
 import PrivateRoute from '../private-route/private-route';
+import { useAppSelector } from '../../hooks';
 
 type AppScreenProps = {
-  offers: Offer[];
   nearbyOffers: Offer[];
   reviews: Review[];
 }
 
-function App({offers, nearbyOffers, reviews}: AppScreenProps): JSX.Element {
+function App({nearbyOffers, reviews}: AppScreenProps): JSX.Element {
+  const offers = useAppSelector((state) => state.offers);
+
   return (
     <BrowserRouter>
       <Routes>

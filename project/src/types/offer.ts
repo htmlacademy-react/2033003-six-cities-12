@@ -21,3 +21,5 @@ export type Offer = {
   title: string;
   type: AccommodationType;
 };
+
+export type Offers = Offer[];

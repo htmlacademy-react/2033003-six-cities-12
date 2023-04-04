@@ -6,6 +6,10 @@ import useMap from '../../hooks/use-map/useMap';
 import { City } from '../../types/city';
 import { Offer } from '../../types/offer';
 
+const mapStyles = {
+  height: '100%'
+};
+
 const defaultCustomIcon = new Icon({
   iconUrl: URL_MARKER_DEFAULT,
   iconSize: [28, 40],
@@ -22,48 +26,40 @@ type MapProps = {
   city: City;
   activeOfferId: number | null;
   offers: Offer[];
+  wrapperClassName: string;
 };
 
-function Map({city, activeOfferId, offers }: MapProps): JSX.Element {
+function Map({city, activeOfferId, offers, wrapperClassName}: MapProps): JSX.Element {
   const mapRef = useRef<HTMLDivElement>(null);
   const map = useMap(mapRef, city);
-  const markers = useRef<Marker[]>([]);
 
   useEffect(() => {
-    if (map) {
-      markers.current.forEach((markerItem) => markerItem.removeFrom(map));
-      markers.current = [];
+    const markers: Marker[] = [];
 
+    if(map){
       offers.forEach((offer) => {
-        const marker = new Marker({
+        const marker: Marker = new Marker({
           lat: offer.location.latitude,
           lng: offer.location.longitude,
         });
-        if(offer.id === activeOfferId){
-          marker.setIcon(currentCustomIcon).addTo(map);
-        }else{
-          marker.setIcon(defaultCustomIcon).addTo(map);
+        if (offer.id === activeOfferId) {
+          marker.setIcon(currentCustomIcon);
+        } else {
+          marker.setIcon(defaultCustomIcon);
         }
-        markers.current.push(marker);
+        marker.addTo(map);
+        markers.push(marker);
       });
+      return () => {
+        markers.forEach((marker) => marker.removeFrom(map));
+      };
     }
-    return () => {
-      if (map) {
-        markers.current.forEach((markerItem) => markerItem.removeFrom(map));
-        markers.current = [];
-        offers.forEach((offer) => {
-          const marker = new Marker({
-            lat: offer.location.latitude,
-            lng: offer.location.longitude,
-          });
-          marker.setIcon(defaultCustomIcon).addTo(map);
-          markers.current.push(marker);
-        });
-      }
-    };
-  }, [map, offers, activeOfferId, markers]);
+  }, [city, activeOfferId, offers, map]);
+
   return (
-    <div style={{ height: '500px' }} ref={mapRef} />
+    <section className={`${wrapperClassName} map`}>
+      <div style={mapStyles} ref={mapRef} />
+    </section>
   );
 }
 export default Map;

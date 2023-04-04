@@ -32,6 +32,15 @@ function useMap(
     }
   }, [mapRef, city]);
 
+  useEffect(() => {
+    if (map !== null) {
+      map.panTo({
+        lat: city.location.latitude,
+        lng: city.location.longitude,
+      });
+    }
+  }, [map, city]);
+
   return map;
 }
 
