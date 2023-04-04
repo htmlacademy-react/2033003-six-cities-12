@@ -1,13 +1,13 @@
 import { Link} from 'react-router-dom';
 import Header from '../../components/header/header';
 import Rating from '../../components/rating/rating';
+import { useAppSelector } from '../../hooks';
 import { Offer } from '../../types/offer';
-type FavoritesScreenProps = {
-  offers: Offer[];
-}
-function FavoritesScreen({offers}: FavoritesScreenProps) :JSX.Element {
-  const favoriteOffers = offers.filter((offer) => offer.isFavorite);
-  const cities = Array.from(new Set(favoriteOffers.map((offer) => offer.city.name)));
+
+function FavoritesScreen() :JSX.Element {
+  const offers: Offer[] = useAppSelector((state) => state.offers);
+  const favoriteOffers: Offer[] = offers.filter((offer) => offer.isFavorite);
+  const cities: string[] = Array.from(new Set(favoriteOffers.map((offer) => offer.city.name)));
 
   return(
     <div className="page">

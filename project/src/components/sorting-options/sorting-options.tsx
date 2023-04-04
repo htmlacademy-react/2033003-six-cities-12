@@ -5,13 +5,11 @@ import SortingDropdown from './sorting-dropdown';
 function SortingOptions(): JSX.Element {
   const dispatch = useAppDispatch();
   const selectedOption = useAppSelector((state) => state.sortingMethod);
-  const offers = useAppSelector((state) => state.offers);
   const options = ['Popular', 'Price: low to high', 'Price: high to low', 'Top rated first'];
 
   const handleOptionSelect = (option: string) => {
     dispatch(setSorting(option));
-    //TODO:проработать этот момент с фильтрацией и сортировкой
-    dispatch(filterAndSortOffers(offers));
+    dispatch(filterAndSortOffers());
   };
 
   return (
