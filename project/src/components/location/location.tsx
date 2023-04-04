@@ -1,7 +1,8 @@
 import { MouseEventHandler } from 'react';
 import { Link } from 'react-router-dom';
-import { useAppDispatch } from '../../hooks';
-import { changeCity } from '../../store/action';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { changeCity, filterAndSortOffers, resetStateOffers } from '../../store/action';
+import { offers } from '../../mocks/offers';
 
 type LocationProps = {
   locationName: string;
@@ -10,9 +11,14 @@ type LocationProps = {
 
 function Location({locationName, selectedCityName}: LocationProps):JSX.Element{
   const dispatch = useAppDispatch();
+  const offers = useAppSelector((state) => state.offers);
+
   const handleLocationClick: MouseEventHandler<HTMLAnchorElement> = (evt) => {
     evt.preventDefault();
     dispatch(changeCity(locationName));
+    dispatch(resetStateOffers());
+    dispatch(filterAndSortOffers(offers));
+
   };
   return(
     <li className="locations__item">
