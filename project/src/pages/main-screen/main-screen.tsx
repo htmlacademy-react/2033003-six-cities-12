@@ -6,6 +6,7 @@ import Offers from '../../components/offers/offers';
 import { useAppSelector } from '../../hooks';
 import { Offer } from '../../types/offer';
 import SortingOptions from '../../components/sorting-options/sorting-options';
+import { RootState } from '../../types/state';
 
 type MainScreenProps = {
   offers: Offer[];
@@ -14,6 +15,7 @@ type MainScreenProps = {
 function MainScreen({offers} : MainScreenProps) : JSX.Element {
   const [activeOfferId, setActiveOffer] = useState<number>(-1);
   const selectedCityName = useAppSelector((state) => state.locationName);
+  const selectedSortingMethod = useAppSelector((state: RootState) => state.sortingMethod);
   const cityOffers = offers.filter((offer) => offer.city.name === selectedCityName);
 
   const city = offers.find((offer) => offer.city.name === selectedCityName)?.city || null;
