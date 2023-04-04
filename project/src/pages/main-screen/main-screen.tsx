@@ -15,7 +15,7 @@ function MainScreen({offers} : MainScreenProps) : JSX.Element {
   const selectedCityName = useAppSelector((state) => state.locationName);
   const cityOffers = offers.filter((offer) => offer.city.name === selectedCityName);
 
-  const city = cityOffers.length > 0 ? cityOffers[0].city : null;
+  const city = offers.find(offer => offer.city.name === selectedCityName)?.city || null;
   return(
     <div className={`page page--gray page--main ${cityOffers.length === 0 ? 'page--main-empty' : ''}`}>
       <Header offers={cityOffers}/>
