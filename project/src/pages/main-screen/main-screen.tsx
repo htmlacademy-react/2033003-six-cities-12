@@ -55,8 +55,9 @@ function MainScreen({offers} : MainScreenProps) : JSX.Element {
               </div>
             </section>}
           <div className="cities__right-section">
-            {city ? <Map city={city} activeOfferId={activeOfferId} offers={cityOffers} wrapperClassName={'cities__map'}/> : 
-            <section className={`cities__map map`}></section>}
+            {city ?
+              <Map city={city} activeOfferId={activeOfferId} offers={cityOffers} wrapperClassName={'cities__map'}/> :
+              <section className='cities__map map'></section>}
           </div>
         </div>
       </div>
