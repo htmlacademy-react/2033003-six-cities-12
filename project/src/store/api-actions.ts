@@ -2,7 +2,7 @@ import {AxiosInstance} from 'axios';
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {AppDispatch, State} from '../types/state.js';
 import { Offer } from '../types/offer.js';
-import {loadOffers, requireAuthorization, setError} from './action';
+import {loadOffers, requireAuthorization, setError, setOffersDataLoadingStatus} from './action';
 import {saveToken, dropToken} from '../services/token';
 import {APIRoute, AuthorizationStatus, TIMEOUT_SHOW_ERROR} from '../const';
 import {AuthData} from '../types/auth-data';
@@ -26,7 +26,9 @@ export const fetchOffersAction = createAsyncThunk<void, undefined, {
 }>(
   'data/fetchOffers',
   async (_arg, {dispatch, extra: api}) => {
+    dispatch(setOffersDataLoadingStatus(true));
     const {data} = await api.get<Offer[]>(APIRoute.Hotels);
+    dispatch(setOffersDataLoadingStatus(false));
     dispatch(loadOffers(data));
   },
 );
@@ -43,6 +45,7 @@ export const checkAuthAction = createAsyncThunk<void, undefined, {
       dispatch(requireAuthorization(AuthorizationStatus.Auth));
     } catch {
       dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
+      //TODO: если не авторизованы перенаправить тут
     }
   },
 );

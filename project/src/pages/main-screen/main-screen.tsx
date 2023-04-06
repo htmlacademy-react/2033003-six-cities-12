@@ -7,6 +7,7 @@ import { useAppSelector } from '../../hooks';
 import SortingOptions from '../../components/sorting-options/sorting-options';
 import { Offer } from '../../types/offer';
 import { sortOffers } from '../../const';
+import Loading from '../../components/loading-screen/loading-screen';
 
 function MainScreen() : JSX.Element {
   const [activeOfferId, setActiveOffer] = useState<number>(-1);
@@ -17,6 +18,7 @@ function MainScreen() : JSX.Element {
 
   const city = sortedOffers.find((offer) => offer.city.name === selectedCityName)?.city ?? null;
   return(
+    
     <div className={`page page--gray page--main ${sortedOffers.length === 0 ? 'page--main-empty' : ''}`}>
       <Header offers={sortedOffers}/>
       <h1 className="visually-hidden">Cities</h1>

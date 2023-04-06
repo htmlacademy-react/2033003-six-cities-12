@@ -8,6 +8,7 @@ export type RootState = {
   offers: Offer[];
   authorizationStatus: AuthorizationStatus;
   error: string | null;
+  isOffersDataLoading: boolean;
 }
 
 export type State = ReturnType<typeof store.getState>;

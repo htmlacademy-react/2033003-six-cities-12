@@ -1,7 +1,8 @@
 import { MouseEventHandler } from 'react';
 import { Link } from 'react-router-dom';
 import { useAppDispatch } from '../../hooks';
-import { changeCity, resetState} from '../../store/action';
+import { changeCity, loadOffers, resetState} from '../../store/action';
+import { fetchOffersAction } from '../../store/api-actions';
 
 type LocationProps = {
   locationName: string;
@@ -15,6 +16,7 @@ function Location({locationName, selectedCityName}: LocationProps):JSX.Element{
     evt.preventDefault();
     dispatch(changeCity(locationName));
     dispatch(resetState());
+    dispatch(fetchOffersAction());
   };
 
   return(

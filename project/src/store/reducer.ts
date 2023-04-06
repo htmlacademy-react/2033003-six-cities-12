@@ -1,4 +1,4 @@
-import { changeCity, setSorting, setOffers, resetState, loadOffers, requireAuthorization, setError } from './action';
+import { changeCity, setSorting, setOffers, resetState, loadOffers, requireAuthorization, setError, setOffersDataLoadingStatus } from './action';
 import { createReducer } from '@reduxjs/toolkit';
 import { RootState } from '../types/state';
 import { Offer } from '../types/offer';
@@ -10,6 +10,7 @@ const initialState: RootState = {
   offers: [],
   authorizationStatus: AuthorizationStatus.Unknown,
   error: null,
+  isOffersDataLoading: false,
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -51,6 +52,9 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setError, (state, action) => {
       state.error = action.payload;
+    })
+    .addCase(setOffersDataLoadingStatus, (state, action) => {
+      state.isOffersDataLoading = action.payload;
     });
 });
 

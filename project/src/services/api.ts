@@ -12,6 +12,7 @@ const StatusCodeMapping: Record<number, boolean> = {
 const shouldDisplayError = (response: AxiosResponse) => !!StatusCodeMapping[response.status];
 
 const BACKEND_URL = 'https://12.react.pages.academy/six-cities';
+
 const REQUEST_TIMEOUT = 5000;
 
 export const createApi = (): AxiosInstance => {
