@@ -1,4 +1,4 @@
-import { changeCity, setSorting, setOffers, filterAndSortOffers, resetState } from './action';
+import { changeCity, setSorting, setOffers, resetState } from './action';
 import { createReducer } from '@reduxjs/toolkit';
 import { RootState } from '../types/state';
 import { offers } from '../mocks/offers';
@@ -41,27 +41,6 @@ const reducer = createReducer(initialState, (builder) => {
           break;
       }
     })
-    .addCase(filterAndSortOffers, (state) => {
-      const {locationName, sortingMethod } = state;
-
-      let sortedOffers: Offer[] = offers.slice().filter((offer) => offer.city.name === locationName);
-
-      switch (sortingMethod) {
-        case SortType.CHEAP:
-          sortedOffers = sortedOffers.slice().sort((a, b) => a.price - b.price);
-          break;
-        case SortType.EXPENSIVE:
-          sortedOffers = sortedOffers.slice().sort((a, b) => b.price - a.price);
-          break;
-        case SortType.RATED:
-          sortedOffers = sortedOffers.slice().sort((a, b) => b.rating - a.rating);
-          break;
-        default:
-          return { ...state, offers: sortedOffers };
-      }
-
-      return { ...state, offers: sortedOffers };
-    });
 });
 
 export {reducer};

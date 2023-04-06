@@ -5,17 +5,16 @@ import Map from '../../components/map/map';
 import Offers from '../../components/offers/offers';
 import { useAppSelector } from '../../hooks';
 import SortingOptions from '../../components/sorting-options/sorting-options';
+import { sortOffers } from '../../const';
+import { Offer } from '../../types/offer';
 
 function MainScreen() : JSX.Element {
   const [activeOfferId, setActiveOffer] = useState<number>(-1);
   const selectedCityName = useAppSelector((state) => state.locationName);
-
-  //TODO: конструкция такая потому что у меня при загрузке страницы у парижа отображаются все оферы. а при смене сортировки и города начинает все работать
-  const sortedOffers = useAppSelector((state) => {
-    const cityOffers = state.offers.filter((offer) => offer.city.name === selectedCityName);
-    return cityOffers;
-  });
-
+  const selectedSortingMethod = useAppSelector((state) => state.sortingMethod);
+  const offers: Offer[] = useAppSelector((state) => state.offers);
+  const sortedOffers: Offer[] = sortOffers(offers,selectedSortingMethod).filter((offer) => offer.city.name === selectedCityName);
+  
   const city = sortedOffers.find((offer) => offer.city.name === selectedCityName)?.city ?? null;
   return(
     <div className={`page page--gray page--main ${sortedOffers.length === 0 ? 'page--main-empty' : ''}`}>

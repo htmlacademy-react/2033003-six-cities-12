@@ -1,5 +1,5 @@
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { filterAndSortOffers, setSorting } from '../../store/action';
+import { setSorting } from '../../store/action';
 import SortingDropdown from './sorting-dropdown';
 
 function SortingOptions(): JSX.Element {
@@ -9,7 +9,6 @@ function SortingOptions(): JSX.Element {
 
   const handleOptionSelect = (option: string) => {
     dispatch(setSorting(option));
-    dispatch(filterAndSortOffers());
   };
 
   return (
