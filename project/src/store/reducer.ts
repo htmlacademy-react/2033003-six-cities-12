@@ -2,7 +2,6 @@ import { changeCity, setSorting, setOffers, resetState } from './action';
 import { createReducer } from '@reduxjs/toolkit';
 import { RootState } from '../types/state';
 import { offers } from '../mocks/offers';
-import { Offer } from '../types/offer';
 import { SortType } from '../const';
 
 const initialState: RootState = {
@@ -40,7 +39,7 @@ const reducer = createReducer(initialState, (builder) => {
         default:
           break;
       }
-    })
+    });
 });
 
 export {reducer};
