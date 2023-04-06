@@ -35,3 +35,11 @@ export const URL_MARKER_DEFAULT =
   './img/pin.svg';
 export const URL_MARKER_CURRENT =
   './img/pin-active.svg';
+
+export enum APIRoute {
+  Hotels = '/hotels',
+  Login = '/login',
+  Logout = '/logout',
+}
+
+export const TIMEOUT_SHOW_ERROR = 3000;

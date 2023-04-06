@@ -5,6 +5,9 @@ import App from './components/app/app';
 import { nearbyOffers } from './mocks/offers';
 import { reviews } from './mocks/review';
 import { store } from './store';
+import { checkAuthAction } from './store/api-actions';
+
+store.dispatch(checkAuthAction());
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,

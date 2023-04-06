@@ -1,14 +1,17 @@
-import { changeCity, setSorting, setOffers, filterAndSortOffers, resetState } from './action';
+import { changeCity, setSorting, setOffers, filterAndSortOffers, resetState, loadOffers, requireAuthorization, setError } from './action';
 import { createReducer } from '@reduxjs/toolkit';
 import { RootState } from '../types/state';
-import { offers } from '../mocks/offers';
 import { Offer } from '../types/offer';
+import { AuthorizationStatus } from '../const';
 
 const initialState: RootState = {
   locationName: 'Paris',
   sortingMethod: 'Popular',
-  offers: offers
+  offers: [],
+  authorizationStatus: AuthorizationStatus.Unknown,
+  error: null,
 };
+
 const reducer = createReducer(initialState, (builder) => {
   builder
     .addCase(resetState, (state) => ({
@@ -43,7 +46,7 @@ const reducer = createReducer(initialState, (builder) => {
     .addCase(filterAndSortOffers, (state) => {
       const {locationName, sortingMethod } = state;
 
-      let sortedOffers: Offer[] = offers.slice().filter((offer) => offer.city.name === locationName);
+      let sortedOffers: Offer[] = state.offers.slice().filter((offer) => offer.city.name === locationName);
 
       switch (sortingMethod) {
         case 'Price: low to high':
@@ -61,7 +64,16 @@ const reducer = createReducer(initialState, (builder) => {
       }
 
       return { ...state, offers: sortedOffers };
-    });
+    })
+    .addCase(loadOffers, (state, action) => {
+      state.offers = action.payload;
+    })
+    .addCase(requireAuthorization, (state, action) => {
+      state.authorizationStatus = action.payload;
+    })
+    .addCase(setError, (state, action) => {
+      state.error = action.payload;
+    })
 });
 
 export {reducer};
