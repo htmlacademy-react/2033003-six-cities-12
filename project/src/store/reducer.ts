@@ -48,6 +48,7 @@ const reducer = createReducer(initialState, (builder) => {
 
       let sortedOffers: Offer[] = state.offers.slice().filter((offer) => offer.city.name === locationName);
 
+
       switch (sortingMethod) {
         case SortType.CHEAP:
           sortedOffers = sortedOffers.slice().sort((a, b) => a.price - b.price);
