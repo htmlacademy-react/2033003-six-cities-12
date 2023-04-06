@@ -11,6 +11,8 @@ import { Review } from '../../types/review';
 import PrivateRoute from '../private-route/private-route';
 import { useAppSelector } from '../../hooks';
 import LoadingScreen from '../loading-screen/loading-screen';
+import HistoryRouter from '../history-route/history-route';
+import browserHistory from '../../browser-history';
 
 type AppScreenProps = {
   nearbyOffers: Offer[];
@@ -29,7 +31,7 @@ function App({nearbyOffers, reviews}: AppScreenProps): JSX.Element {
 
   return (
     <HelmetProvider>
-      <BrowserRouter>
+      <HistoryRouter history={browserHistory}>
         <Routes>
           <Route path={AppRoute.Main} element={<MainScreen/>}/>
           <Route path={AppRoute.Login} element={<LoginScreen/>}/>
@@ -45,7 +47,7 @@ function App({nearbyOffers, reviews}: AppScreenProps): JSX.Element {
           <Route path={'*'} element={<NotFoundScreen/>}/>
           <Route path={AppRoute.NotFound} element={<NotFoundScreen/>}/>
         </Routes>
-      </BrowserRouter>
+      </HistoryRouter>
     </HelmetProvider>
     
   );
