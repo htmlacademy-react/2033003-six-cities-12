@@ -2,6 +2,9 @@ import { MouseEventHandler } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { Offer } from '../../types/offer';
+import { useDispatch } from 'react-redux';
+import { logoutAction } from '../../store/api-actions';
+import { AuthData } from '../../types/auth-data';
 
 type HeaderProps = {
   offers: Offer[];
@@ -9,9 +12,15 @@ type HeaderProps = {
 
 function Header({offers}: HeaderProps): JSX.Element {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const handleGoMainClick: MouseEventHandler<HTMLAnchorElement> = (evt) => {
     evt.preventDefault();
     navigate(AppRoute.Main);
+  };
+
+  const onLogout = (evt: React.MouseEvent<HTMLButtonElement>) => {
+    evt.preventDefault();
+    dispatch(logoutAction() as any);
   };
 
   const favoriteOffers = offers.filter((offer) => offer.isFavorite);
@@ -38,7 +47,7 @@ function Header({offers}: HeaderProps): JSX.Element {
               </li>
               <li className="header__nav-item">
                 <Link className="header__nav-link" to="#">
-                  <span className="header__signout">Sign out</span>
+                  <span className="header__signout" onClick={onLogout}>Sign out</span>
                 </Link>
               </li>
             </ul>
