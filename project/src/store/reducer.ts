@@ -2,11 +2,11 @@ import { changeCity, setSorting, setOffers, filterAndSortOffers, resetState, loa
 import { createReducer } from '@reduxjs/toolkit';
 import { RootState } from '../types/state';
 import { Offer } from '../types/offer';
-import { AuthorizationStatus } from '../const';
+import { AuthorizationStatus, SortType } from '../const';
 
 const initialState: RootState = {
   locationName: 'Paris',
-  sortingMethod: 'Popular',
+  sortingMethod: SortType.POPULAR,
   offers: [],
   authorizationStatus: AuthorizationStatus.Unknown,
   error: null,
@@ -16,7 +16,7 @@ const reducer = createReducer(initialState, (builder) => {
   builder
     .addCase(resetState, (state) => ({
       ...state,
-      sortingMethod: 'Popular',
+      sortingMethod: SortType.POPULAR,
       offers: initialState.offers,
     }))
     .addCase(changeCity, (state, action) => {
@@ -27,17 +27,17 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setSorting, (state, action) => {
       switch (action.payload) {
-        case 'Popular':
-          state.sortingMethod = 'Popular';
+        case SortType.POPULAR:
+          state.sortingMethod = SortType.POPULAR;
           break;
-        case 'Price: low to high':
-          state.sortingMethod = 'Price: low to high';
+        case SortType.CHEAP:
+          state.sortingMethod = SortType.CHEAP;
           break;
-        case 'Price: high to low':
-          state.sortingMethod = 'Price: high to low';
+        case SortType.EXPENSIVE:
+          state.sortingMethod = SortType.EXPENSIVE;
           break;
-        case 'Top rated first':
-          state.sortingMethod = 'Top rated first';
+        case SortType.RATED:
+          state.sortingMethod = SortType.RATED;
           break;
         default:
           break;
