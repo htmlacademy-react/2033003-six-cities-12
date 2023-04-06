@@ -1,3 +1,4 @@
+import { Offer } from './types/offer';
 import { Rating } from './types/rating';
 
 export const SortType = {
@@ -50,3 +51,16 @@ export enum APIRoute {
 }
 
 export const TIMEOUT_SHOW_ERROR = 3000;
+
+export const sortOffers = (offers: Offer[], sortingMethod: string): Offer[] => {
+  switch (sortingMethod) {
+    case SortType.CHEAP:
+      return offers.slice().sort((a, b) => a.price - b.price);
+    case SortType.EXPENSIVE:
+      return offers.slice().sort((a, b) => b.price - a.price);
+    case SortType.RATED:
+      return offers.slice().sort((a, b) => b.rating - a.rating);
+    default:
+      return offers;
+  }
+};
