@@ -1,5 +1,12 @@
 import { Rating } from './types/rating';
 
+export const SortType = {
+POPULAR: 'Popular',
+CHEAP: 'Price: low to high',
+EXPENSIVE: 'Price: high to low',
+RATED: 'Top rated first',
+};
+
 export enum AppRoute {
   Main = '/',
   Login = '/login',
