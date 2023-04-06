@@ -5,7 +5,7 @@ export const SortType = {
   CHEAP: 'Price: low to high',
   EXPENSIVE: 'Price: high to low',
   RATED: 'Top rated first',
-  };
+};
 
 export enum AppRoute {
   Main = '/',

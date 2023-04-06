@@ -57,8 +57,7 @@ const reducer = createReducer(initialState, (builder) => {
           sortedOffers = sortedOffers.slice().sort((a, b) => b.rating - a.rating);
           break;
         default:
-          sortedOffers
-          break;
+          return { ...state, offers: sortedOffers };
       }
 
       return { ...state, offers: sortedOffers };
