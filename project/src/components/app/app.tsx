@@ -1,4 +1,4 @@
-import { BrowserRouter , Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import {HelmetProvider} from 'react-helmet-async';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import FavoritesScreen from '../../pages/favorites-screen/favorites-screen';
@@ -49,7 +49,6 @@ function App({nearbyOffers, reviews}: AppScreenProps): JSX.Element {
         </Routes>
       </HistoryRouter>
     </HelmetProvider>
-    
   );
 }
 

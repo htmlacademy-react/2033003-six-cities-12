@@ -1,4 +1,3 @@
-import { css } from '@emotion/react';
 import {RingLoader} from 'react-spinners';
 
 const loadingStyle = {
@@ -11,7 +10,7 @@ const loadingStyle = {
 function LoadingScreen():JSX.Element {
   return (
     <div style={loadingStyle}>
-      <RingLoader size={150} color={'#123abc'} loading={true} />
+      <RingLoader size={150} color={'#123abc'} loading/>
     </div>
   );
 }

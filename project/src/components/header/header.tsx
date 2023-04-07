@@ -2,8 +2,8 @@ import { MouseEventHandler } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { Offer } from '../../types/offer';
-import { useDispatch } from 'react-redux';
 import { logoutAction } from '../../store/api-actions';
+import { useAppDispatch } from '../../hooks';
 
 type HeaderProps = {
   offers: Offer[];
@@ -11,15 +11,15 @@ type HeaderProps = {
 
 function Header({offers}: HeaderProps): JSX.Element {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
+
   const handleGoMainClick: MouseEventHandler<HTMLAnchorElement> = (evt) => {
     evt.preventDefault();
     navigate(AppRoute.Main);
   };
 
-  const onLogout = (evt: React.MouseEvent<HTMLButtonElement>) => {
-    evt.preventDefault();
-    dispatch(logoutAction() as any);
+  const onLogout = () => {
+    dispatch(logoutAction());
   };
 
   const favoriteOffers = offers.filter((offer) => offer.isFavorite);

@@ -1,6 +1,6 @@
 import axios, {AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse} from 'axios';
 import { getToken } from './token';
-import {StatusCodes} from  'http-status-codes';
+import {StatusCodes} from 'http-status-codes';
 import { processErrorHandle } from '../store/processErrorHandle';
 
 const StatusCodeMapping: Record<number, boolean> = {
@@ -45,4 +45,4 @@ export const createApi = (): AxiosInstance => {
   );
 
   return api;
-}
+};

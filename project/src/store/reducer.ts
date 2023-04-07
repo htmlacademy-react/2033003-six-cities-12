@@ -1,7 +1,6 @@
 import { changeCity, setSorting, setOffers, resetState, loadOffers, requireAuthorization, setError, setOffersDataLoadingStatus } from './action';
 import { createReducer } from '@reduxjs/toolkit';
 import { RootState } from '../types/state';
-import { Offer } from '../types/offer';
 import { AuthorizationStatus, SortType } from '../const';
 
 const initialState: RootState = {
