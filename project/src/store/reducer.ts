@@ -27,22 +27,7 @@ const reducer = createReducer(initialState, (builder) => {
       state.offers = action.payload;
     })
     .addCase(setSorting, (state, action) => {
-      switch (action.payload) {
-        case SortType.POPULAR:
-          state.sortingMethod = SortType.POPULAR;
-          break;
-        case SortType.CHEAP:
-          state.sortingMethod = SortType.CHEAP;
-          break;
-        case SortType.EXPENSIVE:
-          state.sortingMethod = SortType.EXPENSIVE;
-          break;
-        case SortType.RATED:
-          state.sortingMethod = SortType.RATED;
-          break;
-        default:
-          break;
-      }
+      state.sortingMethod = action.payload;
     })
     .addCase(loadOffers, (state, action) => {
       state.offers = action.payload;
