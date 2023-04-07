@@ -8,7 +8,6 @@ import RoomScreen from '../../pages/room-screen/room-screen';
 import { Offer } from '../../types/offer';
 import { Review } from '../../types/review';
 import PrivateRoute from '../private-route/private-route';
-import { useAppSelector } from '../../hooks';
 
 type AppScreenProps = {
   nearbyOffers: Offer[];
@@ -16,22 +15,20 @@ type AppScreenProps = {
 }
 
 function App({nearbyOffers, reviews}: AppScreenProps): JSX.Element {
-  const offers = useAppSelector((state) => state.offers);
-
   return (
     <BrowserRouter>
       <Routes>
-        <Route path={AppRoute.Main} element={<MainScreen offers={offers}/>}/>
+        <Route path={AppRoute.Main} element={<MainScreen/>}/>
         <Route path={AppRoute.Login} element={<LoginScreen/>}/>
         <Route
           path={AppRoute.Favorites}
           element={
             <PrivateRoute authorizationStatus={AuthorizationStatus.Auth}>
-              <FavoritesScreen offers={offers}/>
+              <FavoritesScreen/>
             </PrivateRoute>
           }
         />
-        <Route path={AppRoute.Room} element={<RoomScreen offers={offers} nearbyOffers={nearbyOffers} reviews={reviews}/>}/>
+        <Route path={AppRoute.Room} element={<RoomScreen nearbyOffers={nearbyOffers} reviews={reviews}/>}/>
         <Route path={'*'} element={<NotFoundScreen/>}/>
         <Route path={AppRoute.NotFound} element={<NotFoundScreen/>}/>
       </Routes>

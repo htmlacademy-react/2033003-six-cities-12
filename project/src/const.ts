@@ -1,4 +1,12 @@
+import { Offer } from './types/offer';
 import { Rating } from './types/rating';
+
+export const SortType = {
+  POPULAR: 'Popular',
+  CHEAP: 'Price: low to high',
+  EXPENSIVE: 'Price: high to low',
+  RATED: 'Top rated first',
+};
 
 export enum AppRoute {
   Main = '/',
@@ -35,3 +43,16 @@ export const URL_MARKER_DEFAULT =
   './img/pin.svg';
 export const URL_MARKER_CURRENT =
   './img/pin-active.svg';
+
+export const sortOffers = (offers: Offer[], sortingMethod: string): Offer[] => {
+  switch (sortingMethod) {
+    case SortType.CHEAP:
+      return offers.slice().sort((a, b) => a.price - b.price);
+    case SortType.EXPENSIVE:
+      return offers.slice().sort((a, b) => b.price - a.price);
+    case SortType.RATED:
+      return offers.slice().sort((a, b) => b.rating - a.rating);
+    default:
+      return offers;
+  }
+};
