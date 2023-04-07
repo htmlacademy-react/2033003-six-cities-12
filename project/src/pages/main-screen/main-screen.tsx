@@ -4,34 +4,18 @@ import LocationList from '../../components/location/location-list';
 import Map from '../../components/map/map';
 import Offers from '../../components/offers/offers';
 import { useAppSelector } from '../../hooks';
-import { Offer } from '../../types/offer';
 import SortingOptions from '../../components/sorting-options/sorting-options';
-import { RootState } from '../../types/state';
-
-function sortOffers(offers: Offer[], sortingMethod: string): Offer[] {
-  switch (sortingMethod) {
-    case 'Price: low to high':
-      return offers.slice().sort((a, b) => a.price - b.price);
-    case 'Price: high to low':
-      return offers.slice().sort((a, b) => b.price - a.price);
-    case 'Top rated first':
-      return offers.slice().sort((a, b) => b.rating - a.rating);
-    default:
-      return offers;
-  }
-}
+import { sortOffers } from '../../const';
+import { Offer } from '../../types/offer';
 
 function MainScreen() : JSX.Element {
   const [activeOfferId, setActiveOffer] = useState<number>(-1);
   const selectedCityName = useAppSelector((state) => state.locationName);
-  const selectedSortingMethod = useAppSelector((state: RootState) => state.sortingMethod);
-  const offers = useAppSelector((state) => state.offers);
-  const cityOffers = offers.filter((offer) => offer.city.name === selectedCityName);
-  //TODO:проработать этот момент с фильтрацией и сортировкой const filteredOffers = useAppSelector((state) => state.offers);
+  const selectedSortingMethod = useAppSelector((state) => state.sortingMethod);
+  const offers: Offer[] = useAppSelector((state) => state.offers);
+  const sortedOffers: Offer[] = sortOffers(offers,selectedSortingMethod).filter((offer) => offer.city.name === selectedCityName);
 
-  const sortedOffers = sortOffers(cityOffers, selectedSortingMethod);
   const city = sortedOffers.find((offer) => offer.city.name === selectedCityName)?.city ?? null;
-
   return(
     <div className={`page page--gray page--main ${sortedOffers.length === 0 ? 'page--main-empty' : ''}`}>
       <Header offers={sortedOffers}/>

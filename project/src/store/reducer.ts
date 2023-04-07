@@ -1,15 +1,21 @@
-import { changeCity, setSorting, setOffers, filterAndSortOffers } from './action';
+import { changeCity, setSorting, setOffers, resetState } from './action';
 import { createReducer } from '@reduxjs/toolkit';
 import { RootState } from '../types/state';
 import { offers } from '../mocks/offers';
+import { SortType } from '../const';
 
 const initialState: RootState = {
   locationName: 'Paris',
-  sortingMethod: 'Popular',
+  sortingMethod: SortType.POPULAR,
   offers: offers
 };
 const reducer = createReducer(initialState, (builder) => {
   builder
+    .addCase(resetState, (state) => ({
+      ...state,
+      sortingMethod: SortType.POPULAR,
+      offers: initialState.offers,
+    }))
     .addCase(changeCity, (state, action) => {
       state.locationName = action.payload;
     })
@@ -18,43 +24,21 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setSorting, (state, action) => {
       switch (action.payload) {
-        case 'Popular':
-          state.sortingMethod = 'Popular';
+        case SortType.POPULAR:
+          state.sortingMethod = SortType.POPULAR;
           break;
-        case 'Price: low to high':
-          state.sortingMethod = 'Price: low to high';
+        case SortType.CHEAP:
+          state.sortingMethod = SortType.CHEAP;
           break;
-        case 'Price: high to low':
-          state.sortingMethod = 'Price: high to low';
+        case SortType.EXPENSIVE:
+          state.sortingMethod = SortType.EXPENSIVE;
           break;
-        case 'Top rated first':
-          state.sortingMethod = 'Top rated first';
+        case SortType.RATED:
+          state.sortingMethod = SortType.RATED;
           break;
         default:
           break;
       }
-    })
-    .addCase(filterAndSortOffers, (state, action) => {
-      const { locationName, sortingMethod } = state;
-
-      let sortedOffers = state.offers.filter((offer) => offer.city.name === locationName);
-
-      switch (sortingMethod) {
-        case 'Price: low to high':
-          sortedOffers = sortedOffers.slice().sort((a, b) => a.price - b.price);
-          break;
-        case 'Price: high to low':
-          sortedOffers = sortedOffers.slice().sort((a, b) => b.price - a.price);
-          break;
-        case 'Top rated first':
-          sortedOffers = sortedOffers.slice().sort((a, b) => b.rating - a.rating);
-          break;
-        default:
-          // 'Popular'
-          break;
-      }
-
-      return { ...state, offers: sortedOffers };
     });
 });
 

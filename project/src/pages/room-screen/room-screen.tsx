@@ -8,15 +8,16 @@ import RoomGalery from '../../components/room-galery/room-galery';
 import { AppRoute } from '../../const';
 import {Offer } from '../../types/offer';
 import { Review as ReviewType } from '../../types/review';
+import { useAppSelector } from '../../hooks';
 
 type OfferProps = {
-  offers: Offer[];
   nearbyOffers: Offer[];
   reviews: ReviewType[];
 }
 
-function RoomScreen({offers, nearbyOffers, reviews}: OfferProps): JSX.Element {
+function RoomScreen({nearbyOffers, reviews}: OfferProps): JSX.Element {
   const { id } = useParams<{ id: string }>();
+  const offers = useAppSelector((state) => state.offers);
   const allOffers: Offer[] = offers.concat(nearbyOffers);
   const offer: Offer | null | undefined = id ? allOffers.find((offerItem) => offerItem.id === Number(id)) : null;
 
