@@ -4,7 +4,6 @@ import { AppRoute } from '../../const';
 import { Offer } from '../../types/offer';
 import { useDispatch } from 'react-redux';
 import { logoutAction } from '../../store/api-actions';
-import { AuthData } from '../../types/auth-data';
 
 type HeaderProps = {
   offers: Offer[];
