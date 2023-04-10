@@ -15,8 +15,6 @@ function Location({locationName, selectedCityName}: LocationProps):JSX.Element{
   const handleLocationClick: MouseEventHandler<HTMLAnchorElement> = (evt) => {
     evt.preventDefault();
     dispatch(changeCity(locationName));
-    dispatch(resetState());
-    dispatch(fetchOffersAction());
   };
 
   return(

@@ -21,9 +21,9 @@ type AppScreenProps = {
 
 function App({nearbyOffers, reviews}: AppScreenProps): JSX.Element {
   const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
-  const isQuestionsDataLoading = useAppSelector((state) => state.isOffersDataLoading);
+  const isOffersDataLoading = useAppSelector((state) => state.isOffersDataLoading);
 
-  if (authorizationStatus === AuthorizationStatus.Unknown || isQuestionsDataLoading) {
+  if (authorizationStatus === AuthorizationStatus.Unknown || isOffersDataLoading) {
     return (
       <LoadingScreen/>
     );
