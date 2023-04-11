@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import Header from '../../components/header/header';
-import LocationList from '../../components/location/location-list';
+import LocationList from '../../components/location-list/location-list';
 import Map from '../../components/map/map';
 import Offers from '../../components/offers/offers';
 import { useAppSelector } from '../../hooks';
