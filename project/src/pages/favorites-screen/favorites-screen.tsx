@@ -1,13 +1,24 @@
-import { Link} from 'react-router-dom';
+import { Link, useNavigate} from 'react-router-dom';
 import Header from '../../components/header/header';
 import Rating from '../../components/rating/rating';
 import { useAppSelector } from '../../hooks';
 import { Offer } from '../../types/offer';
+import { RootState } from '../../types/state';
+import { AppRoute, AuthorizationStatus } from '../../const';
+import { useEffect } from 'react';
 
 function FavoritesScreen() :JSX.Element {
+  const navigate = useNavigate();
   const offers: Offer[] = useAppSelector((state) => state.offers);
   const favoriteOffers: Offer[] = offers.filter((offer) => offer.isFavorite);
   const cities: string[] = Array.from(new Set(favoriteOffers.map((offer) => offer.city.name)));
+  const isLoggedIn = useAppSelector((state: RootState) => state.authorizationStatus) === AuthorizationStatus.Auth;
+  
+  useEffect(() => {
+    if (!isLoggedIn) {
+      navigate(AppRoute.Login);
+    }
+  }, [isLoggedIn, navigate]);
 
   return(
     <div className="page">
