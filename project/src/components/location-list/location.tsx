@@ -1,7 +1,7 @@
-import { MouseEventHandler } from 'react';
+import { MouseEventHandler, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { useAppDispatch } from '../../hooks';
-import { changeCity, resetState} from '../../store/action';
+import { changeCity } from '../../store/action';
 
 type LocationProps = {
   locationName: string;
@@ -11,11 +11,10 @@ type LocationProps = {
 function Location({locationName, selectedCityName}: LocationProps):JSX.Element{
   const dispatch = useAppDispatch();
 
-  const handleLocationClick: MouseEventHandler<HTMLAnchorElement> = (evt) => {
+  const handleLocationClick: MouseEventHandler<HTMLAnchorElement> = useCallback((evt) => {
     evt.preventDefault();
     dispatch(changeCity(locationName));
-    dispatch(resetState());
-  };
+  }, [dispatch, locationName]);
 
   return(
     <li className="locations__item">
