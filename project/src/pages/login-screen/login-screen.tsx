@@ -4,7 +4,6 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import { loginAction } from '../../store/api-actions';
 import { AuthData } from '../../types/auth-data';
 import { AppRoute, AuthorizationStatus } from '../../const';
-import { useSelector } from 'react-redux';
 import { RootState } from '../../types/state';
 
 function LoginScreen() : JSX.Element {
