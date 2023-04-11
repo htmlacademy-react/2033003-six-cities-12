@@ -11,7 +11,6 @@ function SortingDropdown({ options, selectedOption, onOptionSelect }: SortingDro
   const [isOpen, setIsOpen] = useState(false);
   const toggleDropdown = () => setIsOpen(!isOpen);
   return (
-  //TODO: не понятно почему span и ul без пробела в интерфейсе отображается
     <Fragment>
       <span className={`places__sorting-type${isOpen ? ' places__sorting-type--active' : ''}`} tabIndex={0} onClick={toggleDropdown}>
         {selectedOption}

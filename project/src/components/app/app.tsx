@@ -13,6 +13,7 @@ import { useAppSelector } from '../../hooks';
 import LoadingScreen from '../loading-screen/loading-screen';
 import HistoryRouter from '../history-route/history-route';
 import browserHistory from '../../browser-history';
+import { RootState } from '../../types/state';
 
 type AppScreenProps = {
   nearbyOffers: Offer[];
@@ -20,8 +21,8 @@ type AppScreenProps = {
 }
 
 function App({nearbyOffers, reviews}: AppScreenProps): JSX.Element {
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
-  const isOffersDataLoading = useAppSelector((state) => state.isOffersDataLoading);
+  const authorizationStatus = useAppSelector((state: RootState) => state.authorizationStatus);
+  const isOffersDataLoading = useAppSelector((state: RootState) => state.isOffersDataLoading);
 
   if (authorizationStatus === AuthorizationStatus.Unknown || isOffersDataLoading) {
     return (

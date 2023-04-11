@@ -1,9 +1,11 @@
-import { FormEvent, useRef } from 'react';
+import { FormEvent, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useAppDispatch } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { loginAction } from '../../store/api-actions';
 import { AuthData } from '../../types/auth-data';
-import { AppRoute } from '../../const';
+import { AppRoute, AuthorizationStatus } from '../../const';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../types/state';
 
 function LoginScreen() : JSX.Element {
   const loginRef = useRef<HTMLInputElement | null>(null);
@@ -11,6 +13,14 @@ function LoginScreen() : JSX.Element {
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+
+  const isLoggedIn = useAppSelector((state: RootState) => state.authorizationStatus) === AuthorizationStatus.Auth;
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      navigate(AppRoute.Main);
+    }
+  }, [isLoggedIn, navigate]);
 
   const onSubmit = (authData: AuthData) => {
     dispatch(loginAction(authData));
@@ -45,7 +55,7 @@ function LoginScreen() : JSX.Element {
         <div className="page__login-container container">
           <section className="login">
             <h1 className="login__title">Sign in</h1>
-            <form className="login__form form" action="#" onSubmit={handleSubmit}>
+            <form className="login__form form" action="" onSubmit={handleSubmit}>
               <div className="login__input-wrapper form__input-wrapper">
                 <label className="visually-hidden">E-mail</label>
                 <input ref={loginRef} className="login__input form__input" type="email" name="email" placeholder="Email" required/>
@@ -54,7 +64,7 @@ function LoginScreen() : JSX.Element {
                 <label className="visually-hidden">Password</label>
                 <input ref={passwordRef} className="login__input form__input" type="password" name="password" placeholder="Password" required/>
               </div>
-              <button onClick={() => navigate(AppRoute.Main)} className="login__submit form__submit button" type="submit">Sign in</button>
+              <button className="login__submit form__submit button" type="submit">Sign in</button>
             </form>
           </section>
           <section className="locations locations--login locations--current">

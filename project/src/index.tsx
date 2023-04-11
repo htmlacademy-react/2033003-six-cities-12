@@ -6,6 +6,7 @@ import { nearbyOffers } from './mocks/offers';
 import { reviews } from './mocks/review';
 import { store } from './store';
 import { checkAuthAction, fetchOffersAction } from './store/api-actions';
+import ErrorMessage from './components/error/error-message';
 
 store.dispatch(fetchOffersAction());
 store.dispatch(checkAuthAction());
@@ -17,6 +18,7 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <Provider store={store}>
+      <ErrorMessage/>
       <App reviews={reviews} nearbyOffers={nearbyOffers}/>
     </Provider>
   </React.StrictMode>,

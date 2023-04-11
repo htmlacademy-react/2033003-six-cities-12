@@ -1,4 +1,5 @@
 import { useAppSelector } from '../../hooks';
+import { RootState } from '../../types/state';
 
 const errorMessageStyle = {
   backgroundColor: '#ffe6e6',
@@ -10,7 +11,7 @@ const errorMessageStyle = {
 };
 
 function ErrorMessage(): JSX.Element | null{
-  const error = useAppSelector((state) => state.error);
+  const error = useAppSelector((state: RootState) => state.error);
   return (error)
     ? <div style={errorMessageStyle}><p>{error}</p></div>
     : null;
