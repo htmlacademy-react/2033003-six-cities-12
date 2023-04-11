@@ -1,4 +1,4 @@
-import { changeCity, setSorting, setOffers, resetState, loadOffers, requireAuthorization, setError, setOffersDataLoadingStatus } from './action';
+import { changeCity, setSorting, setOffers, loadOffers, requireAuthorization, setError, setOffersDataLoadingStatus } from './action';
 import { createReducer } from '@reduxjs/toolkit';
 import { RootState } from '../types/state';
 import { AuthorizationStatus, SortType } from '../const';
@@ -14,11 +14,6 @@ const initialState: RootState = {
 
 const reducer = createReducer(initialState, (builder) => {
   builder
-    .addCase(resetState, (state) => ({
-      ...state,
-      sortingMethod: SortType.POPULAR,
-      offers: initialState.offers,
-    }))
     .addCase(changeCity, (state, action) => {
       state.locationName = action.payload;
     })

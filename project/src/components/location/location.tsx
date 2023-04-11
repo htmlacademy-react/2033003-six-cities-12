@@ -1,7 +1,7 @@
 import { MouseEventHandler } from 'react';
 import { Link } from 'react-router-dom';
 import { useAppDispatch } from '../../hooks';
-import { changeCity, resetState} from '../../store/action';
+import { changeCity } from '../../store/action';
 import { fetchOffersAction } from '../../store/api-actions';
 
 type LocationProps = {
