@@ -7,14 +7,14 @@ function SortingOptions(): JSX.Element {
   const selectedOption = useAppSelector((state) => state.sortingMethod);
   const options = ['Popular', 'Price: low to high', 'Price: high to low', 'Top rated first'];
 
-  const handleOptionSelect = (option: string) => {
+  const onOptionSelect = (option: string) => {
     dispatch(setSorting(option));
   };
 
   return (
     <form className="places__sorting" action="#" method="get">
       <span className="places__sorting-caption">Sort by </span>
-      <SortingDropdown options={options} selectedOption={selectedOption} onOptionSelect={handleOptionSelect}/>
+      <SortingDropdown options={options} selectedOption={selectedOption} onOptionSelect={onOptionSelect}/>
     </form>
   );
 }
