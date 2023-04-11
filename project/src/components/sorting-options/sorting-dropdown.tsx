@@ -20,7 +20,7 @@ function SortingDropdown({ options, selectedOption, onOptionSelect }: SortingDro
       </span>
       <ul className={`places__options places__options--custom${isOpen ? ' places__options--opened' : ''}`} onClick={toggleDropdown}>
         {options.map((option) => (
-          <SortingOption key={option} text={option} active={option === selectedOption} onClick={() => onOptionSelect(option)} />
+          <SortingOption key={option} text={option} active={option === selectedOption} handleClick={() => onOptionSelect(option)} />
         ))}
       </ul>
     </Fragment>

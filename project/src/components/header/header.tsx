@@ -14,6 +14,11 @@ function Header({offers}: HeaderProps): JSX.Element {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
+  const favoriteOffers = offers.filter((offer) => offer.isFavorite);
+  const authorizationStatus = useAppSelector((state: RootState) => state.authorizationStatus);
+  const isLoggedIn = authorizationStatus === AuthorizationStatus.Auth;
+
+
   const handleGoMainClick: MouseEventHandler<HTMLAnchorElement> = (evt) => {
     evt.preventDefault();
     navigate(AppRoute.Main);
@@ -24,15 +29,11 @@ function Header({offers}: HeaderProps): JSX.Element {
     navigate(AppRoute.Favorites);
   };
 
-  const onLogout = () => {
+  const handleLogout: MouseEventHandler<HTMLAnchorElement> = () => {
     dispatch(logoutAction());
   };
 
-  const favoriteOffers = offers.filter((offer) => offer.isFavorite);
-  const authorizationStatus = useAppSelector((state: RootState) => state.authorizationStatus);
-  const isLoggedIn = authorizationStatus === AuthorizationStatus.Auth;
-
-  const onLogin: MouseEventHandler<HTMLAnchorElement> = (evt) => {
+  const handleLogin: MouseEventHandler<HTMLAnchorElement> = (evt) => {
     evt.preventDefault();
     navigate(AppRoute.Login);
   };
@@ -60,7 +61,7 @@ function Header({offers}: HeaderProps): JSX.Element {
                   </li>
                   <li className="header__nav-item">
                     <Link className="header__nav-link" to="#">
-                      <span className="header__signout" onClick={onLogout}>Sign out</span>
+                      <span className="header__signout" onClick={handleLogout}>Sign out</span>
                     </Link>
                   </li>
                 </Fragment>
@@ -69,7 +70,7 @@ function Header({offers}: HeaderProps): JSX.Element {
                   <Link className="header__nav-link header__nav-link--profile" to="#">
                     <div className="header__avatar-wrapper user__avatar-wrapper">
                     </div>
-                    <span className="header__login" onClick={onLogin}>Sign in</span>
+                    <span className="header__login" onClick={handleLogin}>Sign in</span>
                   </Link>
                 </li>
               )}

@@ -1,12 +1,12 @@
 type SortingOptionProps = {
   text: string;
   active: boolean;
-  onClick: () => void;
+  handleClick: () => void;
 }
 
-function SortingOption({ text, active, onClick }: SortingOptionProps): JSX.Element {
+function SortingOption({ text, active, handleClick }: SortingOptionProps): JSX.Element {
   return (
-    <li className={`places__option${active ? ' places__option--active' : ''}`} onClick={onClick} tabIndex={0}>
+    <li className={`places__option${active ? ' places__option--active' : ''}`} onClick={handleClick} tabIndex={0}>
       {text}
     </li>
   );
