@@ -6,38 +6,34 @@ import Rating from '../../components/rating/rating';
 import ReviewList from '../../components/review-list/review-list';
 import RoomGalery from '../../components/room-galery/room-galery';
 import {Offer } from '../../types/offer';
-import { Review as ReviewType } from '../../types/review';
+import { Review, Review as ReviewType } from '../../types/review';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useEffect } from 'react';
-import { fetchOfferAction } from '../../store/api-actions';
+import { fetchNearbyOffersAction, fetchOfferAction, fetchReviewsAction } from '../../store/api-actions';
 
-type OfferProps = {
-  nearbyOffers: Offer[];
-  reviews: ReviewType[];
-}
-
-function RoomScreen({nearbyOffers, reviews}: OfferProps): JSX.Element {
+function RoomScreen(): JSX.Element {
   const dispatch = useAppDispatch();
   const { id } = useParams<{ id: string }>();
+
   useEffect(() => {
     if (id) {
       dispatch(fetchOfferAction(id));
+      dispatch(fetchNearbyOffersAction(id));
+      dispatch(fetchReviewsAction(id));
     }
   }, [dispatch, id]);
 
   const offers = useAppSelector((state) => state.offers);
-  const allOffers: Offer[] = offers.concat(nearbyOffers);
+  const nearbyOffers: Offer[] = useAppSelector((state) => state.nearbyOffers);
   const offer: Offer | null | undefined = useAppSelector((state) => state.selectedOffer);
-  
   const { title, price, rating, type, isPremium, bedrooms, maxAdults, host, description, goods, city } = offer ?? {};
-  const offerReviews: ReviewType[] = reviews.filter((review) => review.offerId === Number(id));
 
-  const nearbyOffersWithoutCurrent = nearbyOffers.filter((offerItem) => offerItem.id !== Number(id));
-
-  const nearbyOffersWithCurrent: Offer[] = nearbyOffersWithoutCurrent;
-  if (offer) {
-    nearbyOffersWithCurrent.push(offer);
-  }
+  const nearbyOffersWithCurrent: Offer[] = [
+    ...nearbyOffers,
+    ...(offer ? [offer] : []),
+  ];
+  
+  const offerReviews: Review[] = useAppSelector((state) => state.reviews);
 
   return (
     <div className="page">

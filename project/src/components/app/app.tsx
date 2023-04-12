@@ -9,18 +9,10 @@ import RoomScreen from '../../pages/room-screen/room-screen';
 import { Offer } from '../../types/offer';
 import { Review } from '../../types/review';
 import PrivateRoute from '../private-route/private-route';
-import { useAppSelector } from '../../hooks';
-import LoadingScreen from '../loading-screen/loading-screen';
 import HistoryRouter from '../history-route/history-route';
 import browserHistory from '../../browser-history';
-import { RootState } from '../../types/state';
 
-type AppScreenProps = {
-  nearbyOffers: Offer[];
-  reviews: Review[];
-}
-
-function App({nearbyOffers, reviews}: AppScreenProps): JSX.Element {
+function App(): JSX.Element {
   return (
     <HelmetProvider>
       <HistoryRouter history={browserHistory}>
@@ -35,7 +27,7 @@ function App({nearbyOffers, reviews}: AppScreenProps): JSX.Element {
               </PrivateRoute>
             }
           />
-          <Route path={AppRoute.Room} element={<RoomScreen nearbyOffers={nearbyOffers} reviews={reviews}/>}/>
+          <Route path={AppRoute.Room} element={<RoomScreen/>}/>
           <Route path={'*'} element={<NotFoundScreen/>}/>
           <Route path={AppRoute.NotFound} element={<NotFoundScreen/>}/>
         </Routes>

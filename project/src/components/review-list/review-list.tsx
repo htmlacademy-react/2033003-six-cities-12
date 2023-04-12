@@ -1,13 +1,13 @@
 
 import { AuthorizationStatus } from '../../const';
 import { useAppSelector } from '../../hooks';
-import { Review as ReviewType} from '../../types/review';
+import { Review} from '../../types/review';
 import { RootState } from '../../types/state';
 import CommentSubmissionForm from '../comment-submission-form/comment-submission-form';
-import Review from '../review/review';
+import ReviewItem from '../review-item/review-item';
 
 type ReviewListProps = {
-  reviews: ReviewType[];
+  reviews: Review[];
 }
 
 function ReviewList({reviews}: ReviewListProps): JSX.Element {
@@ -18,7 +18,7 @@ function ReviewList({reviews}: ReviewListProps): JSX.Element {
       <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviews.length}</span></h2>
       <ul className="reviews__list">
         {reviews.map((review) => (
-          <Review key={review.id} review={review}/>))}
+          <ReviewItem key={review.id} review={review}/>))}
       </ul>
       {isLoggedIn && <CommentSubmissionForm/>}
     </section>
