@@ -9,6 +9,7 @@ import {AuthData} from '../types/auth-data';
 import {UserData} from '../types/user-data';
 import {store} from './';
 import { Review } from '../types/review.js';
+import { ReviewData } from '../types/review-data.js';
 
 export const clearErrorAction = createAsyncThunk(
   'main/clearErrorAction',
@@ -114,5 +115,17 @@ export const fetchReviewsAction = createAsyncThunk<void, string, {
   async (hotelId: string, { dispatch, extra: api }) => {
     const { data } = await api.get<Review[]>(`${APIRoute.Comments}/${hotelId}`);
     dispatch(loadReviews(data));
+  },
+);
+
+export const postCommentAction = createAsyncThunk<void, ReviewData, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'data/postComment',
+  async ({hotelId,comment, rating}, { dispatch, extra: api }) => {
+    await api.post<ReviewData>(`${APIRoute.Comments}/${hotelId}`, {comment, rating});
+    //dispatch(addReview(comment));
   },
 );

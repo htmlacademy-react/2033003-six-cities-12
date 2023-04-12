@@ -1,4 +1,4 @@
-import { changeCity, setSorting, setOffers, loadOffers, requireAuthorization, setError, setOffersDataLoadingStatus, loadOffer, loadNearbyOffers, loadReviews } from './action';
+import { changeCity, setSorting, setOffers, loadOffers, requireAuthorization, setError, setOffersDataLoadingStatus, loadOffer, loadNearbyOffers, loadReviews, addReview } from './action';
 import { createReducer } from '@reduxjs/toolkit';
 import { RootState } from '../types/state';
 import { AuthorizationStatus, SortType } from '../const';
@@ -12,7 +12,8 @@ const initialState: RootState = {
   isOffersDataLoading: false,
   selectedOffer: null,
   nearbyOffers: [],
-  reviews: []
+  reviews: [],
+  review: null
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -46,6 +47,9 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(loadReviews, (state, action) => {
       state.reviews = action.payload;
+    })
+    .addCase(addReview, (state, action) => {
+      state.review = action.payload;
     });
 });
 

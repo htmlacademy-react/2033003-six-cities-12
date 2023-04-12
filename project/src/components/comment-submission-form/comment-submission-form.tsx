@@ -1,20 +1,39 @@
-import { ChangeEvent, Fragment, useState } from 'react';
+import { FormEvent, Fragment, useRef, useState } from 'react';
 import { ratings } from '../../const';
+import { ReviewData } from '../../types/review-data';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { postCommentAction } from '../../store/api-actions';
 
 function CommentSubmissionForm(): JSX.Element{
-  const [, setRating] = useState(0);
-  const [reviewText, setReviewText] = useState('');
+  const dispatch = useAppDispatch();
+  const [rating, setRating] = useState(0);
+  const selectedOffer = useAppSelector((state) => state.selectedOffer);
+  //const [reviewText, setReviewText] = useState('');
 
-  const handleRatingChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setRating(Number(event.target.value));
+  const commentRef = useRef<HTMLTextAreaElement | null>(null);
+
+  const handleRatingChange = (value: number) => {
+    setRating(value);
   };
 
-  const handleReviewTextChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
-    setReviewText(event.target.value);
+  const onSubmit = (reviewData: ReviewData) => {
+    dispatch(postCommentAction(reviewData));
+  };
+
+  const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
+    evt.preventDefault();
+
+    if (rating !== null && commentRef.current !== null) {
+      onSubmit({
+        hotelId: String(selectedOffer?.id),
+        comment: commentRef.current.value,
+        rating: String(rating),
+      });
+    }
   };
 
   return(
-    <form className="reviews__form form" action="#" method="post">
+    <form className="reviews__form form" action="" onSubmit={handleSubmit} method="post">
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
         {ratings.map((rating) => (
@@ -22,10 +41,10 @@ function CommentSubmissionForm(): JSX.Element{
             <input
               className="form__rating-input visually-hidden"
               name="rating"
-              value={rating.value}
               id={`${rating.value}-stars`}
               type="radio"
-              onChange={handleRatingChange}
+              value={rating.value}
+              onChange={() => handleRatingChange(rating.value)}
             />
             <label
               htmlFor={`${rating.value}-stars`}
@@ -39,12 +58,12 @@ function CommentSubmissionForm(): JSX.Element{
           </Fragment>
         ))}
       </div>
-      <textarea className="reviews__textarea form__textarea" id="review" name="review" placeholder="Tell how was your stay, what you like and what can be improved" value={reviewText} onChange={handleReviewTextChange}></textarea>
+      <textarea className="reviews__textarea form__textarea" id="review" name="review" placeholder="Tell how was your stay, what you like and what can be improved" ref={commentRef}></textarea>
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
           To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
         </p>
-        <button className="reviews__submit form__submit button" type="submit" disabled>Submit</button>
+        <button className="reviews__submit form__submit button" type="submit">Submit</button>
       </div>
     </form>
   );
