@@ -1,5 +1,6 @@
 import { Offer } from './types/offer';
 import { Rating } from './types/rating';
+import { Review } from './types/review';
 
 export const SortType = {
   POPULAR: 'Popular',
@@ -64,4 +65,8 @@ export const sortOffers = (offers: Offer[], sortingMethod: string): Offer[] => {
     default:
       return offers;
   }
+};
+
+export const compareByDate = (a: Review, b: Review) => {
+  return new Date(b.date).getTime() - new Date(a.date).getTime();
 };

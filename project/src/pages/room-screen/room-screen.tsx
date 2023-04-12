@@ -11,7 +11,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useEffect } from 'react';
 import { fetchNearbyOffersAction, fetchOfferAction, fetchReviewsAction } from '../../store/api-actions';
 import { RootState } from '../../types/state';
-import { AuthorizationStatus } from '../../const';
+import { AuthorizationStatus, compareByDate } from '../../const';
 import CommentSubmissionForm from '../../components/comment-submission-form/comment-submission-form';
 
 function RoomScreen(): JSX.Element | null {
@@ -31,6 +31,7 @@ function RoomScreen(): JSX.Element | null {
   const offer: Offer | null | undefined = useAppSelector((state) => state.selectedOffer);
 
   const offerReviews: Review[] = useAppSelector((state) => state.reviews);
+  const latestReviews = offerReviews.slice(-10).sort(compareByDate);
   if(offer){
     const { title, price, rating, type, isPremium, bedrooms, maxAdults, host, description, goods, city }: Offer = offer;
     const nearbyOffersWithCurrent: Offer[] = [
@@ -104,7 +105,7 @@ function RoomScreen(): JSX.Element | null {
                   </div>
                 </div>
                 <section className="property__reviews reviews">
-                  <ReviewList reviews={offerReviews}/>
+                  <ReviewList reviews={latestReviews}/>
                   {isLoggedIn && <CommentSubmissionForm/>}
                 </section>
               </div>
