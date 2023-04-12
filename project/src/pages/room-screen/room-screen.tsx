@@ -1,14 +1,15 @@
-import { Navigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import Header from '../../components/header/header';
 import Map from '../../components/map/map';
 import Offers from '../../components/offers/offers';
 import Rating from '../../components/rating/rating';
 import ReviewList from '../../components/review-list/review-list';
 import RoomGalery from '../../components/room-galery/room-galery';
-import { AppRoute } from '../../const';
 import {Offer } from '../../types/offer';
 import { Review as ReviewType } from '../../types/review';
-import { useAppSelector } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { useEffect } from 'react';
+import { fetchOfferAction } from '../../store/api-actions';
 
 type OfferProps = {
   nearbyOffers: Offer[];
@@ -16,24 +17,27 @@ type OfferProps = {
 }
 
 function RoomScreen({nearbyOffers, reviews}: OfferProps): JSX.Element {
+  const dispatch = useAppDispatch();
   const { id } = useParams<{ id: string }>();
+  useEffect(() => {
+    if (id) {
+      dispatch(fetchOfferAction(id));
+    }
+  }, [dispatch, id]);
+
   const offers = useAppSelector((state) => state.offers);
   const allOffers: Offer[] = offers.concat(nearbyOffers);
-  const offer: Offer | null | undefined = id ? allOffers.find((offerItem) => offerItem.id === Number(id)) : null;
-
-  if (!offer) {
-    return <Navigate to={AppRoute.NotFound} />;
-  }
-
+  const offer: Offer | null | undefined = useAppSelector((state) => state.selectedOffer);
+  
   const { title, price, rating, type, isPremium, bedrooms, maxAdults, host, description, goods, city } = offer ?? {};
   const offerReviews: ReviewType[] = reviews.filter((review) => review.offerId === Number(id));
 
   const nearbyOffersWithoutCurrent = nearbyOffers.filter((offerItem) => offerItem.id !== Number(id));
 
-  const nearbyOffersWithCurrent: Offer[] = [
-    ...nearbyOffersWithoutCurrent,
-    offer,
-  ];
+  const nearbyOffersWithCurrent: Offer[] = nearbyOffersWithoutCurrent;
+  if (offer) {
+    nearbyOffersWithCurrent.push(offer);
+  }
 
   return (
     <div className="page">
@@ -56,7 +60,7 @@ function RoomScreen({nearbyOffers, reviews}: OfferProps): JSX.Element {
                 </button>
               </div>
               <div className="property__rating rating">
-                <Rating rating={rating}/>
+              {rating && <Rating rating={rating}/>}
                 <span className="property__rating-value rating__value">{rating}</span>
               </div>
               <ul className="property__features">
@@ -77,7 +81,7 @@ function RoomScreen({nearbyOffers, reviews}: OfferProps): JSX.Element {
               <div className="property__inside">
                 <h2 className="property__inside-title">What&apos;s inside</h2>
                 <ul className="property__inside-list">
-                  {goods.map((good) => (
+                  {goods && goods.map((good) => (
                     <li key={good} className="property__inside-item">{good}</li>
                   ))}
                 </ul>
@@ -85,14 +89,14 @@ function RoomScreen({nearbyOffers, reviews}: OfferProps): JSX.Element {
               <div className="property__host">
                 <h2 className="property__host-title">Meet the host</h2>
                 <div className="property__host-user user">
-                  <div className={`property__avatar-wrapper ${host.isPro ? 'property__avatar-wrapper--pro' : ''} user__avatar-wrapper`}>
-                    <img className="property__avatar user__avatar" src={host.avatarUrl} width="74" height="74" alt="Host avatar" />
+                  <div className={`property__avatar-wrapper ${host && host.isPro ? 'property__avatar-wrapper--pro' : ''} user__avatar-wrapper`}>
+                    <img className="property__avatar user__avatar" src={host && host.avatarUrl} width="74" height="74" alt="Host avatar" />
                   </div>
                   <span className="property__user-name">
-                    {host.name}
+                    {host && host.name}
                   </span>
                   <span className="property__user-status">
-                    {host.isPro ? 'Pro' : ''}
+                    {host && host.isPro ? 'Pro' : ''}
                   </span>
                 </div>
                 <div className="property__description">
@@ -104,7 +108,7 @@ function RoomScreen({nearbyOffers, reviews}: OfferProps): JSX.Element {
               <ReviewList reviews={offerReviews}/>
             </div>
           </div>
-          <Map city={city} activeOfferId={Number(id)} offers={nearbyOffersWithCurrent} wrapperClassName={'property__map'}/>
+          {city && <Map city={city} activeOfferId={Number(id)} offers={nearbyOffersWithCurrent} wrapperClassName={'property__map'}/>}
         </section>
         <div className="container">
           <section className="near-places places">

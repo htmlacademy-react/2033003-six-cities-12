@@ -9,6 +9,7 @@ export type RootState = {
   authorizationStatus: AuthorizationStatus;
   error: string | null;
   isOffersDataLoading: boolean;
+  selectedOffer: Offer | null;
 }
 
 export type State = ReturnType<typeof store.getState>;
