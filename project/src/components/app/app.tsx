@@ -21,15 +21,6 @@ type AppScreenProps = {
 }
 
 function App({nearbyOffers, reviews}: AppScreenProps): JSX.Element {
-  const authorizationStatus = useAppSelector((state: RootState) => state.authorizationStatus);
-  const isOffersDataLoading = useAppSelector((state: RootState) => state.isOffersDataLoading);
-
-  if (authorizationStatus === AuthorizationStatus.Unknown || isOffersDataLoading) {
-    return (
-      <LoadingScreen/>
-    );
-  }
-
   return (
     <HelmetProvider>
       <HistoryRouter history={browserHistory}>

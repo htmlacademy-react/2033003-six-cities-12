@@ -6,7 +6,9 @@ import Offers from '../../components/offers/offers';
 import { useAppSelector } from '../../hooks';
 import SortingOptions from '../../components/sorting-options/sorting-options';
 import { Offer } from '../../types/offer';
-import { sortOffers } from '../../const';
+import { AuthorizationStatus, sortOffers } from '../../const';
+import { RootState } from '../../types/state';
+import LoadingScreen from '../../components/loading-screen/loading-screen';
 
 function MainScreen() : JSX.Element {
   const [activeOfferId, setActiveOffer] = useState<number>(-1);
@@ -14,8 +16,17 @@ function MainScreen() : JSX.Element {
   const selectedSortingMethod = useAppSelector((state) => state.sortingMethod);
   const offers: Offer[] = useAppSelector((state) => state.offers);
   const filteredOffers: Offer[] = sortOffers(offers,selectedSortingMethod).filter((offer) => offer.city.name === selectedCityName);
-
   const city = filteredOffers.find((offer) => offer.city.name === selectedCityName)?.city ?? null;
+
+  const authorizationStatus = useAppSelector((state: RootState) => state.authorizationStatus);
+  const isOffersDataLoading = useAppSelector((state: RootState) => state.isOffersDataLoading);
+
+  if (authorizationStatus === AuthorizationStatus.Unknown || isOffersDataLoading) {
+    return (
+      <LoadingScreen/>
+    );
+  }
+  
   return(
 
     <div className={`page page--gray page--main ${filteredOffers.length === 0 ? 'page--main-empty' : ''}`}>
