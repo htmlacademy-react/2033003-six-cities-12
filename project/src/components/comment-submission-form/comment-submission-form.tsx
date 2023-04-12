@@ -1,36 +1,52 @@
-import { FormEvent, Fragment, useRef, useState } from 'react';
+import { ChangeEvent, FormEvent, Fragment, useState } from 'react';
 import { ratings } from '../../const';
 import { ReviewData } from '../../types/review-data';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { postCommentAction } from '../../store/api-actions';
+import ErrorMessage from '../error-message/error-message';
+import { setError } from '../../store/action';
 
 function CommentSubmissionForm(): JSX.Element{
   const dispatch = useAppDispatch();
-  const [rating, setRating] = useState(0);
-  const selectedOffer = useAppSelector((state) => state.selectedOffer);
-  //const [reviewText, setReviewText] = useState('');
+  const [rating, setRating] = useState<number>(0);
+  const [comment, setComment] = useState<string>('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const commentRef = useRef<HTMLTextAreaElement | null>(null);
+  const selectedOffer = useAppSelector((state) => state.selectedOffer);
 
   const handleRatingChange = (value: number) => {
     setRating(value);
   };
 
   const onSubmit = (reviewData: ReviewData) => {
-    dispatch(postCommentAction(reviewData));
+    setIsSubmitting(true);
+    dispatch(postCommentAction(reviewData)).then(() => {
+      setRating(0);
+      setComment('');
+      setIsSubmitting(false);
+    }).catch((ex: string | null) => {
+      setError(ex);
+      setIsSubmitting(false);
+    });
   };
 
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
 
-    if (rating !== null && commentRef.current !== null) {
+    if (rating !== null && comment.length >= 50) {
       onSubmit({
         hotelId: String(selectedOffer?.id),
-        comment: commentRef.current.value,
+        comment,
         rating: String(rating),
       });
     }
   };
+
+  const handleCommentChange = (evt: ChangeEvent<HTMLTextAreaElement>) => {
+    setComment(evt.target.value);
+  };
+
+  const isSubmitButtonDisabled = rating === 0 || comment.length < 50 || isSubmitting;
 
   return(
     <form className="reviews__form form" action="" onSubmit={handleSubmit} method="post">
@@ -44,6 +60,7 @@ function CommentSubmissionForm(): JSX.Element{
               id={`${ratingItem.value}-stars`}
               type="radio"
               value={ratingItem.value}
+              checked={rating === ratingItem.value}
               onChange={() => handleRatingChange(ratingItem.value)}
             />
             <label
@@ -58,13 +75,14 @@ function CommentSubmissionForm(): JSX.Element{
           </Fragment>
         ))}
       </div>
-      <textarea className="reviews__textarea form__textarea" id="review" name="review" placeholder="Tell how was your stay, what you like and what can be improved" ref={commentRef}></textarea>
+      <textarea minLength={50} maxLength={300} className="reviews__textarea form__textarea" id="review" name="review" placeholder="Tell how was your stay, what you like and what can be improved" onChange={handleCommentChange} value={comment}></textarea>
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
           To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
         </p>
-        <button className="reviews__submit form__submit button" type="submit">Submit</button>
+        <button className="reviews__submit form__submit button" type="submit" disabled={isSubmitButtonDisabled}>Submit</button>
       </div>
+      <ErrorMessage/>
     </form>
   );
 }

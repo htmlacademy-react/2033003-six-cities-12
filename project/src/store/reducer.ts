@@ -49,7 +49,7 @@ const reducer = createReducer(initialState, (builder) => {
       state.reviews = action.payload;
     })
     .addCase(addReview, (state, action) => {
-      state.review = action.payload;
+      state.reviews.push(action.payload);
     });
 });
 

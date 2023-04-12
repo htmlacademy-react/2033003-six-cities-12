@@ -2,7 +2,7 @@
 import {AxiosInstance} from 'axios';
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {AppDispatch, State} from '../types/state.js';import { Offer } from '../types/offer.js';
-import {loadNearbyOffers, loadOffer, loadOffers, loadReviews, redirectToRoute, requireAuthorization, setError, setOffersDataLoadingStatus} from './action';
+import {addReview, loadNearbyOffers, loadOffer, loadOffers, loadReviews, redirectToRoute, requireAuthorization, setError, setOffersDataLoadingStatus} from './action';
 import {saveToken, dropToken} from '../services/token';
 import {APIRoute, AppRoute, AuthorizationStatus, TIMEOUT_SHOW_ERROR} from '../const';
 import {AuthData} from '../types/auth-data';
@@ -126,6 +126,18 @@ export const postCommentAction = createAsyncThunk<void, ReviewData, {
   'data/postComment',
   async ({hotelId,comment, rating}, { dispatch, extra: api }) => {
     await api.post<ReviewData>(`${APIRoute.Comments}/${hotelId}`, {comment, rating});
-    //dispatch(addReview(comment));
+    const newReview: Review = {
+      comment: comment,
+      date: new Date().toISOString(),
+      id: Math.floor(Math.random() * 1000000),
+      rating: Number(rating),
+      user: {
+        avatarUrl: '',
+        id: Math.floor(Math.random() * 1000000),
+        isPro: false,
+        name: 'Guest',
+      },
+    };
+    dispatch(addReview(newReview));
   },
 );
