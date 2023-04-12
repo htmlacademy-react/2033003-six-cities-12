@@ -36,20 +36,20 @@ function CommentSubmissionForm(): JSX.Element{
     <form className="reviews__form form" action="" onSubmit={handleSubmit} method="post">
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
-        {ratings.map((rating) => (
-          <Fragment key={rating.value}>
+        {ratings.map((ratingItem) => (
+          <Fragment key={ratingItem.value}>
             <input
               className="form__rating-input visually-hidden"
               name="rating"
-              id={`${rating.value}-stars`}
+              id={`${ratingItem.value}-stars`}
               type="radio"
-              value={rating.value}
-              onChange={() => handleRatingChange(rating.value)}
+              value={ratingItem.value}
+              onChange={() => handleRatingChange(ratingItem.value)}
             />
             <label
-              htmlFor={`${rating.value}-stars`}
+              htmlFor={`${ratingItem.value}-stars`}
               className="reviews__rating-label form__rating-label"
-              title={rating.title}
+              title={ratingItem.title}
             >
               <svg className="form__star-image" width="37" height="33">
                 <use xlinkHref="#icon-star"></use>

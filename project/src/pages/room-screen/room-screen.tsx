@@ -30,9 +30,7 @@ function RoomScreen(): JSX.Element | null {
   const nearbyOffers: Offer[] = useAppSelector((state) => state.nearbyOffers);
   const offer: Offer | null | undefined = useAppSelector((state) => state.selectedOffer);
 
-
-
- const offerReviews: Review[] = useAppSelector((state) => state.reviews);
+  const offerReviews: Review[] = useAppSelector((state) => state.reviews);
   if(offer){
     const { title, price, rating, type, isPremium, bedrooms, maxAdults, host, description, goods, city }: Offer = offer;
     const nearbyOffersWithCurrent: Offer[] = [
@@ -126,7 +124,5 @@ function RoomScreen(): JSX.Element | null {
     );
   }
   return null;
-  
-
 }
 export default RoomScreen;
