@@ -81,7 +81,7 @@ export const fetchOfferAction = createAsyncThunk<void, string, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
-  }>(
+}>(
   'data/fetchOffer',
   async (hotelId: string, {dispatch, extra: api}) => {
     try{
@@ -97,7 +97,7 @@ export const fetchNearbyOffersAction = createAsyncThunk<void, string, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
-  }>(
+}>(
   'data/fetchNearbyOffers',
   async (hotelId: string, {dispatch, extra: api}) => {
     const {data} = await api.get<Offer[]>(`${APIRoute.Hotels}/${hotelId}/nearby`);

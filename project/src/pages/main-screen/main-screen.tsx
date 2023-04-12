@@ -26,7 +26,7 @@ function MainScreen() : JSX.Element {
       <LoadingScreen/>
     );
   }
-  
+
   return(
 
     <div className={`page page--gray page--main ${filteredOffers.length === 0 ? 'page--main-empty' : ''}`}>

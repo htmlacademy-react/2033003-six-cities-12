@@ -6,10 +6,13 @@ import Rating from '../../components/rating/rating';
 import ReviewList from '../../components/review-list/review-list';
 import RoomGalery from '../../components/room-galery/room-galery';
 import {Offer } from '../../types/offer';
-import { Review, Review as ReviewType } from '../../types/review';
+import { Review } from '../../types/review';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useEffect } from 'react';
 import { fetchNearbyOffersAction, fetchOfferAction, fetchReviewsAction } from '../../store/api-actions';
+import { RootState } from '../../types/state';
+import { AuthorizationStatus } from '../../const';
+import CommentSubmissionForm from '../../components/comment-submission-form/comment-submission-form';
 
 function RoomScreen(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -22,7 +25,7 @@ function RoomScreen(): JSX.Element {
       dispatch(fetchReviewsAction(id));
     }
   }, [dispatch, id]);
-
+  const isLoggedIn = useAppSelector((state: RootState) => state.authorizationStatus) === AuthorizationStatus.Auth;
   const offers = useAppSelector((state) => state.offers);
   const nearbyOffers: Offer[] = useAppSelector((state) => state.nearbyOffers);
   const offer: Offer | null | undefined = useAppSelector((state) => state.selectedOffer);
@@ -32,7 +35,7 @@ function RoomScreen(): JSX.Element {
     ...nearbyOffers,
     ...(offer ? [offer] : []),
   ];
-  
+
   const offerReviews: Review[] = useAppSelector((state) => state.reviews);
 
   return (
@@ -56,7 +59,7 @@ function RoomScreen(): JSX.Element {
                 </button>
               </div>
               <div className="property__rating rating">
-              {rating && <Rating rating={rating}/>}
+                {rating && <Rating rating={rating}/>}
                 <span className="property__rating-value rating__value">{rating}</span>
               </div>
               <ul className="property__features">
@@ -101,7 +104,10 @@ function RoomScreen(): JSX.Element {
                   </p>
                 </div>
               </div>
-              <ReviewList reviews={offerReviews}/>
+              <section className="property__reviews reviews">
+                <ReviewList reviews={offerReviews}/>
+                {isLoggedIn && <CommentSubmissionForm/>}
+              </section>
             </div>
           </div>
           {city && <Map city={city} activeOfferId={Number(id)} offers={nearbyOffersWithCurrent} wrapperClassName={'property__map'}/>}

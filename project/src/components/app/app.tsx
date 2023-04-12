@@ -6,8 +6,6 @@ import LoginScreen from '../../pages/login-screen/login-screen';
 import MainScreen from '../../pages/main-screen/main-screen';
 import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
 import RoomScreen from '../../pages/room-screen/room-screen';
-import { Offer } from '../../types/offer';
-import { Review } from '../../types/review';
 import PrivateRoute from '../private-route/private-route';
 import HistoryRouter from '../history-route/history-route';
 import browserHistory from '../../browser-history';
