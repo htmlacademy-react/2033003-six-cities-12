@@ -13,6 +13,7 @@ type OfferCardProps = {
 function OfferCard({offer, onMouseEnter, onMouseLeave, isNearby}: OfferCardProps) : JSX.Element{
   const{id, previewImage, title, price, rating, type, isPremium, isFavorite} = offer;
   const navigate = useNavigate();
+
   const handleNavigateClick: MouseEventHandler<HTMLAnchorElement> = (evt) => {
     evt.preventDefault();
     navigate(`/offer/${id}`, { state: { from: 'OfferCard' } });

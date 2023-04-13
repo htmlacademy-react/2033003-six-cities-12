@@ -1,22 +1,21 @@
 
-import { Review as ReviewType} from '../../types/review';
-import CommentSubmissionForm from '../comment-submission-form/comment-submission-form';
-import Review from '../review/review';
+import { Fragment } from 'react';
+import { Review} from '../../types/review';
+import ReviewItem from '../review-item/review-item';
 
 type ReviewListProps = {
-  reviews: ReviewType[];
+  reviews: Review[];
 }
 
 function ReviewList({reviews}: ReviewListProps): JSX.Element {
   return (
-    <section className="property__reviews reviews">
+    <Fragment>
       <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviews.length}</span></h2>
       <ul className="reviews__list">
         {reviews.map((review) => (
-          <Review key={review.id} review={review}/>))}
+          <ReviewItem key={review.id} review={review}/>))}
       </ul>
-      <CommentSubmissionForm/>
-    </section>
+    </Fragment>
   );
 }
 export default ReviewList;
