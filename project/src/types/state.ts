@@ -1,20 +1,28 @@
-import { AuthorizationStatus } from '../const.js';
 import {store} from '../store/index.js';
 import { Offer } from './offer.js';
-import { ReviewData } from './review-data.js';
 import { Review } from './review.js';
 
-export type RootState = {
+export type MainState = {
   locationName: string;
   sortingMethod: string;
+}
+
+export type DataState = {
   offers: Offer[];
-  authorizationStatus: AuthorizationStatus;
-  error: string | null;
-  isOffersDataLoading: boolean;
-  selectedOffer: Offer | null;
   nearbyOffers: Offer[];
   reviews: Review[];
-  review: ReviewData | null;
+  isOffersDataLoading: boolean;
+  selectedOffer: Offer | null;
+}
+
+export type UserState = {
+  authorizationStatus: string;
+}
+
+export type AppState = {
+  main: MainState;
+  data: DataState;
+  user: UserState;
 }
 
 export type State = ReturnType<typeof store.getState>;

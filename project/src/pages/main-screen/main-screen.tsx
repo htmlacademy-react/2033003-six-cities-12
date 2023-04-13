@@ -7,21 +7,23 @@ import { useAppSelector } from '../../hooks';
 import SortingOptions from '../../components/sorting-options/sorting-options';
 import { Offer } from '../../types/offer';
 import { AuthorizationStatus, sortOffers } from '../../const';
-import { RootState } from '../../types/state';
 import LoadingScreen from '../../components/loading-screen/loading-screen';
+import { getOffers, isOffersDataLoading } from '../../store/main-data/main-data.selectors';
+import { getAuthorizationStatus } from '../../store/user-process/user-process.selectors';
+import { getLocationName, getSortingMethod } from '../../store/main-process/main-process.selectors';
 
 function MainScreen() : JSX.Element {
   const [activeOfferId, setActiveOffer] = useState<number>(-1);
-  const selectedCityName = useAppSelector((state) => state.locationName);
-  const selectedSortingMethod = useAppSelector((state) => state.sortingMethod);
-  const offers: Offer[] = useAppSelector((state) => state.offers);
+  const selectedCityName = useAppSelector(getLocationName);
+  const selectedSortingMethod = useAppSelector(getSortingMethod);
+  const offers: Offer[] = useAppSelector(getOffers);
   const filteredOffers: Offer[] = sortOffers(offers,selectedSortingMethod).filter((offer) => offer.city.name === selectedCityName);
   const city = filteredOffers.find((offer) => offer.city.name === selectedCityName)?.city ?? null;
 
-  const authorizationStatus = useAppSelector((state: RootState) => state.authorizationStatus);
-  const isOffersDataLoading = useAppSelector((state: RootState) => state.isOffersDataLoading);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  const isOffersLoading = useAppSelector(isOffersDataLoading);
 
-  if (authorizationStatus === AuthorizationStatus.Unknown || isOffersDataLoading) {
+  if (authorizationStatus === AuthorizationStatus.Unknown || isOffersLoading) {
     return (
       <LoadingScreen/>
     );

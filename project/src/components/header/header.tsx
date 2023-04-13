@@ -4,7 +4,7 @@ import { AppRoute, AuthorizationStatus } from '../../const';
 import { Offer } from '../../types/offer';
 import { logoutAction } from '../../store/api-actions';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { RootState } from '../../types/state';
+import { getAuthorizationStatus } from '../../store/user-process/user-process.selectors';
 
 type HeaderProps = {
   offers: Offer[];
@@ -15,7 +15,7 @@ function Header({offers}: HeaderProps): JSX.Element {
   const dispatch = useAppDispatch();
 
   const favoriteOffers = offers.filter((offer) => offer.isFavorite);
-  const authorizationStatus = useAppSelector((state: RootState) => state.authorizationStatus);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const isLoggedIn = authorizationStatus === AuthorizationStatus.Auth;
 
 

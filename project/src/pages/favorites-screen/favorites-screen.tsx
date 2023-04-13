@@ -3,16 +3,17 @@ import Header from '../../components/header/header';
 import Rating from '../../components/rating/rating';
 import { useAppSelector } from '../../hooks';
 import { Offer } from '../../types/offer';
-import { RootState } from '../../types/state';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import { Fragment, MouseEventHandler, useEffect } from 'react';
+import { getOffers } from '../../store/main-data/main-data.selectors';
+import { getAuthorizationStatus } from '../../store/user-process/user-process.selectors';
 
 function FavoritesScreen() :JSX.Element {
   const navigate = useNavigate();
-  const offers: Offer[] = useAppSelector((state) => state.offers);
+  const offers: Offer[] = useAppSelector(getOffers);
   const favoriteOffers: Offer[] = offers.filter((offer) => offer.isFavorite);
   const cities: string[] = Array.from(new Set(favoriteOffers.map((offer) => offer.city.name)));
-  const isLoggedIn = useAppSelector((state: RootState) => state.authorizationStatus) === AuthorizationStatus.Auth;
+  const isLoggedIn = useAppSelector(getAuthorizationStatus) === AuthorizationStatus.Auth;
 
   useEffect(() => {
     if (!isLoggedIn) {

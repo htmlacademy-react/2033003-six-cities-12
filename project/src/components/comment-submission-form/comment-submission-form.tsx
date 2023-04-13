@@ -3,8 +3,8 @@ import { ratings } from '../../const';
 import { ReviewData } from '../../types/review-data';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { postCommentAction } from '../../store/api-actions';
-import ErrorMessage from '../error-message/error-message';
-import { setError } from '../../store/action';
+import {toast} from 'react-toastify';
+import { getOffer } from '../../store/main-data/main-data.selectors';
 
 function CommentSubmissionForm(): JSX.Element{
   const dispatch = useAppDispatch();
@@ -12,7 +12,7 @@ function CommentSubmissionForm(): JSX.Element{
   const [comment, setComment] = useState<string>('');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const selectedOffer = useAppSelector((state) => state.selectedOffer);
+  const selectedOffer = useAppSelector(getOffer);
 
   const handleRatingChange = (value: number) => {
     setRating(value);
@@ -25,7 +25,7 @@ function CommentSubmissionForm(): JSX.Element{
       setComment('');
       setIsSubmitting(false);
     }).catch((ex: string | null) => {
-      setError(ex);
+      toast.warn(ex);
       setIsSubmitting(false);
     });
   };
@@ -82,7 +82,7 @@ function CommentSubmissionForm(): JSX.Element{
         </p>
         <button className="reviews__submit form__submit button" type="submit" disabled={isSubmitButtonDisabled}>Submit</button>
       </div>
-      <ErrorMessage/>
+      {/* <ErrorMessage/> */}
     </form>
   );
 }
