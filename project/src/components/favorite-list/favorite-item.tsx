@@ -1,16 +1,16 @@
-import { Link } from "react-router-dom";
-import Rating from "../rating/rating";
-import { Offer } from "../../types/offer";
+import { Link } from 'react-router-dom';
+import Rating from '../rating/rating';
+import { Offer } from '../../types/offer';
 
 type FavoritesPlacesProps = {
   offer: Offer;
 }
 
 function FavoriteItem({offer}: FavoritesPlacesProps) :JSX.Element {
-  const { id, isPremium, previewImage, price, isFavorite, rating, title, type, city } = offer;
+  const { isPremium, previewImage, price, isFavorite, rating, title, type } = offer;
 
   return(
-    <article key={`${city}-${id}`} className="favorites__card place-card">
+    <article className="favorites__card place-card">
       {isPremium ? <div className="place-card__mark"><span>Premium</span></div> : ''}
       <div className="favorites__image-wrapper place-card__image-wrapper">
         <Link to="#">

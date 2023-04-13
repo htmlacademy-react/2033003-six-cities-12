@@ -1,4 +1,3 @@
-import { Fragment} from 'react';
 import { Offer } from '../../types/offer';
 import OfferCard from '../offer-card/offer-card';
 import { useAppSelector } from '../../hooks';
@@ -10,7 +9,9 @@ type OffersProps = {
 }
 
 function Offers({setActiveOffer, isNearby = false}: OffersProps) : JSX.Element {
-  const offers: Offer[] = isNearby ? useAppSelector(getNearbyOffers) : useAppSelector(getFilteredAndSortedOffers);
+  const nearbyOffers = useAppSelector(getNearbyOffers);
+  const filteredAndSortedOffers = useAppSelector(getFilteredAndSortedOffers);
+  const offers: Offer[] = isNearby ? nearbyOffers : filteredAndSortedOffers;
 
   return (
     <div className="cities__places-list places__list tabs__content">

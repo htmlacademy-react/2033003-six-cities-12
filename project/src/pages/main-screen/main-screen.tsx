@@ -1,4 +1,4 @@
-import { memo, useMemo, useState } from 'react';
+import { memo, useState } from 'react';
 import Header from '../../components/header/header';
 import LocationList from '../../components/location-list/location-list';
 import Map from '../../components/map/map';
@@ -15,7 +15,7 @@ import { getCity, getFilteredAndSortedOffers, isOffersDataLoading } from '../../
 function MainScreen() : JSX.Element {
   const [activeOfferId, setActiveOffer] = useState<number>(-1);
   const selectedCityName = useAppSelector(getLocationName);
-  const filteredAndSortedOffers: Offer[] =  useAppSelector(getFilteredAndSortedOffers);
+  const filteredAndSortedOffers: Offer[] = useAppSelector(getFilteredAndSortedOffers);
   const city = useAppSelector(getCity);
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const isOffersLoading = useAppSelector(isOffersDataLoading);
