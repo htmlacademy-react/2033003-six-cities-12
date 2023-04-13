@@ -14,7 +14,7 @@ import { AuthorizationStatus, compareByDate } from '../../const';
 import CommentSubmissionForm from '../../components/comment-submission-form/comment-submission-form';
 
 import { getAuthorizationStatus } from '../../store/user-process/user-process.selectors';
-import { getNearbyOffers, getOffer, getOffers, getReviews } from '../../store/main-data/main-data.selectors';
+import { getNearbyOffers, getOffer, getReviews } from '../../store/main-data/main-data.selectors';
 
 function RoomScreen(): JSX.Element | null {
   const dispatch = useAppDispatch();
@@ -28,10 +28,8 @@ function RoomScreen(): JSX.Element | null {
     }
   }, [dispatch, id]);
   const isLoggedIn = useAppSelector(getAuthorizationStatus) === AuthorizationStatus.Auth;
-  const offers = useAppSelector(getOffers);
   const nearbyOffers: Offer[] = useAppSelector(getNearbyOffers);
   const offer: Offer | null | undefined = useAppSelector(getOffer);
-
   const offerReviews: Review[] = useAppSelector(getReviews);
   const latestReviews = offerReviews.slice(-10).sort(compareByDate);
   if(offer){
@@ -42,7 +40,7 @@ function RoomScreen(): JSX.Element | null {
     ];
     return(
       <div className="page">
-        <Header offers={offers}/>
+        <Header/>
         <main className="page__main page__main--property">
           <section className="property">
             <RoomGalery offer={offer}/>
@@ -118,7 +116,7 @@ function RoomScreen(): JSX.Element | null {
             <section className="near-places places">
               <h2 className="near-places__title">Other places in the neighbourhood</h2>
               <div className="near-places__list places__list">
-                <Offers offers={nearbyOffers} isNearby/>
+                <Offers isNearby/>
               </div>
             </section>
           </div>

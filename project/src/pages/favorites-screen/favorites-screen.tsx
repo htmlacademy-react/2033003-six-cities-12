@@ -5,13 +5,12 @@ import { useAppSelector } from '../../hooks';
 import { Offer } from '../../types/offer';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import { Fragment, MouseEventHandler, useEffect } from 'react';
-import { getOffers } from '../../store/main-data/main-data.selectors';
 import { getAuthorizationStatus } from '../../store/user-process/user-process.selectors';
+import { getFavoriteOffers, getOffers } from '../../store/main-data/main-data.selectors';
 
 function FavoritesScreen() :JSX.Element {
   const navigate = useNavigate();
-  const offers: Offer[] = useAppSelector(getOffers);
-  const favoriteOffers: Offer[] = offers.filter((offer) => offer.isFavorite);
+  const favoriteOffers: Offer[] = useAppSelector(getFavoriteOffers);
   const cities: string[] = Array.from(new Set(favoriteOffers.map((offer) => offer.city.name)));
   const isLoggedIn = useAppSelector(getAuthorizationStatus) === AuthorizationStatus.Auth;
 
@@ -28,7 +27,7 @@ function FavoritesScreen() :JSX.Element {
 
   return(
     <div className="page">
-      <Header offers={favoriteOffers}/>
+      <Header/>
 
       <main className={`page__main page__main--favorites ${favoriteOffers.length === 0 ? 'page__main--favorites-empty' : ''}`}>
         <div className="page__favorites-container container">

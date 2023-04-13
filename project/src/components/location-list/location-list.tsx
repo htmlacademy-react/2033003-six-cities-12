@@ -1,11 +1,11 @@
+import { useAppSelector } from '../../hooks';
+import { getLocationName } from '../../store/main-process/main-process.selectors';
 import Location from './location';
 
 const LOCATIONS = ['Paris','Cologne','Brussels','Amsterdam','Hamburg','Dusseldorf'];
 
-type LocationListProps = {
-  selectedCityName: string;
-}
-function LocationList({selectedCityName}: LocationListProps):JSX.Element{
+function LocationList():JSX.Element{
+  const selectedCityName = useAppSelector(getLocationName);
   return(
     <section className="locations container">
       <ul className="locations__list tabs__list">

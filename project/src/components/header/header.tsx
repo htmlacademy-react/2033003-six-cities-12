@@ -5,16 +5,14 @@ import { Offer } from '../../types/offer';
 import { logoutAction } from '../../store/api-actions';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { getAuthorizationStatus } from '../../store/user-process/user-process.selectors';
+import { getOffers } from '../../store/main-data/main-data.selectors';
 
-type HeaderProps = {
-  offers: Offer[];
-}
-
-function Header({offers}: HeaderProps): JSX.Element {
+function Header(): JSX.Element {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
-  const favoriteOffers = offers.filter((offer) => offer.isFavorite);
+  const offers: Offer[] = useAppSelector(getOffers);
+  const favoriteOffers: Offer[] = offers.filter((offer) => offer.isFavorite);
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const isLoggedIn = authorizationStatus === AuthorizationStatus.Auth;
 

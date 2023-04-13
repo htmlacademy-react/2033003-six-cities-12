@@ -1,17 +1,19 @@
 import { Fragment} from 'react';
 import { Offer } from '../../types/offer';
 import OfferCard from '../offer-card/offer-card';
+import { useAppSelector } from '../../hooks';
+import { getFilteredAndSortedOffers, getNearbyOffers } from '../../store/main-data/main-data.selectors';
 
 type OffersProps = {
-  offers: Offer[];
   setActiveOffer?: (id: number) => void;
   isNearby?: boolean;
 }
 
-function Offers({offers, setActiveOffer, isNearby = false}: OffersProps) : JSX.Element {
+function Offers({setActiveOffer, isNearby = false}: OffersProps) : JSX.Element {
+  const offers: Offer[] = isNearby ? useAppSelector(getNearbyOffers) : useAppSelector(getFilteredAndSortedOffers);
 
   return (
-    <Fragment>
+    <div className="cities__places-list places__list tabs__content">
       {offers.map((offer) => (
         <OfferCard
           key={offer.id}
@@ -21,7 +23,7 @@ function Offers({offers, setActiveOffer, isNearby = false}: OffersProps) : JSX.E
           isNearby={isNearby}
         />
       ))}
-    </Fragment>
+    </div>
   );
 }
 
