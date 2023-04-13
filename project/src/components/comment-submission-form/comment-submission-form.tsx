@@ -82,7 +82,6 @@ function CommentSubmissionForm(): JSX.Element{
         </p>
         <button className="reviews__submit form__submit button" type="submit" disabled={isSubmitButtonDisabled}>Submit</button>
       </div>
-      {/* <ErrorMessage/> */}
     </form>
   );
 }

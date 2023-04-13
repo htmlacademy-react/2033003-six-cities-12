@@ -1,5 +1,4 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { Offer } from '../../types/offer';
 import { MainState } from '../../types/state';
 import { SortType } from '../../const';
 
