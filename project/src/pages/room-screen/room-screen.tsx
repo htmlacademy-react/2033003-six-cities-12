@@ -10,9 +10,11 @@ import { Review } from '../../types/review';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useEffect } from 'react';
 import { fetchNearbyOffersAction, fetchOfferAction, fetchReviewsAction } from '../../store/api-actions';
-import { RootState } from '../../types/state';
-import { AuthorizationStatus } from '../../const';
+import { AuthorizationStatus, compareByDate } from '../../const';
 import CommentSubmissionForm from '../../components/comment-submission-form/comment-submission-form';
+
+import { getAuthorizationStatus } from '../../store/user-process/user-process.selectors';
+import { getNearbyOffers, getOffer, getReviews } from '../../store/main-data/main-data.selectors';
 
 function RoomScreen(): JSX.Element | null {
   const dispatch = useAppDispatch();
@@ -25,14 +27,11 @@ function RoomScreen(): JSX.Element | null {
       dispatch(fetchReviewsAction(id));
     }
   }, [dispatch, id]);
-  const isLoggedIn = useAppSelector((state: RootState) => state.authorizationStatus) === AuthorizationStatus.Auth;
-  const offers = useAppSelector((state) => state.offers);
-  const nearbyOffers: Offer[] = useAppSelector((state) => state.nearbyOffers);
-  const offer: Offer | null | undefined = useAppSelector((state) => state.selectedOffer);
-
-
-
- const offerReviews: Review[] = useAppSelector((state) => state.reviews);
+  const isLoggedIn = useAppSelector(getAuthorizationStatus) === AuthorizationStatus.Auth;
+  const nearbyOffers: Offer[] = useAppSelector(getNearbyOffers);
+  const offer: Offer | null | undefined = useAppSelector(getOffer);
+  const offerReviews: Review[] = useAppSelector(getReviews);
+  const latestReviews = offerReviews.slice(-10).sort(compareByDate);
   if(offer){
     const { title, price, rating, type, isPremium, bedrooms, maxAdults, host, description, goods, city }: Offer = offer;
     const nearbyOffersWithCurrent: Offer[] = [
@@ -41,7 +40,7 @@ function RoomScreen(): JSX.Element | null {
     ];
     return(
       <div className="page">
-        <Header offers={offers}/>
+        <Header/>
         <main className="page__main page__main--property">
           <section className="property">
             <RoomGalery offer={offer}/>
@@ -106,7 +105,7 @@ function RoomScreen(): JSX.Element | null {
                   </div>
                 </div>
                 <section className="property__reviews reviews">
-                  <ReviewList reviews={offerReviews}/>
+                  <ReviewList reviews={latestReviews}/>
                   {isLoggedIn && <CommentSubmissionForm/>}
                 </section>
               </div>
@@ -117,7 +116,7 @@ function RoomScreen(): JSX.Element | null {
             <section className="near-places places">
               <h2 className="near-places__title">Other places in the neighbourhood</h2>
               <div className="near-places__list places__list">
-                <Offers offers={nearbyOffers} isNearby/>
+                <Offers isNearby/>
               </div>
             </section>
           </div>
@@ -126,7 +125,5 @@ function RoomScreen(): JSX.Element | null {
     );
   }
   return null;
-  
-
 }
 export default RoomScreen;

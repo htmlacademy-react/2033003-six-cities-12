@@ -1,69 +1,57 @@
-import { FormEvent, Fragment, useRef, useState } from 'react';
-import { ratings } from '../../const';
+import { FormEvent, useCallback, useMemo, useState } from 'react';
 import { ReviewData } from '../../types/review-data';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { postCommentAction } from '../../store/api-actions';
+import {toast} from 'react-toastify';
+import { getOffer } from '../../store/main-data/main-data.selectors';
+import RatingStars from '../rating/rating-stars';
+import Comment from './comment';
 
 function CommentSubmissionForm(): JSX.Element{
   const dispatch = useAppDispatch();
-  const [rating, setRating] = useState(0);
-  const selectedOffer = useAppSelector((state) => state.selectedOffer);
-  //const [reviewText, setReviewText] = useState('');
+  const [rating, setRating] = useState<number>(0);
+  const [comment, setComment] = useState<string>('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const commentRef = useRef<HTMLTextAreaElement | null>(null);
+  const selectedOffer = useAppSelector(getOffer);
 
-  const handleRatingChange = (value: number) => {
-    setRating(value);
-  };
+  const onSubmit = useCallback((reviewData: ReviewData) => {
+    setIsSubmitting(true);
+    dispatch(postCommentAction(reviewData)).then(() => {
+      setRating(0);
+      setComment('');
+      setIsSubmitting(false);
+    }).catch((ex: string | null) => {
+      toast.warn(ex);
+      setIsSubmitting(false);
+    });
+  }, [dispatch]);
 
-  const onSubmit = (reviewData: ReviewData) => {
-    dispatch(postCommentAction(reviewData));
-  };
-
-  const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = useCallback((evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
 
-    if (rating !== null && commentRef.current !== null) {
+    if (rating !== null && comment.length >= 50) {
       onSubmit({
         hotelId: String(selectedOffer?.id),
-        comment: commentRef.current.value,
+        comment,
         rating: String(rating),
       });
     }
-  };
+  }, [rating, comment, onSubmit, selectedOffer]);
+
+  const isSubmitButtonDisabled = useMemo(() => rating === 0 || comment.length < 50 || isSubmitting,
+    [rating, comment.length, isSubmitting]);
 
   return(
     <form className="reviews__form form" action="" onSubmit={handleSubmit} method="post">
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
-      <div className="reviews__rating-form form__rating">
-        {ratings.map((rating) => (
-          <Fragment key={rating.value}>
-            <input
-              className="form__rating-input visually-hidden"
-              name="rating"
-              id={`${rating.value}-stars`}
-              type="radio"
-              value={rating.value}
-              onChange={() => handleRatingChange(rating.value)}
-            />
-            <label
-              htmlFor={`${rating.value}-stars`}
-              className="reviews__rating-label form__rating-label"
-              title={rating.title}
-            >
-              <svg className="form__star-image" width="37" height="33">
-                <use xlinkHref="#icon-star"></use>
-              </svg>
-            </label>
-          </Fragment>
-        ))}
-      </div>
-      <textarea className="reviews__textarea form__textarea" id="review" name="review" placeholder="Tell how was your stay, what you like and what can be improved" ref={commentRef}></textarea>
+      <RatingStars rating={rating} onRatingChange={setRating}/>
+      <Comment comment={comment} onChange={setComment} />
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
           To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
         </p>
-        <button className="reviews__submit form__submit button" type="submit">Submit</button>
+        <button className="reviews__submit form__submit button" type="submit" disabled={isSubmitButtonDisabled}>Submit</button>
       </div>
     </form>
   );

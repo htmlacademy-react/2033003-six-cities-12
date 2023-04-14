@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import { loginAction } from '../../store/api-actions';
 import { AuthData } from '../../types/auth-data';
 import { AppRoute, AuthorizationStatus } from '../../const';
-import { RootState } from '../../types/state';
+import { getAuthorizationStatus } from '../../store/user-process/user-process.selectors';
 
 function LoginScreen() : JSX.Element {
   const loginRef = useRef<HTMLInputElement | null>(null);
@@ -13,7 +13,7 @@ function LoginScreen() : JSX.Element {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const isLoggedIn = useAppSelector((state: RootState) => state.authorizationStatus) === AuthorizationStatus.Auth;
+  const isLoggedIn = useAppSelector(getAuthorizationStatus) === AuthorizationStatus.Auth;
 
   useEffect(() => {
     if (isLoggedIn) {

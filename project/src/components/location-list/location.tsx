@@ -1,7 +1,7 @@
 import { MouseEventHandler, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { useAppDispatch } from '../../hooks';
-import { changeCity } from '../../store/action';
+import { changeCity } from '../../store/main-process/main-process.slice';
 
 type LocationProps = {
   locationName: string;

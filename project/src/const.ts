@@ -1,5 +1,6 @@
 import { Offer } from './types/offer';
 import { Rating } from './types/rating';
+import { Review } from './types/review';
 
 export const SortType = {
   POPULAR: 'Popular',
@@ -51,7 +52,7 @@ export enum APIRoute {
   Comments = '/comments'
 }
 
-export const TIMEOUT_SHOW_ERROR = 3000;
+export const OPTIONS = ['Popular', 'Price: low to high', 'Price: high to low', 'Top rated first'];
 
 export const sortOffers = (offers: Offer[], sortingMethod: string): Offer[] => {
   switch (sortingMethod) {
@@ -65,3 +66,28 @@ export const sortOffers = (offers: Offer[], sortingMethod: string): Offer[] => {
       return offers;
   }
 };
+
+export const compareByDate = (a: Review, b: Review) =>
+  new Date(b.date).getTime() - new Date(a.date).getTime();
+
+export const generateNewReview = (comment: string, rating: string): Review => {
+  const newReview: Review = {
+    comment: comment,
+    date: new Date().toISOString(),
+    id: Math.floor(Math.random() * 1000000),
+    rating: Number(rating),
+    user: {
+      avatarUrl: '',
+      id: Math.floor(Math.random() * 1000000),
+      isPro: false,
+      name: 'Guest',
+    },
+  };
+  return newReview;
+};
+
+export enum NameSpace {
+  Data = 'data',
+  Main = 'main',
+  User = 'user',
+}
