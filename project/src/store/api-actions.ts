@@ -1,9 +1,10 @@
+import { redirectToRoute } from './action';
 
 import {AxiosInstance} from 'axios';
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {AppDispatch, State} from '../types/state.js';import { Offer } from '../types/offer.js';
 import {saveToken, dropToken} from '../services/token';
-import {APIRoute, generateNewReview} from '../const';
+import {APIRoute, AppRoute, generateNewReview} from '../const';
 import {AuthData} from '../types/auth-data';
 import {UserData} from '../types/user-data';
 import { Review } from '../types/review.js';
@@ -56,15 +57,20 @@ export const logoutAction = createAsyncThunk<void, undefined, {
   },
 );
 
-export const fetchOfferAction = createAsyncThunk<Offer, string, {
+export const fetchOfferAction = createAsyncThunk<Offer | null, string, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
 }>(
   'data/fetchOffer',
   async (hotelId: string, {dispatch, extra: api}) => {
-    const {data} = await api.get<Offer>(`${APIRoute.Hotels}/${hotelId}`);
-    return data;
+    try{
+      const {data} = await api.get<Offer | null>(`${APIRoute.Hotels}/${hotelId}`);
+      return data;
+    }catch{
+      dispatch(redirectToRoute(AppRoute.NotFound));
+      return null;
+    }
   },
 );
 

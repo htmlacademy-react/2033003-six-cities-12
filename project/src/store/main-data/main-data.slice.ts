@@ -1,10 +1,8 @@
-import { redirectToRoute } from '../action';
 import { Review } from '../../types/review';
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { Offer } from '../../types/offer';
 import { DataState } from '../../types/state';
 import { fetchNearbyOffersAction, fetchOfferAction, fetchOffersAction, fetchReviewsAction, postCommentAction } from '../api-actions';
-import { AppRoute } from '../../const';
 
 const initialState: DataState = {
   offers: [],
@@ -51,9 +49,6 @@ export const mainData = createSlice({
       })
       .addCase(fetchOfferAction.fulfilled, (state, action) => {
         state.selectedOffer = action.payload;
-      })
-      .addCase(fetchOfferAction.rejected, (state) => {
-        redirectToRoute(AppRoute.NotFound);
       })
       .addCase(fetchNearbyOffersAction.fulfilled, (state, action) => {
         state.nearbyOffers = action.payload;
