@@ -1,5 +1,4 @@
 import { useParams } from 'react-router-dom';
-import Header from '../../components/header/header';
 import Map from '../../components/map/map';
 import Offers from '../../components/offers/offers';
 import Rating from '../../components/rating/rating';
@@ -12,7 +11,6 @@ import { useEffect } from 'react';
 import { fetchNearbyOffersAction, fetchOfferAction, fetchReviewsAction } from '../../store/api-actions';
 import { AuthorizationStatus, compareByDate } from '../../const';
 import CommentSubmissionForm from '../../components/comment-submission-form/comment-submission-form';
-
 import { getAuthorizationStatus } from '../../store/user-process/user-process.selectors';
 import { getNearbyOffers, getOffer, getReviews } from '../../store/main-data/main-data.selectors';
 import Layout from '../../components/layout/layout';

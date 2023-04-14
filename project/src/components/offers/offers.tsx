@@ -1,5 +1,5 @@
 import { Offer } from '../../types/offer';
-import OfferCard from '../offer-card/offer-card';
+import OfferCard from './offer-card';
 import { useAppSelector } from '../../hooks';
 import { getFilteredAndSortedOffers, getNearbyOffers } from '../../store/main-data/main-data.selectors';
 
