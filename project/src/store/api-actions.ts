@@ -1,8 +1,8 @@
 import { redirectToRoute } from './action';
-
 import {AxiosInstance} from 'axios';
 import {createAsyncThunk} from '@reduxjs/toolkit';
-import {AppDispatch, State} from '../types/state.js';import { Offer } from '../types/offer.js';
+import {AppDispatch, State} from '../types/state.js';
+import { Offer } from '../types/offer.js';
 import {saveToken, dropToken} from '../services/token';
 import {APIRoute, AppRoute, generateNewReview} from '../const';
 import {AuthData} from '../types/auth-data';
@@ -22,14 +22,15 @@ export const fetchOffersAction = createAsyncThunk<Offer[], undefined, {
   },
 );
 
-export const checkAuthAction = createAsyncThunk<void, undefined, {
+export const checkAuthAction = createAsyncThunk<UserData, undefined, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
 }>(
   'user/checkAuth',
   async (_arg, {dispatch, extra: api}) => {
-    await api.get(APIRoute.Login);
+    const response = await api.get<UserData>(APIRoute.Login);
+    return response.data;
   },
 );
 

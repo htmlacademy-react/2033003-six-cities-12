@@ -4,7 +4,7 @@ import { AppRoute, AuthorizationStatus } from '../../const';
 import { Offer } from '../../types/offer';
 import { logoutAction } from '../../store/api-actions';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { getAuthorizationStatus } from '../../store/user-process/user-process.selectors';
+import { getAuthorizationStatus, getUserAvatarUrl, getUserEmail } from '../../store/user-process/user-process.selectors';
 import { getOffers } from '../../store/main-data/main-data.selectors';
 
 function Header(): JSX.Element {
@@ -14,6 +14,8 @@ function Header(): JSX.Element {
   const offers: Offer[] = useAppSelector(getOffers);
   const favoriteOffers: Offer[] = offers.filter((offer) => offer.isFavorite);
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  const email = useAppSelector(getUserEmail);
+  const avatarUrl = useAppSelector(getUserAvatarUrl);
   const isLoggedIn = authorizationStatus === AuthorizationStatus.Auth;
 
 
@@ -52,8 +54,9 @@ function Header(): JSX.Element {
                   <li className="header__nav-item user">
                     <Link className="header__nav-link header__nav-link--profile" to="#" onClick={handleFavoritesClick}>
                       <div className="header__avatar-wrapper user__avatar-wrapper">
+                        <img src={avatarUrl} alt="6 cities logo"/>
                       </div>
-                      <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
+                      <span className="header__user-name user__name">{email}</span>
                       <span className="header__favorite-count">{favoriteOffers.length}</span>
                     </Link>
                   </li>

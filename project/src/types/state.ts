@@ -17,6 +17,8 @@ export type DataState = {
 
 export type UserState = {
   authorizationStatus: string;
+  email: string;
+  avatarUrl: string;
 }
 
 export type AppState = {

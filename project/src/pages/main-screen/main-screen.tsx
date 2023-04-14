@@ -1,5 +1,4 @@
 import { memo, useState } from 'react';
-import Header from '../../components/header/header';
 import LocationList from '../../components/location-list/location-list';
 import Map from '../../components/map/map';
 import { useAppSelector } from '../../hooks';
@@ -21,7 +20,6 @@ function MainScreen() : JSX.Element {
   const isLoading = authorizationStatus === AuthorizationStatus.Unknown || isOffersLoading;
 
   if(!isLoading){
-    const MemoizedHeader = memo(Header);
     const MemoizedLocationList = memo(LocationList);
 
     return(
