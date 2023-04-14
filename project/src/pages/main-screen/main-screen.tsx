@@ -10,6 +10,7 @@ import { getAuthorizationStatus } from '../../store/user-process/user-process.se
 import { getCity, getFilteredAndSortedOffers, isOffersDataLoading } from '../../store/main-data/main-data.selectors';
 import OffersEmptyList from '../../components/offers/offers-empty-list';
 import OffersList from '../../components/offers/offers-list';
+import Layout from '../../components/layout/layout';
 
 function MainScreen() : JSX.Element {
   const [activeOfferId, setActiveOffer] = useState<number>(-1);
@@ -24,8 +25,7 @@ function MainScreen() : JSX.Element {
     const MemoizedLocationList = memo(LocationList);
 
     return(
-      <div className={`page page--gray page--main ${filteredAndSortedOffers.length === 0 ? 'page--main-empty' : ''}`}>
-        <MemoizedHeader/>
+      <Layout className={`page page--gray page--main ${filteredAndSortedOffers.length === 0 ? 'page--main-empty' : ''}`}>
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <MemoizedLocationList/>
@@ -43,7 +43,7 @@ function MainScreen() : JSX.Element {
             </div>
           </div>
         </div>
-      </div>
+      </Layout>
     );
   }
   return (<LoadingScreen/>);

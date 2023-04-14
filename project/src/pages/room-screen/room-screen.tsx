@@ -15,6 +15,7 @@ import CommentSubmissionForm from '../../components/comment-submission-form/comm
 
 import { getAuthorizationStatus } from '../../store/user-process/user-process.selectors';
 import { getNearbyOffers, getOffer, getReviews } from '../../store/main-data/main-data.selectors';
+import Layout from '../../components/layout/layout';
 
 function RoomScreen(): JSX.Element | null {
   const dispatch = useAppDispatch();
@@ -39,8 +40,7 @@ function RoomScreen(): JSX.Element | null {
       ...(offer ? [offer] : []),
     ];
     return(
-      <div className="page">
-        <Header/>
+      <Layout className="page">
         <main className="page__main page__main--property">
           <section className="property">
             <RoomGalery offer={offer}/>
@@ -121,7 +121,7 @@ function RoomScreen(): JSX.Element | null {
             </section>
           </div>
         </main>
-      </div>
+      </Layout>
     );
   }
   return null;
