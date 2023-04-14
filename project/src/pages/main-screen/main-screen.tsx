@@ -3,20 +3,29 @@ import LocationList from '../../components/location-list/location-list';
 import Map from '../../components/map/map';
 import { useAppSelector } from '../../hooks';
 import { Offer } from '../../types/offer';
-import { AuthorizationStatus } from '../../const';
+import { AuthorizationStatus, sortOffers } from '../../const';
 import LoadingScreen from '../../components/loading-screen/loading-screen';
 import { getAuthorizationStatus } from '../../store/user-process/user-process.selectors';
-import { getCity, getFilteredAndSortedOffers, isOffersDataLoading } from '../../store/main-data/main-data.selectors';
+import { getOffers, isOffersDataLoading } from '../../store/main-data/main-data.selectors';
 import OffersEmptyList from '../../components/offers/offers-empty-list';
 import OffersList from '../../components/offers/offers-list';
 import Layout from '../../components/layout/layout';
+import { getLocationName, getSortingMethod } from '../../store/main-process/main-process.selectors';
 
 function MainScreen() : JSX.Element {
   const [activeOfferId, setActiveOffer] = useState<number>(-1);
-  const filteredAndSortedOffers: Offer[] = useAppSelector(getFilteredAndSortedOffers);
-  const city = useAppSelector(getCity);
+
+  const offers: Offer[] = useAppSelector(getOffers);
+  const selectedCityName = useAppSelector(getLocationName);
+  const selectedSortingMethod = useAppSelector(getSortingMethod);
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const isOffersLoading = useAppSelector(isOffersDataLoading);
+
+  const filteredAndSortedOffers: Offer[] = sortOffers(offers,selectedSortingMethod)
+    .filter((offer) => offer.city.name === selectedCityName);
+
+  const city = filteredAndSortedOffers.find((offer) => offer.city.name === selectedCityName)?.city ?? null;
+
   const isLoading = authorizationStatus === AuthorizationStatus.Unknown || isOffersLoading;
 
   if(!isLoading){
@@ -31,7 +40,7 @@ function MainScreen() : JSX.Element {
         <div className="cities">
           <div className={`cities__places-container container ${filteredAndSortedOffers.length > 0 ? 'cities__places-container--empty' : ''}`}>
             {filteredAndSortedOffers.length > 0 ?
-              <OffersList onSetActiveOffer={setActiveOffer}/>
+              <OffersList onSetActiveOffer={setActiveOffer} filteredAndSortedOffers={filteredAndSortedOffers}/>
               :
               <OffersEmptyList/>}
             <div className="cities__right-section">

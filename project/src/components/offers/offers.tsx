@@ -1,16 +1,16 @@
 import { Offer } from '../../types/offer';
 import OfferCard from './offer-card';
 import { useAppSelector } from '../../hooks';
-import { getFilteredAndSortedOffers, getNearbyOffers } from '../../store/main-data/main-data.selectors';
+import { getNearbyOffers } from '../../store/main-data/main-data.selectors';
 
 type OffersProps = {
   setActiveOffer?: (id: number) => void;
   isNearby?: boolean;
+  filteredAndSortedOffers: Offer[];
 }
 
-function Offers({setActiveOffer, isNearby = false}: OffersProps) : JSX.Element {
+function Offers({setActiveOffer, filteredAndSortedOffers, isNearby = false}: OffersProps) : JSX.Element {
   const nearbyOffers = useAppSelector(getNearbyOffers);
-  const filteredAndSortedOffers = useAppSelector(getFilteredAndSortedOffers);
   const offers: Offer[] = isNearby ? nearbyOffers : filteredAndSortedOffers;
 
   return (

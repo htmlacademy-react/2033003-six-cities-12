@@ -4,15 +4,14 @@ import { getLocationName } from '../../store/main-process/main-process.selectors
 import SortingOptions from '../sorting-options/sorting-options';
 import Offers from './offers';
 import { Offer } from '../../types/offer';
-import { getFilteredAndSortedOffers } from '../../store/main-data/main-data.selectors';
 
 type OffersListProps = {
   onSetActiveOffer?: (id: number) => void;
+  filteredAndSortedOffers: Offer[];
 }
 
-function OffersList({onSetActiveOffer}: OffersListProps) : JSX.Element {
+function OffersList({onSetActiveOffer, filteredAndSortedOffers}: OffersListProps) : JSX.Element {
   const selectedCityName = useAppSelector(getLocationName);
-  const filteredAndSortedOffers: Offer[] = useAppSelector(getFilteredAndSortedOffers);
   const MemoizedSortingOptions = memo(SortingOptions);
   const MemoizedOffers = memo(Offers);
 
@@ -21,7 +20,7 @@ function OffersList({onSetActiveOffer}: OffersListProps) : JSX.Element {
       <h2 className="visually-hidden">Places</h2>
       <b className="places__found">{filteredAndSortedOffers.length} places to stay in {selectedCityName}</b>
       <MemoizedSortingOptions/>
-      <MemoizedOffers setActiveOffer={onSetActiveOffer}/>
+      <MemoizedOffers setActiveOffer={onSetActiveOffer} filteredAndSortedOffers={filteredAndSortedOffers}/>
     </section>
   );
 }
