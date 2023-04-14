@@ -6,6 +6,7 @@ import {toast} from 'react-toastify';
 import { getOffer } from '../../store/main-data/main-data.selectors';
 import RatingStars from '../rating/rating-stars';
 import Comment from './comment';
+import { getUserAvatarUrl, getUserEmail } from '../../store/user-process/user-process.selectors';
 
 function CommentSubmissionForm(): JSX.Element{
   const dispatch = useAppDispatch();
@@ -14,6 +15,9 @@ function CommentSubmissionForm(): JSX.Element{
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const selectedOffer = useAppSelector(getOffer);
+  const email = useAppSelector(getUserEmail);
+  const avatarUrl = useAppSelector(getUserAvatarUrl);
+  const userName = email.split('@')[0];
 
   const onSubmit = useCallback((reviewData: ReviewData) => {
     setIsSubmitting(true);
@@ -29,12 +33,14 @@ function CommentSubmissionForm(): JSX.Element{
 
   const handleSubmit = useCallback((evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
-
+    
     if (rating !== null && comment.length >= 50) {
       onSubmit({
         hotelId: String(selectedOffer?.id),
         comment,
         rating: String(rating),
+        avatarUrl,
+        name: userName
       });
     }
   }, [rating, comment, onSubmit, selectedOffer]);
