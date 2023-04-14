@@ -33,7 +33,7 @@ function CommentSubmissionForm(): JSX.Element{
 
   const handleSubmit = useCallback((evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
-    
+
     if (rating !== null && comment.length >= 50) {
       onSubmit({
         hotelId: String(selectedOffer?.id),
@@ -43,7 +43,7 @@ function CommentSubmissionForm(): JSX.Element{
         name: userName
       });
     }
-  }, [rating, comment, onSubmit, selectedOffer]);
+  }, [rating, comment, onSubmit, selectedOffer, userName, avatarUrl]);
 
   const isSubmitButtonDisabled = useMemo(() => rating === 0 || comment.length < 50 || isSubmitting,
     [rating, comment.length, isSubmitting]);
