@@ -16,7 +16,7 @@ export const mainProcess = createSlice({
     },
     changeSorting: (state, action: PayloadAction<string>) => {
       state.sortingMethod = action.payload;
-    },
+    }
   },
 });
 export const { changeCity, changeSorting } = mainProcess.actions;

@@ -13,6 +13,7 @@ export type DataState = {
   reviews: Review[];
   isOffersDataLoading: boolean;
   selectedOffer: Offer | null;
+  favoriteOffers: Offer[];
 }
 
 export type UserState = {
