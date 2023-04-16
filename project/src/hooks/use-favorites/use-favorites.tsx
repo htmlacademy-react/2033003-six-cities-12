@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useAppDispatch } from '..';
 import { toggleFavoriteAction } from '../../store/api-actions';
 
-export function useFavorites(offerId: number, initialIsFavorite: boolean) {
+function useFavorites(offerId: number, initialIsFavorite: boolean) {
   const dispatch = useAppDispatch();
   const [isOfferFavorite, setIsOfferFavorite] = useState(initialIsFavorite);
 
@@ -21,3 +21,5 @@ export function useFavorites(offerId: number, initialIsFavorite: boolean) {
 
   return { isFavorite: isOfferFavorite, toggleFavorite };
 }
+
+export default useFavorites;

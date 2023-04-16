@@ -3,7 +3,7 @@ import { useAppSelector } from '../../hooks';
 import { getAuthorizationStatus } from '../../store/user-process/user-process.selectors';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import { useNavigate } from 'react-router-dom';
-import { useFavorites } from '../../hooks/use-favorites/use-favorites';
+import useFavorites from '../../hooks/use-favorites/use-favorites';
 
 const BOOKMARK_CLASSNAME = {
   placeCard: {
