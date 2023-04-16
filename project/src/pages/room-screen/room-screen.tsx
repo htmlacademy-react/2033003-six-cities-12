@@ -15,6 +15,7 @@ import { getAuthorizationStatus } from '../../store/user-process/user-process.se
 import { getNearbyOffers, getOffer, getOffers, getReviews } from '../../store/main-data/main-data.selectors';
 import Layout from '../../components/layout/layout';
 import { getLocationName, getSortingMethod } from '../../store/main-process/main-process.selectors';
+import Bookmark from '../../components/bookmark/bookmark';
 
 function RoomScreen(): JSX.Element | null {
   const dispatch = useAppDispatch();
@@ -42,11 +43,13 @@ function RoomScreen(): JSX.Element | null {
     .filter((offerItem) => offerItem.city.name === selectedCityName);
 
   if(offer){
-    const { title, price, rating, type, isPremium, bedrooms, maxAdults, host, description, goods, city }: Offer = offer;
+    const { title, price, rating, type, isPremium, bedrooms, maxAdults, host, description, goods, city, isFavorite}: Offer = offer;
+    const offerId = offer.id;
     const nearbyOffersWithCurrent: Offer[] = [
       ...nearbyOffers,
       ...(offer ? [offer] : []),
     ];
+
     return(
       <Layout className="page">
         <main className="page__main page__main--property">
@@ -59,12 +62,7 @@ function RoomScreen(): JSX.Element | null {
                   <h1 className="property__name">
                     {title}
                   </h1>
-                  <button className="property__bookmark-button button" type="button">
-                    <svg className="property__bookmark-icon" width="31" height="33">
-                      <use xlinkHref="#icon-bookmark"></use>
-                    </svg>
-                    <span className="visually-hidden">To bookmarks</span>
-                  </button>
+                  <Bookmark isProperty offerId={offerId} isFavorite={isFavorite}/>
                 </div>
                 <div className="property__rating rating">
                   <Rating rating={rating}/>
@@ -118,7 +116,7 @@ function RoomScreen(): JSX.Element | null {
                 </section>
               </div>
             </div>
-            <Map city={city} activeOfferId={Number(id)} offers={nearbyOffersWithCurrent} wrapperClassName={'property__map'}/>
+            <Map city={city} activeOfferId={offerId} offers={nearbyOffersWithCurrent} wrapperClassName={'property__map'}/>
           </section>
           <div className="container">
             <section className="near-places places">

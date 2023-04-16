@@ -1,10 +1,6 @@
 import { Link } from 'react-router-dom';
 import Rating from '../rating/rating';
 import { Offer } from '../../types/offer';
-import { useState } from 'react';
-import { useAppDispatch } from '../../hooks';
-import { FavoriteData } from '../../types/favorite-data';
-import { toggleFavoriteAction } from '../../store/api-actions';
 import Bookmark from '../bookmark/bookmark';
 
 type FavoritesPlacesProps = {
@@ -13,21 +9,6 @@ type FavoritesPlacesProps = {
 
 function FavoriteItem({offer}: FavoritesPlacesProps) :JSX.Element {
   const { id, isPremium, previewImage, price, isFavorite, rating, title, type } = offer;
-  const [isFavoriteNumber, setIsFavorite] = useState<number>(isFavorite ? 1 : 0);
-  const dispatch = useAppDispatch();
-
-  const onSubmit = (favoriteData: FavoriteData) => {
-    dispatch(toggleFavoriteAction(favoriteData));
-  };
-
-  const handleBookmarkClick = () => {
-    const newStatus = !isFavoriteNumber;
-    onSubmit({
-      offerId: id,
-      status: newStatus ? 1 : 0,
-    });
-    setIsFavorite(newStatus ? 1 : 0);
-  };
 
   return(
     <article className="favorites__card place-card">
@@ -43,7 +24,7 @@ function FavoriteItem({offer}: FavoritesPlacesProps) :JSX.Element {
             <b className="place-card__price-value">&euro;{price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <Bookmark isFavoriteNumber={isFavoriteNumber} onBookmarkClick={handleBookmarkClick}/>
+          <Bookmark isFavorite={isFavorite} offerId={id}/>
         </div>
         <div className="place-card__rating rating">
           <Rating rating={rating}/>

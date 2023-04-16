@@ -1,4 +1,4 @@
 export type FavoriteData = {
   offerId: number;
-  status: number;
+  status: boolean;
 };
