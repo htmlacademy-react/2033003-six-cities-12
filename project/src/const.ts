@@ -49,7 +49,8 @@ export enum APIRoute {
   Hotels = '/hotels',
   Login = '/login',
   Logout = '/logout',
-  Comments = '/comments'
+  Comments = '/comments',
+  Favorite = '/favorite'
 }
 
 export const OPTIONS = ['Popular', 'Price: low to high', 'Price: high to low', 'Top rated first'];
