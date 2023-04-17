@@ -18,7 +18,7 @@ function useLoginForm(){
   const navigate = useNavigate();
 
   const [isSubmitting, setIsSubmitting] = useState(false);
-  
+
   const isLoggedIn = useAppSelector(getAuthorizationStatus) === AuthorizationStatus.Auth;
 
   useEffect(() => {

@@ -92,3 +92,5 @@ export enum NameSpace {
   Main = 'main',
   User = 'user',
 }
+
+export const MAX_IMAGES = 6;
