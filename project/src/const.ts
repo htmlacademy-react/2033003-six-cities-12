@@ -95,7 +95,7 @@ export enum NameSpace {
 
 export const MAX_IMAGES = 6;
 
-export const isValidPassword = (password: string): boolean  => {
+export const isValidPassword = (password: string): boolean => {
   const regex = /^(?=.*[a-zA-Z])(?=.*[0-9])/;
   return regex.test(password);
 };

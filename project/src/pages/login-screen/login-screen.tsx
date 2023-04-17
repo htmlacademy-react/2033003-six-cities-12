@@ -7,7 +7,7 @@ function LoginScreen() : JSX.Element {
 
   return(
     <div className="page page--gray page--login">
-      <header className="header"> 
+      <header className="header">
         <div className="container">
           <div className="header__wrapper">
             <HeaderLogo onGoMainClick={handleGoMainClick}/>
