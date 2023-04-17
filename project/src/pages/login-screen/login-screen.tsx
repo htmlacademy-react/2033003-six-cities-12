@@ -1,19 +1,16 @@
 import { Link } from 'react-router-dom';
 import useLoginForm from '../../hooks/use-login-form/use-login-form';
+import HeaderLogo from '../../components/header/header-logo';
 
 function LoginScreen() : JSX.Element {
-  const { loginRef, passwordRef, isSubmitting, handleSubmit } = useLoginForm();
+  const { loginRef, passwordRef, isSubmitting, handleSubmit, handleGoMainClick } = useLoginForm();
 
   return(
     <div className="page page--gray page--login">
-      <header className="header">
+      <header className="header"> 
         <div className="container">
           <div className="header__wrapper">
-            <div className="header__left">
-              <a className="header__logo-link" href="main.html">
-                <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41"/>
-              </a>
-            </div>
+            <HeaderLogo onGoMainClick={handleGoMainClick}/>
           </div>
         </div>
       </header>

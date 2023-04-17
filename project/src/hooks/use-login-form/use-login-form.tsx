@@ -1,9 +1,10 @@
-import { FormEvent, useEffect, useRef, useState } from 'react';
+import { FormEvent, MouseEventHandler, useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '..';
-import { AppRoute, AuthorizationStatus } from '../../const';
+import { AppRoute, AuthorizationStatus, isValidPassword } from '../../const';
 import { loginAction } from '../../store/api-actions/auth-api-actions';
 import { getAuthorizationStatus } from '../../store/user-process/user-process.selectors';
+import { toast } from 'react-toastify';
 
 type AuthData = {
   login: string;
@@ -29,6 +30,13 @@ function useLoginForm(){
 
   const onSubmit = (authData: AuthData) => {
     setIsSubmitting(true);
+
+    if (!isValidPassword(authData.password)) {
+      toast.warn('Password must contain at least one letter and one number.');
+      setIsSubmitting(false);
+      return;
+    }
+
     dispatch(loginAction(authData))
       .then(() => {
         setIsSubmitting(false);
@@ -48,11 +56,17 @@ function useLoginForm(){
     }
   };
 
+  const handleGoMainClick: MouseEventHandler<HTMLAnchorElement> = (evt) => {
+    evt.preventDefault();
+    navigate(AppRoute.Main);
+  };
+
   return {
     loginRef,
     passwordRef,
     isSubmitting,
     handleSubmit,
+    handleGoMainClick,
   };
 }
 

@@ -6,6 +6,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import { getAuthorizationStatus, getUserAvatarUrl, getUserEmail } from '../../store/user-process/user-process.selectors';
 import { getOffers } from '../../store/main-data/main-data.selectors';
 import { logoutAction } from '../../store/api-actions/auth-api-actions';
+import HeaderLogo from './header-logo';
 
 function Header(): JSX.Element {
   const navigate = useNavigate();
@@ -42,11 +43,7 @@ function Header(): JSX.Element {
     <header className="header">
       <div className="container">
         <div className="header__wrapper">
-          <div className="header__left">
-            <Link className="header__logo-link" to="#" onClick={handleGoMainClick}>
-              <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41"/>
-            </Link>
-          </div>
+          <HeaderLogo onGoMainClick={handleGoMainClick}/>
           <nav className="header__nav">
             <ul className="header__nav-list">
               {isLoggedIn ? (
