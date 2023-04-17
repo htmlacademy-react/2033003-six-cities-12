@@ -16,7 +16,8 @@ describe('NotFoundScreen', () => {
 
   it('renders the link correctly', () => {
     const history = createMemoryHistory();
-    render(<HistoryRouter history={history}><NotFoundScreen/></HistoryRouter>);
+    render(<HistoryRouter history={history}><HelmetProvider><NotFoundScreen/>
+      </HelmetProvider></HistoryRouter>);
     const linkElement = screen.getByText('Вернуться на главную');
     expect(linkElement).toBeInTheDocument();
     expect(linkElement).toHaveAttribute('href', '/');
