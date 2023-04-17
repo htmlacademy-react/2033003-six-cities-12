@@ -1,9 +1,9 @@
-import { FormEvent, useRef, useState } from 'react';
+import { FormEvent, useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '..';
 import { AppRoute, AuthorizationStatus } from '../../const';
-import { getAuthorizationStatus } from '../../store/user-process/user-process.selectors';
 import { loginAction } from '../../store/api-actions/auth-api-actions';
+import { getAuthorizationStatus } from '../../store/user-process/user-process.selectors';
 
 type AuthData = {
   login: string;
@@ -17,9 +17,15 @@ function useLoginForm(){
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  
   const isLoggedIn = useAppSelector(getAuthorizationStatus) === AuthorizationStatus.Auth;
 
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  useEffect(() => {
+    if (isLoggedIn) {
+      navigate(AppRoute.Main);
+    }
+  }, [isLoggedIn, navigate]);
 
   const onSubmit = (authData: AuthData) => {
     setIsSubmitting(true);
@@ -45,7 +51,6 @@ function useLoginForm(){
   return {
     loginRef,
     passwordRef,
-    isLoggedIn,
     isSubmitting,
     handleSubmit,
   };
