@@ -7,8 +7,14 @@ import { getAuthorizationStatus, getUserAvatarUrl, getUserEmail } from '../../st
 import { getOffers } from '../../store/main-data/main-data.selectors';
 import { logoutAction } from '../../store/api-actions/auth-api-actions';
 import HeaderLogo from './header-logo';
+import SignIn from '../sign-in/sign-in';
+import SignOut from '../sign-out/sign-out';
 
-function Header(): JSX.Element {
+type HeaderProps = {
+  isLoginScreen?: boolean;
+}
+
+function Header({isLoginScreen}: HeaderProps): JSX.Element {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
@@ -44,36 +50,21 @@ function Header(): JSX.Element {
       <div className="container">
         <div className="header__wrapper">
           <HeaderLogo onGoMainClick={handleGoMainClick}/>
-          <nav className="header__nav">
+          {isLoginScreen ?? <nav className="header__nav">
             <ul className="header__nav-list">
               {isLoggedIn ? (
-                <Fragment>
-                  <li className="header__nav-item user">
-                    <Link className="header__nav-link header__nav-link--profile" to="#" onClick={handleFavoritesClick}>
-                      <div className="header__avatar-wrapper user__avatar-wrapper">
-                        <img src={avatarUrl} alt="6 cities logo"/>
-                      </div>
-                      <span className="header__user-name user__name">{email}</span>
-                      <span className="header__favorite-count">{favoriteOffers.length}</span>
-                    </Link>
-                  </li>
-                  <li className="header__nav-item">
-                    <Link className="header__nav-link" to="#">
-                      <span className="header__signout" onClick={handleLogout}>Sign out</span>
-                    </Link>
-                  </li>
-                </Fragment>
+                <SignOut
+                  avatarUrl={avatarUrl}
+                  email={email}
+                  favoriteOffers={favoriteOffers}
+                  onFavoritesClick={handleFavoritesClick}
+                  onLogout={handleLogout}
+                />
               ) : (
-                <li className="header__nav-item user">
-                  <Link className="header__nav-link header__nav-link--profile" to="#">
-                    <div className="header__avatar-wrapper user__avatar-wrapper">
-                    </div>
-                    <span className="header__login" onClick={handleLogin}>Sign in</span>
-                  </Link>
-                </li>
+                <SignIn onLogin={handleLogin}/>
               )}
             </ul>
-          </nav>
+          </nav>}
         </div>
       </div>
     </header>
