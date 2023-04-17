@@ -54,7 +54,6 @@ function Header(): JSX.Element {
                   <li className="header__nav-item user">
                     <Link className="header__nav-link header__nav-link--profile" to="#" onClick={handleFavoritesClick}>
                       <div className="header__avatar-wrapper user__avatar-wrapper">
-                        {/* //TODO:после логина не отображается аватар, начинает отображаться после перезагрузки */}
                         <img src={avatarUrl} alt="6 cities logo"/>
                       </div>
                       <span className="header__user-name user__name">{email}</span>

@@ -8,8 +8,9 @@ import 'react-toastify/dist/ReactToastify.css';
 import { fetchOffersAction } from './store/api-actions/offers-api-actions';
 import { checkAuthAction } from './store/api-actions/auth-api-actions';
 
-store.dispatch(fetchOffersAction());
 store.dispatch(checkAuthAction());
+store.dispatch(fetchOffersAction());
+
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
