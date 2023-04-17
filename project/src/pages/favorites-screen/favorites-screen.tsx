@@ -7,7 +7,7 @@ import { getAuthorizationStatus } from '../../store/user-process/user-process.se
 import { getFavoriteOffers } from '../../store/main-data/main-data.selectors';
 import FavoriteList from '../../components/favorite-list/favorite-list';
 import Layout from '../../components/layout/layout';
-import { fetchFavoriteOffersAction } from '../../store/api-actions';
+import { fetchFavoriteOffersAction } from '../../store/api-actions/offers-api-actions';
 
 function FavoritesScreen() :JSX.Element {
   const navigate = useNavigate();

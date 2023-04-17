@@ -2,8 +2,8 @@ import { FormEvent, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '..';
 import { AppRoute, AuthorizationStatus } from '../../const';
-import { loginAction } from '../../store/api-actions';
 import { getAuthorizationStatus } from '../../store/user-process/user-process.selectors';
+import { loginAction } from '../../store/api-actions/auth-api-actions';
 
 type AuthData = {
   login: string;

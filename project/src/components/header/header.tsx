@@ -2,10 +2,10 @@ import { MouseEventHandler, Fragment } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import { Offer } from '../../types/offer';
-import { logoutAction } from '../../store/api-actions';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { getAuthorizationStatus, getUserAvatarUrl, getUserEmail } from '../../store/user-process/user-process.selectors';
 import { getOffers } from '../../store/main-data/main-data.selectors';
+import { logoutAction } from '../../store/api-actions/auth-api-actions';
 
 function Header(): JSX.Element {
   const navigate = useNavigate();
@@ -54,6 +54,7 @@ function Header(): JSX.Element {
                   <li className="header__nav-item user">
                     <Link className="header__nav-link header__nav-link--profile" to="#" onClick={handleFavoritesClick}>
                       <div className="header__avatar-wrapper user__avatar-wrapper">
+                        {/* //TODO:после логина не отображается аватар, начинает отображаться после перезагрузки */}
                         <img src={avatarUrl} alt="6 cities logo"/>
                       </div>
                       <span className="header__user-name user__name">{email}</span>

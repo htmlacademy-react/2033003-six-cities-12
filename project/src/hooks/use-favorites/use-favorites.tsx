@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useAppDispatch } from '..';
-import { toggleFavoriteAction } from '../../store/api-actions';
+import { toggleFavoriteAction } from '../../store/api-actions/offers-api-actions';
 
 function useFavorites(offerId: number, initialIsFavorite: boolean) {
   const dispatch = useAppDispatch();

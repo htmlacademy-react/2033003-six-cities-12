@@ -2,7 +2,7 @@ import { redirectToRoute } from '../action';
 import { createSlice } from '@reduxjs/toolkit';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import { UserState } from '../../types/state';
-import { checkAuthAction, loginAction, logoutAction} from '../api-actions';
+import { checkAuthAction, loginAction, logoutAction } from '../api-actions/auth-api-actions';
 
 const initialState: UserState = {
   authorizationStatus: AuthorizationStatus.Unknown,

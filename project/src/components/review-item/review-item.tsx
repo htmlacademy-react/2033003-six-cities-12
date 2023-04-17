@@ -1,8 +1,10 @@
 import { Review } from '../../types/review';
 import Rating from '../rating/rating';
+
 type ReviewItemProps = {
   review: Review;
 }
+
 function ReviewItem({review}: ReviewItemProps): JSX.Element {
   const {id, user, rating, comment, date} = review;
   return (

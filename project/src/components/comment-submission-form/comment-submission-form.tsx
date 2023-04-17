@@ -1,12 +1,12 @@
 import { FormEvent, useCallback, useMemo, useState } from 'react';
 import { ReviewData } from '../../types/review-data';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { postCommentAction } from '../../store/api-actions';
 import {toast} from 'react-toastify';
 import { getOffer } from '../../store/main-data/main-data.selectors';
 import RatingStars from '../rating/rating-stars';
 import Comment from './comment';
 import { getUserAvatarUrl, getUserEmail } from '../../store/user-process/user-process.selectors';
+import { postCommentAction } from '../../store/api-actions/coments-api-actions';
 
 function CommentSubmissionForm(): JSX.Element{
   const dispatch = useAppDispatch();

@@ -2,7 +2,9 @@ import { Offer } from './../../types/offer';
 import { Review } from '../../types/review';
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { DataState } from '../../types/state';
-import { fetchFavoriteOffersAction, fetchNearbyOffersAction, fetchOfferAction, fetchOffersAction, fetchReviewsAction, postCommentAction, toggleFavoriteAction } from '../api-actions';
+import { fetchFavoriteOffersAction, fetchNearbyOffersAction, fetchOfferAction, fetchOffersAction, toggleFavoriteAction } from '../api-actions/offers-api-actions';
+import { fetchReviewsAction } from '../api-actions/reviews-api-actions';
+import { postCommentAction } from '../api-actions/coments-api-actions';
 
 const initialState: DataState = {
   offers: [],

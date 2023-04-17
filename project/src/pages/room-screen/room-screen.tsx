@@ -8,7 +8,6 @@ import {Offer } from '../../types/offer';
 import { Review } from '../../types/review';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useEffect } from 'react';
-import { fetchNearbyOffersAction, fetchOfferAction, fetchReviewsAction } from '../../store/api-actions';
 import { AuthorizationStatus, compareByDate, sortOffers } from '../../const';
 import CommentSubmissionForm from '../../components/comment-submission-form/comment-submission-form';
 import { getAuthorizationStatus } from '../../store/user-process/user-process.selectors';
@@ -16,6 +15,8 @@ import { getNearbyOffers, getOffer, getOffers, getReviews } from '../../store/ma
 import Layout from '../../components/layout/layout';
 import { getLocationName, getSortingMethod } from '../../store/main-process/main-process.selectors';
 import Bookmark from '../../components/bookmark/bookmark';
+import { fetchNearbyOffersAction, fetchOfferAction } from '../../store/api-actions/offers-api-actions';
+import { fetchReviewsAction } from '../../store/api-actions/reviews-api-actions';
 
 function RoomScreen(): JSX.Element | null {
   const dispatch = useAppDispatch();
