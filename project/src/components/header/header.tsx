@@ -1,5 +1,5 @@
-import { MouseEventHandler, Fragment } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { MouseEventHandler } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import { Offer } from '../../types/offer';
 import { useAppDispatch, useAppSelector } from '../../hooks';
@@ -50,21 +50,23 @@ function Header({isLoginScreen}: HeaderProps): JSX.Element {
       <div className="container">
         <div className="header__wrapper">
           <HeaderLogo onGoMainClick={handleGoMainClick}/>
-          {isLoginScreen ?? <nav className="header__nav">
-            <ul className="header__nav-list">
-              {isLoggedIn ? (
-                <SignOut
-                  avatarUrl={avatarUrl}
-                  email={email}
-                  favoriteOffers={favoriteOffers}
-                  onFavoritesClick={handleFavoritesClick}
-                  onLogout={handleLogout}
-                />
-              ) : (
-                <SignIn onLogin={handleLogin}/>
-              )}
-            </ul>
-          </nav>}
+          {!isLoginScreen ? (
+            <nav className="header__nav">
+              <ul className="header__nav-list">
+                {isLoggedIn ? (
+                  <SignOut
+                    avatarUrl={avatarUrl}
+                    email={email}
+                    favoriteOffers={favoriteOffers}
+                    onFavoritesClick={handleFavoritesClick}
+                    onLogout={handleLogout}
+                  />
+                ) : (
+                  <SignIn onLogin={handleLogin}/>
+                )}
+              </ul>
+            </nav>
+          ) : null}
         </div>
       </div>
     </header>

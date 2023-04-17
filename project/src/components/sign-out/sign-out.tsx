@@ -1,6 +1,6 @@
-import { Fragment, MouseEventHandler } from "react";
-import { Link } from "react-router-dom";
-import { Offer } from "../../types/offer";
+import { Fragment, MouseEventHandler } from 'react';
+import { Link } from 'react-router-dom';
+import { Offer } from '../../types/offer';
 
 type SignOutProps = {
   onFavoritesClick: MouseEventHandler<HTMLAnchorElement>;

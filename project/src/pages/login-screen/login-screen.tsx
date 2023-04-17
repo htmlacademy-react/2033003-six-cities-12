@@ -1,10 +1,9 @@
 import { Link } from 'react-router-dom';
 import useLoginForm from '../../hooks/use-login-form/use-login-form';
-import HeaderLogo from '../../components/header/header-logo';
 import Header from '../../components/header/header';
 
 function LoginScreen() : JSX.Element {
-  const { loginRef, passwordRef, isSubmitting, handleSubmit, handleGoMainClick, handleQuickCityClick, quickCity } = useLoginForm();
+  const { loginRef, passwordRef, isSubmitting, handleSubmit, handleQuickCityClick, quickCity } = useLoginForm();
 
   return(
     <div className="page page--gray page--login">
