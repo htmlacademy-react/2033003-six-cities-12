@@ -1,10 +1,13 @@
 import { Review } from '../../types/review';
 import Rating from '../rating/rating';
+
 type ReviewItemProps = {
   review: Review;
 }
+
 function ReviewItem({review}: ReviewItemProps): JSX.Element {
   const {id, user, rating, comment, date} = review;
+  const formattedDate = new Date(date).toLocaleString('en-US', { month: 'long', year: 'numeric' });
   return (
     <li key={id} className="reviews__item">
       <div className="reviews__user user">
@@ -23,7 +26,7 @@ function ReviewItem({review}: ReviewItemProps): JSX.Element {
           {comment}
         </p>
         <time className="reviews__time" dateTime={date}>
-          {date.split('T')[0]}
+          {formattedDate}
         </time>
       </div>
     </li>

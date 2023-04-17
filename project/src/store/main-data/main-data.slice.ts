@@ -1,8 +1,10 @@
+import { Offer } from './../../types/offer';
 import { Review } from '../../types/review';
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { Offer } from '../../types/offer';
 import { DataState } from '../../types/state';
-import { fetchNearbyOffersAction, fetchOfferAction, fetchOffersAction, fetchReviewsAction, postCommentAction } from '../api-actions';
+import { fetchFavoriteOffersAction, fetchNearbyOffersAction, fetchOfferAction, fetchOffersAction, toggleFavoriteAction } from '../api-actions/offers-api-actions';
+import { fetchReviewsAction } from '../api-actions/reviews-api-actions';
+import { postCommentAction } from '../api-actions/coments-api-actions';
 
 const initialState: DataState = {
   offers: [],
@@ -10,6 +12,7 @@ const initialState: DataState = {
   reviews: [],
   isOffersDataLoading: false,
   selectedOffer: null,
+  favoriteOffers: []
 };
 
 export const mainData = createSlice({
@@ -33,7 +36,7 @@ export const mainData = createSlice({
     },
     addReview: (state, action: PayloadAction<Review>) => {
       state.reviews.push(action.payload);
-    }
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -58,6 +61,15 @@ export const mainData = createSlice({
       })
       .addCase(postCommentAction.fulfilled, (state, action) => {
         state.reviews.push(action.payload);
+      })
+      .addCase(toggleFavoriteAction.fulfilled, (state, action) => {
+        const index = state.offers.findIndex((offer) => offer.id === action.payload.id);
+        if (index !== -1) {
+          state.offers[index] = action.payload;
+        }
+      })
+      .addCase(fetchFavoriteOffersAction.fulfilled, (state, action) => {
+        state.favoriteOffers = action.payload;
       });
   },
 });

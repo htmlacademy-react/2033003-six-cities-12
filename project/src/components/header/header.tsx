@@ -1,19 +1,28 @@
-import { MouseEventHandler, Fragment } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { MouseEventHandler } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import { Offer } from '../../types/offer';
-import { logoutAction } from '../../store/api-actions';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { getAuthorizationStatus } from '../../store/user-process/user-process.selectors';
+import { getAuthorizationStatus, getUserAvatarUrl, getUserEmail } from '../../store/user-process/user-process.selectors';
 import { getOffers } from '../../store/main-data/main-data.selectors';
+import { logoutAction } from '../../store/api-actions/auth-api-actions';
+import HeaderLogo from './header-logo';
+import SignIn from '../sign-in/sign-in';
+import SignOut from '../sign-out/sign-out';
 
-function Header(): JSX.Element {
+type HeaderProps = {
+  isLoginScreen?: boolean;
+}
+
+function Header({isLoginScreen}: HeaderProps): JSX.Element {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
   const offers: Offer[] = useAppSelector(getOffers);
   const favoriteOffers: Offer[] = offers.filter((offer) => offer.isFavorite);
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  const email = useAppSelector(getUserEmail);
+  const avatarUrl = useAppSelector(getUserAvatarUrl);
   const isLoggedIn = authorizationStatus === AuthorizationStatus.Auth;
 
 
@@ -40,40 +49,24 @@ function Header(): JSX.Element {
     <header className="header">
       <div className="container">
         <div className="header__wrapper">
-          <div className="header__left">
-            <Link className="header__logo-link" to="#" onClick={handleGoMainClick}>
-              <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41"/>
-            </Link>
-          </div>
-          <nav className="header__nav">
-            <ul className="header__nav-list">
-              {isLoggedIn ? (
-                <Fragment>
-                  <li className="header__nav-item user">
-                    <Link className="header__nav-link header__nav-link--profile" to="#" onClick={handleFavoritesClick}>
-                      <div className="header__avatar-wrapper user__avatar-wrapper">
-                      </div>
-                      <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
-                      <span className="header__favorite-count">{favoriteOffers.length}</span>
-                    </Link>
-                  </li>
-                  <li className="header__nav-item">
-                    <Link className="header__nav-link" to="#">
-                      <span className="header__signout" onClick={handleLogout}>Sign out</span>
-                    </Link>
-                  </li>
-                </Fragment>
-              ) : (
-                <li className="header__nav-item user">
-                  <Link className="header__nav-link header__nav-link--profile" to="#">
-                    <div className="header__avatar-wrapper user__avatar-wrapper">
-                    </div>
-                    <span className="header__login" onClick={handleLogin}>Sign in</span>
-                  </Link>
-                </li>
-              )}
-            </ul>
-          </nav>
+          <HeaderLogo onGoMainClick={handleGoMainClick}/>
+          {!isLoginScreen ? (
+            <nav className="header__nav">
+              <ul className="header__nav-list">
+                {isLoggedIn ? (
+                  <SignOut
+                    avatarUrl={avatarUrl}
+                    email={email}
+                    favoriteOffers={favoriteOffers}
+                    onFavoritesClick={handleFavoritesClick}
+                    onLogout={handleLogout}
+                  />
+                ) : (
+                  <SignIn onLogin={handleLogin}/>
+                )}
+              </ul>
+            </nav>
+          ) : null}
         </div>
       </div>
     </header>

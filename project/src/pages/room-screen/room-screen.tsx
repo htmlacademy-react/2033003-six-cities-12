@@ -1,5 +1,4 @@
 import { useParams } from 'react-router-dom';
-import Header from '../../components/header/header';
 import Map from '../../components/map/map';
 import Offers from '../../components/offers/offers';
 import Rating from '../../components/rating/rating';
@@ -9,12 +8,15 @@ import {Offer } from '../../types/offer';
 import { Review } from '../../types/review';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useEffect } from 'react';
-import { fetchNearbyOffersAction, fetchOfferAction, fetchReviewsAction } from '../../store/api-actions';
-import { AuthorizationStatus, compareByDate } from '../../const';
+import { AuthorizationStatus, compareByDate, sortOffers } from '../../const';
 import CommentSubmissionForm from '../../components/comment-submission-form/comment-submission-form';
-
 import { getAuthorizationStatus } from '../../store/user-process/user-process.selectors';
-import { getNearbyOffers, getOffer, getReviews } from '../../store/main-data/main-data.selectors';
+import { getNearbyOffers, getOffer, getOffers, getReviews } from '../../store/main-data/main-data.selectors';
+import Layout from '../../components/layout/layout';
+import { getLocationName, getSortingMethod } from '../../store/main-process/main-process.selectors';
+import Bookmark from '../../components/bookmark/bookmark';
+import { fetchNearbyOffersAction, fetchOfferAction } from '../../store/api-actions/offers-api-actions';
+import { fetchReviewsAction } from '../../store/api-actions/reviews-api-actions';
 
 function RoomScreen(): JSX.Element | null {
   const dispatch = useAppDispatch();
@@ -27,20 +29,30 @@ function RoomScreen(): JSX.Element | null {
       dispatch(fetchReviewsAction(id));
     }
   }, [dispatch, id]);
+
   const isLoggedIn = useAppSelector(getAuthorizationStatus) === AuthorizationStatus.Auth;
   const nearbyOffers: Offer[] = useAppSelector(getNearbyOffers);
   const offer: Offer | null | undefined = useAppSelector(getOffer);
   const offerReviews: Review[] = useAppSelector(getReviews);
   const latestReviews = offerReviews.slice(-10).sort(compareByDate);
+
+  const offers: Offer[] = useAppSelector(getOffers);
+  const selectedCityName = useAppSelector(getLocationName);
+  const selectedSortingMethod = useAppSelector(getSortingMethod);
+
+  const filteredAndSortedOffers: Offer[] = sortOffers(offers,selectedSortingMethod)
+    .filter((offerItem) => offerItem.city.name === selectedCityName);
+
   if(offer){
-    const { title, price, rating, type, isPremium, bedrooms, maxAdults, host, description, goods, city }: Offer = offer;
+    const { title, price, rating, type, isPremium, bedrooms, maxAdults, host, description, goods, city, isFavorite}: Offer = offer;
+    const offerId = offer.id;
     const nearbyOffersWithCurrent: Offer[] = [
       ...nearbyOffers,
       ...(offer ? [offer] : []),
     ];
+
     return(
-      <div className="page">
-        <Header/>
+      <Layout className="page">
         <main className="page__main page__main--property">
           <section className="property">
             <RoomGalery offer={offer}/>
@@ -51,12 +63,7 @@ function RoomScreen(): JSX.Element | null {
                   <h1 className="property__name">
                     {title}
                   </h1>
-                  <button className="property__bookmark-button button" type="button">
-                    <svg className="property__bookmark-icon" width="31" height="33">
-                      <use xlinkHref="#icon-bookmark"></use>
-                    </svg>
-                    <span className="visually-hidden">To bookmarks</span>
-                  </button>
+                  <Bookmark isProperty offerId={offerId} isFavorite={isFavorite}/>
                 </div>
                 <div className="property__rating rating">
                   <Rating rating={rating}/>
@@ -110,18 +117,18 @@ function RoomScreen(): JSX.Element | null {
                 </section>
               </div>
             </div>
-            <Map city={city} activeOfferId={Number(id)} offers={nearbyOffersWithCurrent} wrapperClassName={'property__map'}/>
+            <Map city={city} activeOfferId={offerId} offers={nearbyOffersWithCurrent} wrapperClassName={'property__map'}/>
           </section>
           <div className="container">
             <section className="near-places places">
               <h2 className="near-places__title">Other places in the neighbourhood</h2>
               <div className="near-places__list places__list">
-                <Offers isNearby/>
+                <Offers isNearby filteredAndSortedOffers={filteredAndSortedOffers}/>
               </div>
             </section>
           </div>
         </main>
-      </div>
+      </Layout>
     );
   }
   return null;

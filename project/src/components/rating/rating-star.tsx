@@ -11,6 +11,7 @@ function RatingStar({ratingItem, rating, onRatingChange}: RatingStarProps): JSX.
   const handleRatingChange = useCallback((value: number) => {
     onRatingChange(value);
   }, [onRatingChange]);
+
   return (
     <Fragment>
       <input

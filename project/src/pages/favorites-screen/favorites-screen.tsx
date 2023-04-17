@@ -1,17 +1,23 @@
 import { Link, useNavigate} from 'react-router-dom';
-import Header from '../../components/header/header';
-import { useAppSelector } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { Offer } from '../../types/offer';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import { Fragment, MouseEventHandler, useEffect } from 'react';
 import { getAuthorizationStatus } from '../../store/user-process/user-process.selectors';
 import { getFavoriteOffers } from '../../store/main-data/main-data.selectors';
 import FavoriteList from '../../components/favorite-list/favorite-list';
+import Layout from '../../components/layout/layout';
+import { fetchFavoriteOffersAction } from '../../store/api-actions/offers-api-actions';
 
 function FavoritesScreen() :JSX.Element {
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const favoriteOffers: Offer[] = useAppSelector(getFavoriteOffers);
   const isLoggedIn = useAppSelector(getAuthorizationStatus) === AuthorizationStatus.Auth;
+
+  useEffect(() => {
+    dispatch(fetchFavoriteOffersAction());
+  }, [dispatch, favoriteOffers]);
 
   useEffect(() => {
     if (!isLoggedIn) {
@@ -25,9 +31,7 @@ function FavoritesScreen() :JSX.Element {
   };
 
   return(
-    <div className="page">
-      <Header/>
-
+    <Layout className="page">
       <main className={`page__main page__main--favorites ${favoriteOffers.length === 0 ? 'page__main--favorites-empty' : ''}`}>
         <div className="page__favorites-container container">
           <section className={`favorites ${favoriteOffers.length === 0 ? 'favorites--empty' : ''}`}>
@@ -52,7 +56,7 @@ function FavoritesScreen() :JSX.Element {
           <img className="footer__logo" src="img/logo.svg" alt="6 cities logo" width="64" height="33"/>
         </Link>
       </footer>
-    </div>
+    </Layout>
   );
 }
 export default FavoritesScreen;
