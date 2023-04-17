@@ -99,3 +99,5 @@ export const isValidPassword = (password: string): boolean => {
   const regex = /^(?=.*[a-zA-Z])(?=.*[0-9])/;
   return regex.test(password);
 };
+
+export const LOCATIONS = ['Paris','Cologne','Brussels','Amsterdam','Hamburg','Dusseldorf'];

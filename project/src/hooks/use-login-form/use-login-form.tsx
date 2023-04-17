@@ -1,10 +1,11 @@
 import { FormEvent, MouseEventHandler, useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '..';
-import { AppRoute, AuthorizationStatus, isValidPassword } from '../../const';
+import { AppRoute, AuthorizationStatus, LOCATIONS, isValidPassword } from '../../const';
 import { loginAction } from '../../store/api-actions/auth-api-actions';
 import { getAuthorizationStatus } from '../../store/user-process/user-process.selectors';
 import { toast } from 'react-toastify';
+import { changeCity } from '../../store/main-process/main-process.slice';
 
 type AuthData = {
   login: string;
@@ -61,12 +62,23 @@ function useLoginForm(){
     navigate(AppRoute.Main);
   };
 
+  const quickCity = LOCATIONS[Math.floor(Math.random() * LOCATIONS.length)];
+
+  const handleQuickCityClick: MouseEventHandler<HTMLAnchorElement> = (evt) => {
+    evt.preventDefault();
+    navigate(AppRoute.Main);
+
+    dispatch(changeCity(quickCity));
+  };
+
   return {
     loginRef,
     passwordRef,
     isSubmitting,
     handleSubmit,
     handleGoMainClick,
+    handleQuickCityClick,
+    quickCity
   };
 }
 

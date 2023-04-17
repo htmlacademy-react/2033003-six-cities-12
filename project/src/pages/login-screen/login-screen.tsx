@@ -3,7 +3,7 @@ import useLoginForm from '../../hooks/use-login-form/use-login-form';
 import HeaderLogo from '../../components/header/header-logo';
 
 function LoginScreen() : JSX.Element {
-  const { loginRef, passwordRef, isSubmitting, handleSubmit, handleGoMainClick } = useLoginForm();
+  const { loginRef, passwordRef, isSubmitting, handleSubmit, handleGoMainClick, handleQuickCityClick, quickCity } = useLoginForm();
 
   return(
     <div className="page page--gray page--login">
@@ -33,8 +33,8 @@ function LoginScreen() : JSX.Element {
           </section>
           <section className="locations locations--login locations--current">
             <div className="locations__item">
-              <Link className="locations__item-link" to="#">
-                <span>Amsterdam</span>
+              <Link className="locations__item-link" to="#" onClick={handleQuickCityClick}>
+                <span>{quickCity}</span>
               </Link>
             </div>
           </section>
