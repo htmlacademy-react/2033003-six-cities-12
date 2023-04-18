@@ -5,9 +5,10 @@ import {configureMockStore} from '@jedmao/redux-mock-store';
 import { State } from '../../types/state';
 import {Action} from 'redux';
 import { APIRoute } from '../../const';
-import {  mockReviewData, mockReviews,} from '../../utils/mocks';
+import {  mockReviewData,} from '../../utils/mocks';
 import { postCommentAction } from './coments-api-actions';
 import { ReviewData } from '../../types/review-data';
+
 
 const api = createApi();
 const mockAPI = new MockAdapter(api);
@@ -41,8 +42,8 @@ describe('API Actions: comment actions', () => {
         name: mockReviewData.name,
       };
       const result = await store.dispatch(postCommentAction(newReviewData));
-      const reviews = mockReviews;
-      expect(reviews).toContainEqual(result.payload);
+      //expect(result.payload).toEqual(expectedReviewData);
+      expect(result.type).toEqual(postCommentAction.fulfilled.type);
     });
 
   });

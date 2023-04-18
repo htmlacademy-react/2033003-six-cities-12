@@ -140,5 +140,5 @@ export const mockReviewData = {
   comment: 'This villa is perfect in every way: the view on mountains and waterfalls, the hot tub and the villa itself. The evening here became a great continuation of our journeys over country.',
   rating: 3.3,
   avatarUrl: 'https://12.react.pages.academy/static/avatar/7.jpg',
-  name: 'Mollie'
+  name: 'Molly'
 };
