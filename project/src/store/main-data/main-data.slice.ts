@@ -6,7 +6,7 @@ import { fetchFavoriteOffersAction, fetchNearbyOffersAction, fetchOfferAction, f
 import { fetchReviewsAction } from '../api-actions/reviews-api-actions';
 import { postCommentAction } from '../api-actions/coments-api-actions';
 
-const initialState: DataState = {
+export const initialState: DataState = {
   offers: [],
   nearbyOffers: [],
   reviews: [],

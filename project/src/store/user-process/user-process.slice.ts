@@ -4,10 +4,11 @@ import { AppRoute, AuthorizationStatus } from '../../const';
 import { UserState } from '../../types/state';
 import { checkAuthAction, loginAction, logoutAction } from '../api-actions/auth-api-actions';
 
-const initialState: UserState = {
+export const initialState: UserState = {
   authorizationStatus: AuthorizationStatus.Unknown,
   email: '',
-  avatarUrl: ''
+  avatarUrl: '',
+  redirect: ''
 };
 
 export const userProcess = createSlice({
@@ -26,6 +27,7 @@ export const userProcess = createSlice({
       })
       .addCase(loginAction.fulfilled, (state, action) => {
         state.authorizationStatus = AuthorizationStatus.Auth;
+        state.redirect = AppRoute.Main;
         redirectToRoute(AppRoute.Main);
       })
       .addCase(logoutAction.fulfilled, (state, action) => {

@@ -20,6 +20,7 @@ export type UserState = {
   authorizationStatus: string;
   email: string;
   avatarUrl: string;
+  redirect: string;
 }
 
 export type AppState = {
