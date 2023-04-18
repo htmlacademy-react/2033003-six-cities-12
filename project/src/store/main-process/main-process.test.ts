@@ -1,22 +1,29 @@
 import { LOCATIONS, SortType } from '../../const';
+import { MainState } from '../../types/state';
 import { changeCity, changeSorting, mainProcess } from './main-process.slice';
 
 describe('Reducer: main-process', () => {
+  let initialState: MainState;
+
+  beforeEach(() =>{
+    initialState = {
+      locationName: LOCATIONS[0],
+      sortingMethod: SortType.POPULAR,
+    };
+  });
   it('without additional parameters should return initial state', () => {
     expect(mainProcess.reducer(undefined, {type: 'UNKNOWN_ACTION'}))
-      .toEqual({locationName: LOCATIONS[0], sortingMethod: SortType.POPULAR});
+      .toEqual(initialState);
   });
 
   it('should handle changeCity', () => {
-    const previousState = {locationName: LOCATIONS[0], sortingMethod: SortType.POPULAR};
-    const nextState = mainProcess.reducer(previousState, changeCity(LOCATIONS[1]));
+    const nextState = mainProcess.reducer(initialState, changeCity(LOCATIONS[1]));
     expect(nextState.locationName).toEqual(LOCATIONS[1]);
     expect(nextState.sortingMethod).toEqual(SortType.POPULAR);
   });
 
   it('should handle changeSorting', () => {
-    const previousState = {locationName: LOCATIONS[0], sortingMethod: SortType.POPULAR};
-    const nextState = mainProcess.reducer(previousState, changeSorting(SortType.CHEAP));
+    const nextState = mainProcess.reducer(initialState, changeSorting(SortType.CHEAP));
     expect(nextState.locationName).toEqual(LOCATIONS[0]);
     expect(nextState.sortingMethod).toEqual(SortType.CHEAP);
   });

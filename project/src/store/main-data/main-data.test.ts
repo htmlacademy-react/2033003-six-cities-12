@@ -1,12 +1,25 @@
+import { DataState } from '../../types/state';
 import { mockOffers, mockReviews } from '../../utils/mocks';
 import { postCommentAction } from '../api-actions/coments-api-actions';
 import { fetchFavoriteOffersAction, fetchNearbyOffersAction, fetchOfferAction, fetchOffersAction, toggleFavoriteAction } from '../api-actions/offers-api-actions';
 import { fetchReviewsAction } from '../api-actions/reviews-api-actions';
-import { addReview, initialState, loadNearbyOffers, loadOffer, loadOffers, loadReviews, mainData, setOffersDataLoadingStatus } from './main-data.slice';
+import { addReview, loadNearbyOffers, loadOffer, loadOffers, loadReviews, mainData, setOffersDataLoadingStatus } from './main-data.slice';
 
 describe('Reducers: main-data', () => {
+  let initialState: DataState;
+
+  beforeEach(() =>{
+    initialState = {
+      offers: [],
+      nearbyOffers: [],
+      reviews: [],
+      isOffersDataLoading: false,
+      selectedOffer: null,
+      favoriteOffers: []
+    };
+  });
   it('without additional parameters should return initial state', () => {
-    expect(mainData.reducer(void 0, {type: 'UNKNOWN_ACTION'}))
+    expect(mainData.reducer(undefined, {type: 'UNKNOWN_ACTION'}))
       .toEqual({favoriteOffers: [],
         isOffersDataLoading: false,
         nearbyOffers: [],
@@ -48,6 +61,18 @@ describe('Reducers: main-data', () => {
 });
 
 describe('Extra Reducers: main-data', () => {
+  let initialState: DataState;
+
+  beforeEach(() =>{
+    initialState = {
+      offers: [],
+      nearbyOffers: [],
+      reviews: [],
+      isOffersDataLoading: false,
+      selectedOffer: null,
+      favoriteOffers: []
+    };
+  });
   it('should handle fetchOffersAction.fulfilled', () => {
     const payload = mockOffers;
     const action = { type: fetchOffersAction.fulfilled.type, payload };

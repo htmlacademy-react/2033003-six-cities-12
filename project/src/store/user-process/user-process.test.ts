@@ -1,12 +1,21 @@
 import { AppRoute, AuthorizationStatus } from '../../const';
 import { checkAuthAction, loginAction, logoutAction } from '../api-actions/auth-api-actions';
-import { initialState, userProcess } from './user-process.slice';
-
-jest.mock('../action');
+import { userProcess } from './user-process.slice';
+import { UserState } from '../../types/state';
 
 describe('Reducer: user-process', () => {
+  let initialState: UserState;
+
+  beforeEach(() =>{
+    initialState = {
+      authorizationStatus: AuthorizationStatus.Unknown,
+      email: '',
+      avatarUrl: '',
+      redirect: ''
+    };
+  });
   it('without additional parameters should return initial state', () => {
-    expect(userProcess.reducer(void 0, {type: 'UNKNOWN_ACTION'}))
+    expect(userProcess.reducer(undefined, {type: 'UNKNOWN_ACTION'}))
       .toEqual({authorizationStatus: AuthorizationStatus.Unknown, avatarUrl: '', email: '', redirect: ''});
   });
 
