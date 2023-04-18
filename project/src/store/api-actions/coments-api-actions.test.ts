@@ -1,23 +1,9 @@
-import { createApi } from '../../services/api';
-import thunk, {ThunkDispatch} from 'redux-thunk';
-import MockAdapter from 'axios-mock-adapter';
-import {configureMockStore} from '@jedmao/redux-mock-store';
-import { State } from '../../types/state';
-import {Action} from 'redux';
-import { APIRoute } from '../../const';
-import {  mockReviewData,} from '../../utils/mocks';
-import { postCommentAction } from './coments-api-actions';
+import { mockOffers } from './../../utils/mocks';
+import { APIRoute, commentDate, commentId, userId } from '../../const';
 import { ReviewData } from '../../types/review-data';
-
-
-const api = createApi();
-const mockAPI = new MockAdapter(api);
-const middlewares = [thunk.withExtraArgument(api)];
-const mockStore = configureMockStore<
-    State,
-    Action<string>,
-    ThunkDispatch<State, typeof api, Action>
-  >(middlewares);
+import { mockAPI, mockReviewData, mockStore } from '../../utils/mocks';
+import { postCommentAction } from './coments-api-actions';
+import { Review } from '../../types/review';
 
 describe('API Actions: comment actions', () => {
   afterEach(() => {
@@ -25,25 +11,38 @@ describe('API Actions: comment actions', () => {
   });
   describe('post a new comment', () => {
 
-    it('should post a new comment and return a new review', async () => {
+    it('should successfully post a new review and return the generated review', async () => {
       const store = mockStore();
-      const expectedReviewData = {
-        name: mockReviewData.name,
-        avatarUrl: mockReviewData.avatarUrl,
-        rating: String(mockReviewData.rating),
+      const expectedReview: Review = {
         comment: mockReviewData.comment,
-      }
-      mockAPI.onPost(`${APIRoute.Comments}/1`).reply(200, expectedReviewData);
-      const newReviewData: ReviewData = {
-        hotelId: '1',
-        comment: mockReviewData.comment,
-        rating: String(mockReviewData.rating),
-        avatarUrl: mockReviewData.avatarUrl,
-        name: mockReviewData.name,
+        id: commentId,
+        rating: Number(mockReviewData.rating),
+        date: commentDate,
+        user: {
+          avatarUrl: mockReviewData.avatarUrl,
+          id: userId,
+          isPro: false,
+          name: mockReviewData.name,
+        }
       };
+
+      mockAPI.onPost(`${APIRoute.Comments}/${mockReviewData.hotelId}`).reply(200);
+      const newReviewData: ReviewData = {
+        hotelId: String(mockOffers[0].id),
+        comment: expectedReview.comment,
+        rating: String(expectedReview.rating),
+        avatarUrl: expectedReview.user.avatarUrl,
+        name: expectedReview.user.name,
+      };
+
       const result = await store.dispatch(postCommentAction(newReviewData));
-      //expect(result.payload).toEqual(expectedReviewData);
-      expect(result.type).toEqual(postCommentAction.fulfilled.type);
+      const actions = store.getActions().map(({type}) => type);
+
+      expect(actions).toEqual([
+        postCommentAction.pending.type,
+        postCommentAction.fulfilled.type
+      ]);
+      expect(result.payload).toEqual(expectedReview);
     });
 
   });

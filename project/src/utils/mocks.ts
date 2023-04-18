@@ -1,6 +1,13 @@
 import { AccommodationType } from '../const';
 import { Offer } from '../types/offer';
 import { Review } from '../types/review';
+import { ReviewData } from '../types/review-data';
+import thunk, {ThunkDispatch} from 'redux-thunk';
+import MockAdapter from 'axios-mock-adapter';
+import {configureMockStore} from '@jedmao/redux-mock-store';
+import {Action} from 'redux';
+import { createApi } from '../services/api';
+import { State } from '../types/state';
 
 export const mockOffers: Offer[] = [{
   city: {
@@ -135,10 +142,19 @@ export const mockReviews: Review[] = [
   }
 ];
 
-export const mockReviewData = {
-  hotelId: 1,
-  comment: 'This villa is perfect in every way: the view on mountains and waterfalls, the hot tub and the villa itself. The evening here became a great continuation of our journeys over country.',
-  rating: 3.3,
-  avatarUrl: 'https://12.react.pages.academy/static/avatar/7.jpg',
-  name: 'Molly'
+export const mockReviewData: ReviewData = {
+  hotelId: String(mockOffers[0].id),
+  comment: mockReviews[0].comment,
+  rating: String(mockReviews[0].rating),
+  avatarUrl: mockReviews[0].user.avatarUrl,
+  name: mockReviews[0].user.name
 };
+
+const api = createApi();
+export const mockAPI = new MockAdapter(api);
+const middlewares = [thunk.withExtraArgument(api)];
+export const mockStore = configureMockStore<
+    State,
+    Action<string>,
+    ThunkDispatch<State, typeof api, Action>
+  >(middlewares);

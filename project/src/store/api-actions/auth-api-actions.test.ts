@@ -1,22 +1,10 @@
-import { createApi } from '../../services/api';
-import thunk, {ThunkDispatch} from 'redux-thunk';
-import MockAdapter from 'axios-mock-adapter';
-import {configureMockStore} from '@jedmao/redux-mock-store';
-import { State } from '../../types/state';
-import {Action} from 'redux';
 import { APIRoute } from '../../const';
 import { checkAuthAction, loginAction, logoutAction } from './auth-api-actions';
 import { AuthData } from '../../types/auth-data';
 import { AUTH_TOKEN_KEY_NAME } from '../../services/token';
+import { mockAPI, mockStore } from '../../utils/mocks';
 
-const api = createApi();
-const mockAPI = new MockAdapter(api);
-const middlewares = [thunk.withExtraArgument(api)];
-const mockStore = configureMockStore<
-    State,
-    Action<string>,
-    ThunkDispatch<State, typeof api, Action>
-  >(middlewares);
+
 describe('API Actions: user actions', () => {
   afterEach(() => {
     mockAPI.reset();

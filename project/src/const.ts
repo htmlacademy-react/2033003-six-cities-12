@@ -71,15 +71,19 @@ export const sortOffers = (offers: Offer[], sortingMethod: string): Offer[] => {
 export const compareByDate = (a: Review, b: Review) =>
   new Date(b.date).getTime() - new Date(a.date).getTime();
 
+export const commentId = Math.floor(Math.random() * 1000000);
+export const userId = Math.floor(Math.random() * 1000000);
+export const commentDate = new Date().toISOString();
+
 export const generateNewReview = (comment: string, rating: string, avatarUrl: string, name: string): Review => {
   const newReview: Review = {
     comment: comment,
-    date: new Date().toISOString(),
-    id: Math.floor(Math.random() * 1000000),
+    date: commentDate,
+    id: commentId,
     rating: Number(rating),
     user: {
       avatarUrl: avatarUrl,
-      id: Math.floor(Math.random() * 1000000),
+      id: userId,
       isPro: false,
       name: name,
     },
