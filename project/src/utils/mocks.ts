@@ -134,3 +134,11 @@ export const mockReviews: Review[] = [
     date: '2023-03-09T07:31:24.950Z'
   }
 ];
+
+export const mockReviewData = {
+  hotelId: 1,
+  comment: 'This villa is perfect in every way: the view on mountains and waterfalls, the hot tub and the villa itself. The evening here became a great continuation of our journeys over country.',
+  rating: 3.3,
+  avatarUrl: 'https://12.react.pages.academy/static/avatar/7.jpg',
+  name: 'Mollie'
+};
