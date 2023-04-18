@@ -22,7 +22,7 @@ export const mockOffers: Offer[] = [{
     'https://12.react.pages.academy/static/hotel/16.jpg'
   ],
   title: 'Penthouse, 4-5 rooms + 5 balconies',
-  isFavorite: false,
+  isFavorite: true,
   isPremium: true,
   rating: 3.8,
   type: AccommodationType.Hotel,
@@ -69,7 +69,7 @@ export const mockOffers: Offer[] = [{
     'https://12.react.pages.academy/static/hotel/8.jpg',
   ],
   title: 'The Pondhouse - A Magical Place',
-  isFavorite: false,
+  isFavorite: true,
   isPremium: false,
   rating: 4.7,
   type: AccommodationType.Room,

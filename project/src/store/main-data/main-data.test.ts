@@ -1,7 +1,10 @@
 import { mockOffers, mockReviews } from '../../utils/mocks';
+import { postCommentAction } from '../api-actions/coments-api-actions';
+import { fetchFavoriteOffersAction, fetchNearbyOffersAction, fetchOfferAction, fetchOffersAction, toggleFavoriteAction } from '../api-actions/offers-api-actions';
+import { fetchReviewsAction } from '../api-actions/reviews-api-actions';
 import { addReview, initialState, loadNearbyOffers, loadOffer, loadOffers, loadReviews, mainData, setOffersDataLoadingStatus } from './main-data.slice';
 
-describe('Reducer: main-data', () => {
+describe('Reducers: main-data', () => {
   it('without additional parameters should return initial state', () => {
     expect(mainData.reducer(void 0, {type: 'UNKNOWN_ACTION'}))
       .toEqual({favoriteOffers: [],
@@ -41,5 +44,80 @@ describe('Reducer: main-data', () => {
   it('should add review', () => {
     const newState = mainData.reducer(initialState, addReview(mockReviews[0]));
     expect(newState.reviews).toContain(mockReviews[0]);
+  });
+});
+
+describe('Extra Reducers: main-data', () => {
+  it('should handle fetchOffersAction.fulfilled', () => {
+    const payload = mockOffers;
+    const action = { type: fetchOffersAction.fulfilled.type, payload };
+    const newState = mainData.reducer(initialState, action);
+
+    expect(newState.offers).toEqual(payload);
+    expect(newState.isOffersDataLoading).toBe(false);
+  });
+
+  it('should handle fetchOffersAction.rejected', () => {
+    const action = { type: fetchOffersAction.rejected.type };
+    const newState = mainData.reducer(initialState, action);
+
+    expect(newState.isOffersDataLoading).toBe(false);
+  });
+
+  it('should handle fetchOffersAction.pending', () => {
+    const action = { type: fetchOffersAction.pending.type };
+    const newState = mainData.reducer(initialState, action);
+
+    expect(newState.isOffersDataLoading).toBe(true);
+  });
+
+  it('should handle fetchOfferAction.fulfilled', () => {
+    const payload = mockOffers[0];
+    const action = { type: fetchOfferAction.fulfilled.type, payload };
+    const newState = mainData.reducer(initialState, action);
+
+    expect(newState.selectedOffer).toEqual(payload);
+  });
+
+  it('should handle fetchNearbyOffersAction.fulfilled', () => {
+    const payload = mockOffers;
+    const action = { type: fetchNearbyOffersAction.fulfilled.type, payload };
+    const newState = mainData.reducer(initialState, action);
+
+    expect(newState.nearbyOffers).toEqual(payload);
+  });
+
+  it('should handle fetchReviewsAction.fulfilled', () => {
+    const payload = mockReviews;
+    const action = { type: fetchReviewsAction.fulfilled.type, payload };
+    const newState = mainData.reducer(initialState, action);
+
+    expect(newState.reviews).toEqual(payload);
+  });
+
+  it('should handle postCommentAction.fulfilled', () => {
+    const payload = mockReviews[0];
+    const action = { type: postCommentAction.fulfilled.type, payload };
+    const newState = mainData.reducer(initialState, action);
+
+    expect(newState.reviews).toContain(payload);
+  });
+
+  it('should handle toggleFavoriteAction.fulfilled', () => {
+    const initialOffers = mockOffers;
+    const payload = mockOffers[0];
+    const action = { type: toggleFavoriteAction.fulfilled.type, payload };
+    const newState = mainData.reducer({ ...initialState, offers: initialOffers }, action);
+
+    expect(newState.offers[0]).toEqual(payload);
+    expect(newState.offers[1]).toEqual(initialOffers[1]);
+  });
+
+  it('should handle fetchFavoriteOffersAction.fulfilled', () => {
+    const payload = mockOffers;
+    const action = { type: fetchFavoriteOffersAction.fulfilled.type, payload };
+    const newState = mainData.reducer(initialState, action);
+
+    expect(newState.favoriteOffers).toEqual(payload);
   });
 });
