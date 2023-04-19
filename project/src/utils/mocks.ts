@@ -8,6 +8,8 @@ import {configureMockStore} from '@jedmao/redux-mock-store';
 import {Action} from 'redux';
 import { createApi } from '../services/api';
 import { State } from '../types/state';
+import { UserData } from '../types/user-data';
+import { AUTH_TOKEN_KEY_NAME } from '../services/token';
 
 export const mockOffers: Offer[] = [{
   city: {
@@ -142,12 +144,22 @@ export const mockReviews: Review[] = [
   }
 ];
 
+export const mockUser: UserData = {
+  id: 111,
+  email: 'test@test.ru',
+  token: AUTH_TOKEN_KEY_NAME,
+  avatarUrl: 'https://12.react.pages.academy/static/avatar/2.jpg',
+  isPro: true,
+  name: 'Bob'
+};
+
 export const mockReviewData: ReviewData = {
   hotelId: String(mockOffers[0].id),
   comment: mockReviews[0].comment,
-  rating: String(mockReviews[0].rating),
-  avatarUrl: mockReviews[0].user.avatarUrl,
-  name: mockReviews[0].user.name
+  rating: mockReviews[0].rating,
+  user: mockUser,
+  id: String(mockReviews[0].id),
+  date: mockReviews[0].date,
 };
 
 const api = createApi();

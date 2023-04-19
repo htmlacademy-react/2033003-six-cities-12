@@ -1,6 +1,7 @@
 import { Offer } from './types/offer';
 import { Rating } from './types/rating';
 import { Review } from './types/review';
+import { UserData } from './types/user-data';
 
 export const SortType = {
   POPULAR: 'Popular',
@@ -68,24 +69,23 @@ export const sortOffers = (offers: Offer[], sortingMethod: string): Offer[] => {
   }
 };
 
-export const compareByDate = (a: Review, b: Review) =>
-  new Date(b.date).getTime() - new Date(a.date).getTime();
+export const compareByDate = (a: Review, b: Review) => {
+  const dateA = a.date ? new Date(a.date).getTime() : 0;
+  const dateB = b.date ? new Date(b.date).getTime() : 0;
+  return dateB - dateA;
+};
 
-export const commentId = Math.floor(Math.random() * 1000000);
-export const userId = Math.floor(Math.random() * 1000000);
-export const commentDate = new Date().toISOString();
-
-export const generateNewReview = (comment: string, rating: string, avatarUrl: string, name: string): Review => {
+export const generateNewReview = (comment: string, rating: number, user: UserData, id: string | undefined, date: string | undefined): Review => {
   const newReview: Review = {
     comment: comment,
-    date: commentDate,
-    id: commentId,
+    date: date,
+    id: Number(id),
     rating: Number(rating),
     user: {
-      avatarUrl: avatarUrl,
-      id: userId,
-      isPro: false,
-      name: name,
+      avatarUrl: user.avatarUrl,
+      id: user.id,
+      isPro: user.isPro,
+      name: user.name,
     },
   };
   return newReview;
@@ -105,3 +105,7 @@ export const isValidPassword = (password: string): boolean => {
 };
 
 export const LOCATIONS = ['Paris','Cologne','Brussels','Amsterdam','Hamburg','Dusseldorf'];
+
+export const commentId = Math.floor(Math.random() * 1000000);
+export const userId = Math.floor(Math.random() * 1000000);
+export const commentDate = new Date().toISOString();

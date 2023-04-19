@@ -1,49 +1,57 @@
-import { FormEvent, useCallback, useMemo, useState } from 'react';
+import { FormEvent, useCallback, useEffect, useMemo, useState } from 'react';
 import { ReviewData } from '../../types/review-data';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import {toast} from 'react-toastify';
-import { getOffer } from '../../store/main-data/main-data.selectors';
+import { getOffer, getSubmittingStatus, getSubmittingSuccessStatus } from '../../store/main-data/main-data.selectors';
 import RatingStars from '../rating/rating-stars';
 import Comment from './comment';
-import { getUserAvatarUrl, getUserEmail } from '../../store/user-process/user-process.selectors';
+import { getUserAvatarUrl, getUserEmail, getUserId, getUserIsProStatus } from '../../store/user-process/user-process.selectors';
 import { postCommentAction } from '../../store/api-actions/coments-api-actions';
+import { resetSubmittingSuccessStatus } from '../../store/action';
 
 function CommentSubmissionForm(): JSX.Element{
   const dispatch = useAppDispatch();
   const [rating, setRating] = useState<number>(0);
   const [comment, setComment] = useState<string>('');
-  const [isSubmitting, setIsSubmitting] = useState(false);
 
+  const isSubmitting = useAppSelector(getSubmittingStatus);
+  const isSubmittingSuccesStatus = useAppSelector(getSubmittingSuccessStatus);
   const selectedOffer = useAppSelector(getOffer);
   const email = useAppSelector(getUserEmail);
   const avatarUrl = useAppSelector(getUserAvatarUrl);
-  const userName = email.split('@')[0];
+  const userId = useAppSelector(getUserId);
+  const userIsPro = useAppSelector(getUserIsProStatus);
+  const userName = email?.split('@')[0];
 
-  const onSubmit = useCallback((reviewData: ReviewData) => {
-    setIsSubmitting(true);
-    dispatch(postCommentAction(reviewData)).then(() => {
+  useEffect(() => {
+    if (isSubmittingSuccesStatus) {
       setRating(0);
       setComment('');
-      setIsSubmitting(false);
-    }).catch((ex: string | null) => {
-      toast.warn(ex);
-      setIsSubmitting(false);
-    });
+      dispatch(resetSubmittingSuccessStatus);
+    }
+  }, [isSubmitting, isSubmittingSuccesStatus, dispatch]);
+
+  const onSubmit = useCallback((reviewData: ReviewData) => {
+    dispatch(postCommentAction(reviewData));
   }, [dispatch]);
 
   const handleSubmit = useCallback((evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
 
     if (rating !== null && comment.length >= 50) {
-      onSubmit({
+      const reviewData: ReviewData = {
         hotelId: String(selectedOffer?.id),
-        comment,
-        rating: String(rating),
-        avatarUrl,
-        name: userName
-      });
+        comment: comment,
+        rating: Number(rating),
+        user: {
+          avatarUrl: avatarUrl,
+          id: userId,
+          isPro: userIsPro,
+          name: userName,
+        },
+      };
+      onSubmit(reviewData);
     }
-  }, [rating, comment, onSubmit, selectedOffer, userName, avatarUrl]);
+  }, [rating, comment, onSubmit, selectedOffer, userName, avatarUrl, userId, userIsPro]);
 
   const isSubmitButtonDisabled = useMemo(() => rating === 0 || comment.length < 50 || isSubmitting,
     [rating, comment.length, isSubmitting]);

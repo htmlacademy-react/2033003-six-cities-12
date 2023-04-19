@@ -7,7 +7,7 @@ type ReviewItemProps = {
 
 function ReviewItem({review}: ReviewItemProps): JSX.Element {
   const {id, user, rating, comment, date} = review;
-  const formattedDate = new Date(date).toLocaleString('en-US', { month: 'long', year: 'numeric' });
+  const formattedDate = date ? new Date(date).toLocaleString('en-US', { month: 'long', year: 'numeric' }) : '';
   return (
     <li key={id} className="reviews__item">
       <div className="reviews__user user">
@@ -15,7 +15,7 @@ function ReviewItem({review}: ReviewItemProps): JSX.Element {
           <img className="reviews__avatar user__avatar" src={user.avatarUrl} width="54" height="54" alt="User avatar" />
         </div>
         <span className="reviews__user-name">
-          {user.name.split(' ')[0]}
+          {user.name && user.name.split(' ')[0]}
         </span>
       </div>
       <div className="reviews__info">

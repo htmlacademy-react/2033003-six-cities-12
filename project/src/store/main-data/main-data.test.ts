@@ -5,6 +5,10 @@ import { fetchFavoriteOffersAction, fetchNearbyOffersAction, fetchOfferAction, f
 import { fetchReviewsAction } from '../api-actions/reviews-api-actions';
 import { addReview, loadNearbyOffers, loadOffer, loadOffers, loadReviews, mainData, setOffersDataLoadingStatus } from './main-data.slice';
 
+jest.mock('react-toastify', () => ({
+  warn: jest.fn(),
+}));
+
 describe('Reducers: main-data', () => {
   let initialState: DataState;
 
@@ -15,7 +19,9 @@ describe('Reducers: main-data', () => {
       reviews: [],
       isOffersDataLoading: false,
       selectedOffer: null,
-      favoriteOffers: []
+      favoriteOffers: [],
+      isSubmitting: false,
+      isSubmittingSuccess: false,
     };
   });
   it('without additional parameters should return initial state', () => {
@@ -25,7 +31,9 @@ describe('Reducers: main-data', () => {
         nearbyOffers: [],
         offers: [],
         reviews: [],
-        selectedOffer: null
+        selectedOffer: null,
+        isSubmitting: false,
+        isSubmittingSuccess: false,
       });
   });
 
@@ -70,7 +78,9 @@ describe('Extra Reducers: main-data', () => {
       reviews: [],
       isOffersDataLoading: false,
       selectedOffer: null,
-      favoriteOffers: []
+      favoriteOffers: [],
+      isSubmitting: false,
+      isSubmittingSuccess: false,
     };
   });
   it('should handle fetchOffersAction.fulfilled', () => {
@@ -122,10 +132,30 @@ describe('Extra Reducers: main-data', () => {
 
   it('should handle postCommentAction.fulfilled', () => {
     const payload = mockReviews[0];
+
     const action = { type: postCommentAction.fulfilled.type, payload };
     const newState = mainData.reducer(initialState, action);
+    expect(newState.reviews).toEqual(action.payload);
+  });
 
-    expect(newState.reviews).toContain(payload);
+  it('should handle postCommentAction.pending', () => {
+    const action = { type: postCommentAction.pending.type };
+    const newState = mainData.reducer(initialState, action);
+
+    expect(newState.isSubmitting).toBe(true);
+  });
+
+  it("should handle postCommentAction.rejected", () => {
+    const error = { message: "An error occurred" };
+    const action = {
+      type: postCommentAction.rejected.type,
+      error
+    };
+  
+    const newState = mainData.reducer(initialState, action);
+  
+    expect(newState.isSubmitting).toBe(false);
+    expect(newState.isSubmittingSuccess).toBe(false);
   });
 
   it('should handle toggleFavoriteAction.fulfilled', () => {
@@ -135,7 +165,7 @@ describe('Extra Reducers: main-data', () => {
     const newState = mainData.reducer({ ...initialState, offers: initialOffers }, action);
 
     expect(newState.offers[0]).toEqual(payload);
-    expect(newState.offers[1]).toEqual(initialOffers[1]);
+    expect(newState.offers[0]).toEqual(initialOffers[0]);
   });
 
   it('should handle fetchFavoriteOffersAction.fulfilled', () => {

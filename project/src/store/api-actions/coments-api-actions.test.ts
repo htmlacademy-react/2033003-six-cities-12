@@ -1,5 +1,5 @@
-import { mockOffers } from './../../utils/mocks';
-import { APIRoute, commentDate, commentId, userId } from '../../const';
+import { mockOffers, mockUser} from './../../utils/mocks';
+import { APIRoute } from '../../const';
 import { ReviewData } from '../../types/review-data';
 import { mockAPI, mockReviewData, mockStore } from '../../utils/mocks';
 import { postCommentAction } from './coments-api-actions';
@@ -15,24 +15,19 @@ describe('API Actions: comment actions', () => {
       const store = mockStore();
       const expectedReview: Review = {
         comment: mockReviewData.comment,
-        id: commentId,
+        id: Number(mockReviewData.id),
         rating: Number(mockReviewData.rating),
-        date: commentDate,
-        user: {
-          avatarUrl: mockReviewData.avatarUrl,
-          id: userId,
-          isPro: false,
-          name: mockReviewData.name,
-        }
+        date: mockReviewData.date,
+        user: mockUser
       };
 
-      mockAPI.onPost(`${APIRoute.Comments}/${mockReviewData.hotelId}`).reply(200);
+      mockAPI.onPost(`${APIRoute.Comments}/${mockReviewData.hotelId}`).reply(200, expectedReview);
       const newReviewData: ReviewData = {
         hotelId: String(mockOffers[0].id),
         comment: expectedReview.comment,
-        rating: String(expectedReview.rating),
-        avatarUrl: expectedReview.user.avatarUrl,
-        name: expectedReview.user.name,
+        rating: expectedReview.rating,
+        id: String(expectedReview.id),
+        user: expectedReview.user
       };
 
       const result = await store.dispatch(postCommentAction(newReviewData));

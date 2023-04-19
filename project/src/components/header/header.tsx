@@ -53,7 +53,7 @@ function Header({isLoginScreen}: HeaderProps): JSX.Element {
           {!isLoginScreen ? (
             <nav className="header__nav">
               <ul className="header__nav-list">
-                {isLoggedIn ? (
+                {isLoggedIn && email ? (
                   <SignOut
                     avatarUrl={avatarUrl}
                     email={email}

@@ -8,7 +8,9 @@ export const initialState: UserState = {
   authorizationStatus: AuthorizationStatus.Unknown,
   email: '',
   avatarUrl: '',
-  redirect: ''
+  redirect: '',
+  userId: null,
+  isPro: false
 };
 
 export const userProcess = createSlice({
@@ -21,11 +23,13 @@ export const userProcess = createSlice({
         state.authorizationStatus = AuthorizationStatus.Auth;
         state.email = action.payload.email;
         state.avatarUrl = action.payload.avatarUrl;
+        state.userId = action.payload.id;
       })
       .addCase(checkAuthAction.rejected, (state, action) => {
         state.authorizationStatus = AuthorizationStatus.NoAuth;
       })
       .addCase(loginAction.fulfilled, (state, action) => {
+        state.isPro = action.payload.isPro;
         state.authorizationStatus = AuthorizationStatus.Auth;
         state.redirect = AppRoute.Main;
         redirectToRoute(AppRoute.Main);

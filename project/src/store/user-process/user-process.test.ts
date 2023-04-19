@@ -11,22 +11,26 @@ describe('Reducer: user-process', () => {
       authorizationStatus: AuthorizationStatus.Unknown,
       email: '',
       avatarUrl: '',
-      redirect: ''
+      redirect: '',
+      userId: null,
+      isPro: false
     };
   });
   it('without additional parameters should return initial state', () => {
     expect(userProcess.reducer(undefined, {type: 'UNKNOWN_ACTION'}))
-      .toEqual({authorizationStatus: AuthorizationStatus.Unknown, avatarUrl: '', email: '', redirect: ''});
+      .toEqual({authorizationStatus: AuthorizationStatus.Unknown, avatarUrl: '', email: '', redirect: '', userId: null, isPro: false});
   });
 
   it('should update state after a successful checkAuthAction', () => {
-    const payload = { email: 'test@test.com', avatarUrl: 'https://example.com/avatar.png', redirect: ''};
+    const payload = { email: 'test@test.com', avatarUrl: 'https://example.com/avatar.png', redirect: '', userId: null, isPro: true };
     const action = { type: checkAuthAction.fulfilled.type, payload };
     const expectedState = {
       authorizationStatus: AuthorizationStatus.Auth,
       email: 'test@test.com',
       avatarUrl: 'https://example.com/avatar.png',
-      redirect: ''
+      redirect: '',
+      userId: undefined,
+      isPro: false
     };
     expect(userProcess.reducer(undefined, action)).toEqual(expectedState);
   });
@@ -37,15 +41,18 @@ describe('Reducer: user-process', () => {
       authorizationStatus: AuthorizationStatus.NoAuth,
       email: '',
       avatarUrl: '',
-      redirect: ''
+      redirect: '',
+      isPro: false,
+      userId: null
     };
     expect(userProcess.reducer(undefined, action)).toEqual(expectedState);
   });
 
   it('should update state after a successful loginAction', () => {
-    const action = { type: loginAction.fulfilled.type };
-    const expectedState = { authorizationStatus: AuthorizationStatus.Auth, email: '', avatarUrl: '', redirect: AppRoute.Main };
-    expect(userProcess.reducer(undefined, action)).toEqual(expectedState);
+    const action = { type: loginAction.fulfilled.type, payload: { isPro: true } };
+    const expectedState = { authorizationStatus: AuthorizationStatus.Auth, email: '', avatarUrl: '', redirect: AppRoute.Main, isPro: true, userId: null };
+    const nextState = userProcess.reducer(undefined, action);
+    expect(nextState).toEqual(expectedState);
   });
 
   it('should change the authorization status to Auth and redirect to the main page when loginAction.fulfilled is dispatched', () => {
@@ -54,17 +61,19 @@ describe('Reducer: user-process', () => {
       email: '',
       avatarUrl: '',
       redirect: AppRoute.Main,
+      isPro: false,
+      userId: null
     };
-
-    const action = { type: loginAction.fulfilled.type };
+  
+    const action = { type: loginAction.fulfilled.type, payload: { isPro: false } };
     const state = userProcess.reducer(initialState, action);
-
+  
     expect(state).toEqual(expectedState);
   });
 
   it('should update state after a successful logoutAction', () => {
     const action = { type: logoutAction.fulfilled.type };
-    const expectedState = { authorizationStatus: AuthorizationStatus.NoAuth, email: '', avatarUrl: '',redirect: '' };
+    const expectedState = { authorizationStatus: AuthorizationStatus.NoAuth, email: '', avatarUrl: '',redirect: '', isPro: false, userId: null };
     expect(userProcess.reducer(undefined, action)).toEqual(expectedState);
   });
 });

@@ -5,6 +5,7 @@ import { DataState } from '../../types/state';
 import { fetchFavoriteOffersAction, fetchNearbyOffersAction, fetchOfferAction, fetchOffersAction, toggleFavoriteAction } from '../api-actions/offers-api-actions';
 import { fetchReviewsAction } from '../api-actions/reviews-api-actions';
 import { postCommentAction } from '../api-actions/coments-api-actions';
+import { toast } from 'react-toastify';
 
 export const initialState: DataState = {
   offers: [],
@@ -12,7 +13,9 @@ export const initialState: DataState = {
   reviews: [],
   isOffersDataLoading: false,
   selectedOffer: null,
-  favoriteOffers: []
+  favoriteOffers: [],
+  isSubmitting: false,
+  isSubmittingSuccess: false,
 };
 
 export const mainData = createSlice({
@@ -37,6 +40,9 @@ export const mainData = createSlice({
     addReview: (state, action: PayloadAction<Review>) => {
       state.reviews.push(action.payload);
     },
+    resetSubmittingSuccessStatus: (state, action: PayloadAction<boolean>) => {
+      state.isSubmittingSuccess = false;
+    }
   },
   extraReducers: (builder) => {
     builder
@@ -59,8 +65,18 @@ export const mainData = createSlice({
       .addCase(fetchReviewsAction.fulfilled, (state, action) => {
         state.reviews = action.payload;
       })
+      .addCase(postCommentAction.pending, (state, action) => {
+        state.isSubmitting = true;
+      })
       .addCase(postCommentAction.fulfilled, (state, action) => {
-        state.reviews.push(action.payload);
+        state.reviews = action.payload;
+        state.isSubmitting = false;
+        state.isSubmittingSuccess = true;
+      })
+      .addCase(postCommentAction.rejected, (state, action) => {
+        state.isSubmitting = false;
+        state.isSubmittingSuccess = false;
+        toast.warn(action.error.message);
       })
       .addCase(toggleFavoriteAction.fulfilled, (state, action) => {
         const index = state.offers.findIndex((offer) => offer.id === action.payload.id);

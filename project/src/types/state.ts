@@ -14,13 +14,17 @@ export type DataState = {
   isOffersDataLoading: boolean;
   selectedOffer: Offer | null;
   favoriteOffers: Offer[];
+  isSubmitting: boolean;
+  isSubmittingSuccess: boolean;
 }
 
 export type UserState = {
   authorizationStatus: string;
-  email: string;
+  email: string | undefined;
   avatarUrl: string;
   redirect: string;
+  userId: number | null;
+  isPro: boolean;
 }
 
 export type AppState = {
