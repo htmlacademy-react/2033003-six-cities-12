@@ -8,7 +8,6 @@ export const initialState: UserState = {
   authorizationStatus: AuthorizationStatus.Unknown,
   email: '',
   avatarUrl: '',
-  redirect: '',
   userId: null,
   isPro: false
 };
@@ -31,8 +30,6 @@ export const userProcess = createSlice({
       .addCase(loginAction.fulfilled, (state, action) => {
         state.isPro = action.payload.isPro;
         state.authorizationStatus = AuthorizationStatus.Auth;
-        state.redirect = AppRoute.Main;
-        redirectToRoute(AppRoute.Main);
       })
       .addCase(logoutAction.fulfilled, (state, action) => {
         state.authorizationStatus = AuthorizationStatus.NoAuth;

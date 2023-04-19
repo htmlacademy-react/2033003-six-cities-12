@@ -11,3 +11,4 @@ export const isOffersDataLoading = (state: State): boolean => state[NameSpace.Da
 export const getFavoriteOffers = (state: State): Offer[] => state[NameSpace.Data].favoriteOffers;
 export const getSubmittingStatus = (state: State): boolean => state[NameSpace.Data].isSubmitting;
 export const getSubmittingSuccessStatus = (state: State): boolean => state[NameSpace.Data].isSubmittingSuccess;
+

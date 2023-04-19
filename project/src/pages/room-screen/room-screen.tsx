@@ -17,6 +17,7 @@ import { getLocationName, getSortingMethod } from '../../store/main-process/main
 import Bookmark from '../../components/bookmark/bookmark';
 import { fetchNearbyOffersAction, fetchOfferAction } from '../../store/api-actions/offers-api-actions';
 import { fetchReviewsAction } from '../../store/api-actions/reviews-api-actions';
+import NotFoundScreen from '../not-found-screen/not-found-screen';
 
 function RoomScreen(): JSX.Element | null {
   const dispatch = useAppDispatch();
@@ -29,7 +30,7 @@ function RoomScreen(): JSX.Element | null {
       dispatch(fetchReviewsAction(id));
     }
   }, [dispatch, id]);
-
+  
   const isLoggedIn = useAppSelector(getAuthorizationStatus) === AuthorizationStatus.Auth;
   const nearbyOffers: Offer[] = useAppSelector(getNearbyOffers);
   const offer: Offer | null | undefined = useAppSelector(getOffer);
@@ -130,7 +131,9 @@ function RoomScreen(): JSX.Element | null {
         </main>
       </Layout>
     );
+  }else{
+    return (<NotFoundScreen/>)
   }
-  return null;
+  
 }
 export default RoomScreen;

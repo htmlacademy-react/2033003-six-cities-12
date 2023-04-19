@@ -2,24 +2,18 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { Offer } from '../../types/offer';
 import { AppDispatch, State } from '../../types/state';
 import { AxiosInstance } from 'axios';
-import { APIRoute, AppRoute } from '../../const';
-import { redirectToRoute } from '../action';
+import { APIRoute } from '../../const';
 import { FavoriteData } from '../../types/favorite-data';
 
-export const fetchOfferAction = createAsyncThunk<Offer | null, string, {
+export const fetchOfferAction = createAsyncThunk<Offer, string, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
 }>(
   'data/fetchOffer',
   async (hotelId: string, {dispatch, extra: api}) => {
-    try{
-      const {data} = await api.get<Offer | null>(`${APIRoute.Hotels}/${hotelId}`);
+      const {data} = await api.get<Offer>(`${APIRoute.Hotels}/${hotelId}`);
       return data;
-    }catch{
-      dispatch(redirectToRoute(AppRoute.NotFound));
-      return null;
-    }
   },
 );
 

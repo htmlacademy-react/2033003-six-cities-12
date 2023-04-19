@@ -1,3 +1,4 @@
+import { store } from './../index';
 import { Offer } from './../../types/offer';
 import { Review } from '../../types/review';
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
@@ -58,6 +59,9 @@ export const mainData = createSlice({
       })
       .addCase(fetchOfferAction.fulfilled, (state, action) => {
         state.selectedOffer = action.payload;
+      })
+      .addCase(fetchOfferAction.rejected, (state, action) => {
+        state.selectedOffer = null;
       })
       .addCase(fetchNearbyOffersAction.fulfilled, (state, action) => {
         state.nearbyOffers = action.payload;

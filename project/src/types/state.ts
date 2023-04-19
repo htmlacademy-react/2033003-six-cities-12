@@ -22,7 +22,6 @@ export type UserState = {
   authorizationStatus: string;
   email: string | undefined;
   avatarUrl: string;
-  redirect: string;
   userId: number | null;
   isPro: boolean;
 }

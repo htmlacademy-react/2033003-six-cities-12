@@ -41,7 +41,6 @@ function useLoginForm(){
     dispatch(loginAction(authData))
       .then(() => {
         setIsSubmitting(false);
-        navigate(AppRoute.Main);
       })
       .catch(() => setIsSubmitting(false));
   };
