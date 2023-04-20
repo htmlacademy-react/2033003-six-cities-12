@@ -4,8 +4,7 @@ import { Review } from '../../types/review';
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { DataState } from '../../types/state';
 import { fetchFavoriteOffersAction, fetchNearbyOffersAction, fetchOfferAction, fetchOffersAction, toggleFavoriteAction } from '../api-actions/offers-api-actions';
-import { fetchReviewsAction } from '../api-actions/reviews-api-actions';
-import { postCommentAction } from '../api-actions/coments-api-actions';
+import { fetchReviewsAction, postCommentAction } from '../api-actions/coments-api-actions';
 import { toast } from 'react-toastify';
 
 export const initialState: DataState = {

@@ -41,13 +41,7 @@ function CommentSubmissionForm(): JSX.Element{
       const reviewData: ReviewData = {
         hotelId: String(selectedOffer?.id),
         comment: comment,
-        rating: Number(rating),
-        user: {
-          avatarUrl: avatarUrl,
-          id: userId,
-          isPro: userIsPro,
-          name: userName,
-        },
+        rating: Number(rating)
       };
       onSubmit(reviewData);
     }

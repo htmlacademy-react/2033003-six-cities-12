@@ -1,8 +1,7 @@
+import { fetchReviewsAction, postCommentAction } from './../api-actions/coments-api-actions';
 import { DataState } from '../../types/state';
 import { mockOffers, mockReviews } from '../../utils/mocks';
-import { postCommentAction } from '../api-actions/coments-api-actions';
 import { fetchFavoriteOffersAction, fetchNearbyOffersAction, fetchOfferAction, fetchOffersAction, toggleFavoriteAction } from '../api-actions/offers-api-actions';
-import { fetchReviewsAction } from '../api-actions/reviews-api-actions';
 import { addReview, loadNearbyOffers, loadOffer, loadOffers, loadReviews, mainData, setOffersDataLoadingStatus } from './main-data.slice';
 
 describe('Reducers: main-data', () => {

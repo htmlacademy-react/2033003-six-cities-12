@@ -16,8 +16,8 @@ import Layout from '../../components/layout/layout';
 import { getLocationName, getSortingMethod } from '../../store/main-process/main-process.selectors';
 import Bookmark from '../../components/bookmark/bookmark';
 import { fetchNearbyOffersAction, fetchOfferAction } from '../../store/api-actions/offers-api-actions';
-import { fetchReviewsAction } from '../../store/api-actions/reviews-api-actions';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
+import { fetchReviewsAction } from '../../store/api-actions/coments-api-actions';
 
 function RoomScreen(): JSX.Element | null {
   const dispatch = useAppDispatch();

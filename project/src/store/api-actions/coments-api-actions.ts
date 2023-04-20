@@ -11,8 +11,20 @@ export const postCommentAction = createAsyncThunk<Review[], ReviewData, {
   extra: AxiosInstance;
 }>(
   'data/postComment',
-  async ({hotelId,comment, rating, user}, { dispatch, extra: api }) => {
+  async ({hotelId,comment, rating }, { dispatch, extra: api }) => {
     const response = await api.post<Review[]>(`${APIRoute.Comments}/${hotelId}`, {comment, rating});
     return response.data;
   }
+);
+
+export const fetchReviewsAction = createAsyncThunk<Review[], string, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'data/fetchReviews',
+  async (hotelId: string, { dispatch, extra: api }) => {
+    const { data } = await api.get<Review[]>(`${APIRoute.Comments}/${hotelId}`);
+    return data;
+  },
 );

@@ -1,4 +1,4 @@
-import { FormEvent, MouseEventHandler, useEffect, useRef, useState } from 'react';
+import { FormEvent, MouseEventHandler, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '..';
 import { AppRoute, AuthorizationStatus, LOCATIONS, isValidPassword } from '../../const';
@@ -6,6 +6,8 @@ import { loginAction } from '../../store/api-actions/auth-api-actions';
 import { getAuthorizationStatus } from '../../store/user-process/user-process.selectors';
 import { toast } from 'react-toastify';
 import { changeCity } from '../../store/main-process/main-process.slice';
+import { getSubmittingStatus } from '../../store/main-data/main-data.selectors';
+import { setIsSubmitting } from '../../store/user-process/user-process.slice';
 
 type AuthData = {
   login: string;
@@ -18,9 +20,6 @@ function useLoginForm(){
 
   const loginRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
-
-  const [isSubmitting, setIsSubmitting] = useState(false);
-
   const isLoggedIn = useAppSelector(getAuthorizationStatus) === AuthorizationStatus.Auth;
 
   useEffect(() => {
@@ -30,19 +29,11 @@ function useLoginForm(){
   }, [isLoggedIn, navigate]);
 
   const onSubmit = (authData: AuthData) => {
-    setIsSubmitting(true);
-
     if (!isValidPassword(authData.password)) {
       toast.warn('Password must contain at least one letter and one number.');
-      setIsSubmitting(false);
       return;
     }
-
-    dispatch(loginAction(authData))
-      .then(() => {
-        setIsSubmitting(false);
-      })
-      .catch(() => setIsSubmitting(false));
+    dispatch(loginAction(authData));
   };
 
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
@@ -73,7 +64,6 @@ function useLoginForm(){
   return {
     loginRef,
     passwordRef,
-    isSubmitting,
     handleSubmit,
     handleGoMainClick,
     handleQuickCityClick,

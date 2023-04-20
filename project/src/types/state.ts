@@ -24,6 +24,7 @@ export type UserState = {
   avatarUrl: string;
   userId: number | null;
   isPro: boolean;
+  isSubmitting: boolean;
 }
 
 export type AppState = {

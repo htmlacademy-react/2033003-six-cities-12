@@ -6,3 +6,4 @@ export const getUserEmail = (state: State): string | undefined => state[NameSpac
 export const getUserAvatarUrl = (state: State): string => state[NameSpace.User].avatarUrl;
 export const getUserId = (state: State): number | null => state[NameSpace.User].userId;
 export const getUserIsProStatus = (state: State): boolean => state[NameSpace.User].isPro;
+export const getSubmittingStatus = (state: State): boolean => state[NameSpace.User].isSubmitting;

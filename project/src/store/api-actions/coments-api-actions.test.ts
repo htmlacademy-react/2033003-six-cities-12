@@ -1,8 +1,8 @@
-import { mockOffers, mockUser} from './../../utils/mocks';
+import { mockOffers, mockReviews, mockUser} from './../../utils/mocks';
 import { APIRoute } from '../../const';
 import { ReviewData } from '../../types/review-data';
 import { mockAPI, mockReviewData, mockStore } from '../../utils/mocks';
-import { postCommentAction } from './coments-api-actions';
+import { fetchReviewsAction, postCommentAction } from './coments-api-actions';
 import { Review } from '../../types/review';
 
 describe('API Actions: comment actions', () => {
@@ -21,14 +21,15 @@ describe('API Actions: comment actions', () => {
         user: mockUser
       };
 
-      mockAPI.onPost(`${APIRoute.Comments}/${mockReviewData.hotelId}`).reply(200, expectedReview);
       const newReviewData: ReviewData = {
+        id: String(expectedReview.id),
         hotelId: String(mockOffers[0].id),
         comment: expectedReview.comment,
         rating: expectedReview.rating,
-        id: String(expectedReview.id),
         user: expectedReview.user
       };
+
+      mockAPI.onPost(`${APIRoute.Comments}/${mockReviewData.hotelId}`).reply(200, expectedReview);
 
       const result = await store.dispatch(postCommentAction(newReviewData));
       const actions = store.getActions().map(({type}) => type);
@@ -38,6 +39,23 @@ describe('API Actions: comment actions', () => {
         postCommentAction.fulfilled.type
       ]);
       expect(result.payload).toEqual(expectedReview);
+    });
+
+    it('should fetch reviews from API and return array of reviews', async () => {
+      const hotelId = mockReviewData.hotelId;
+      const store = mockStore();
+  
+      mockAPI
+        .onGet(`${APIRoute.Comments}/${hotelId}`)
+        .reply(200, mockReviews);
+  
+      const result = await store.dispatch(fetchReviewsAction(hotelId));
+  
+      const actions = store.getActions();
+      expect(actions).toHaveLength(2);
+      expect(actions[0].type).toEqual(fetchReviewsAction.pending.type);
+      expect(actions[1].type).toEqual(fetchReviewsAction.fulfilled.type);
+      expect(result.payload).toEqual(mockReviews);
     });
 
   });

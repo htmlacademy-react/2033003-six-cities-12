@@ -1,9 +1,12 @@
 import { Link } from 'react-router-dom';
 import useLoginForm from '../../hooks/use-login-form/use-login-form';
 import Header from '../../components/header/header';
+import { useAppSelector } from '../../hooks';
+import { getSubmittingStatus } from '../../store/user-process/user-process.selectors';
 
 function LoginScreen() : JSX.Element {
-  const { loginRef, passwordRef, isSubmitting, handleSubmit, handleQuickCityClick, quickCity } = useLoginForm();
+  const { loginRef, passwordRef, handleSubmit, handleQuickCityClick, quickCity } = useLoginForm();
+  const isSubmitting = useAppSelector(getSubmittingStatus);
 
   return(
     <div className="page page--gray page--login">
