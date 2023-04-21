@@ -1,17 +1,16 @@
-import { store } from './../index';
 import { Offer } from './../../types/offer';
 import { Review } from '../../types/review';
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { DataState } from '../../types/state';
 import { fetchFavoriteOffersAction, fetchNearbyOffersAction, fetchOfferAction, fetchOffersAction, toggleFavoriteAction } from '../api-actions/offers-api-actions';
-import { fetchReviewsAction, postCommentAction } from '../api-actions/coments-api-actions';
+import { fetchReviewsAction, postReviewAction } from '../api-actions/coments-api-actions';
 import { toast } from 'react-toastify';
 
 export const initialState: DataState = {
   offers: [],
   nearbyOffers: [],
   reviews: [],
-  isOffersDataLoading: false,
+  isDataLoading: false,
   selectedOffer: null,
   favoriteOffers: [],
   isSubmitting: false,
@@ -26,7 +25,7 @@ export const mainData = createSlice({
       state.offers = action.payload;
     },
     setOffersDataLoadingStatus: (state, action: PayloadAction<boolean>) => {
-      state.isOffersDataLoading = action.payload;
+      state.isDataLoading = action.payload;
     },
     loadOffer: (state, action: PayloadAction<Offer>) => {
       state.selectedOffer = action.payload;
@@ -48,13 +47,13 @@ export const mainData = createSlice({
     builder
       .addCase(fetchOffersAction.fulfilled, (state, action) => {
         state.offers = action.payload;
-        state.isOffersDataLoading = false;
+        state.isDataLoading = false;
       })
       .addCase(fetchOffersAction.rejected, (state, action) => {
-        state.isOffersDataLoading = false;
+        state.isDataLoading = false;
       })
       .addCase(fetchOffersAction.pending, (state) => {
-        state.isOffersDataLoading = true;
+        state.isDataLoading = true;
       })
       .addCase(fetchOfferAction.fulfilled, (state, action) => {
         state.selectedOffer = action.payload;
@@ -68,15 +67,15 @@ export const mainData = createSlice({
       .addCase(fetchReviewsAction.fulfilled, (state, action) => {
         state.reviews = action.payload;
       })
-      .addCase(postCommentAction.pending, (state, action) => {
+      .addCase(postReviewAction.pending, (state, action) => {
         state.isSubmitting = true;
       })
-      .addCase(postCommentAction.fulfilled, (state, action) => {
+      .addCase(postReviewAction.fulfilled, (state, action) => {
         state.reviews = action.payload;
         state.isSubmitting = false;
         state.isSubmittingSuccess = true;
       })
-      .addCase(postCommentAction.rejected, (state, action) => {
+      .addCase(postReviewAction.rejected, (state, action) => {
         state.isSubmitting = false;
         state.isSubmittingSuccess = false;
         toast.warn(action.error.message);
@@ -99,5 +98,6 @@ export const {
   loadOffer,
   loadNearbyOffers,
   loadReviews,
-  addReview
+  addReview,
+  resetSubmittingSuccessStatus
 } = mainData.actions;

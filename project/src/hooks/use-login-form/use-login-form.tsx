@@ -6,8 +6,6 @@ import { loginAction } from '../../store/api-actions/auth-api-actions';
 import { getAuthorizationStatus } from '../../store/user-process/user-process.selectors';
 import { toast } from 'react-toastify';
 import { changeCity } from '../../store/main-process/main-process.slice';
-import { getSubmittingStatus } from '../../store/main-data/main-data.selectors';
-import { setIsSubmitting } from '../../store/user-process/user-process.slice';
 
 type AuthData = {
   login: string;

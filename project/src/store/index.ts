@@ -1,8 +1,8 @@
-import { redirect } from './middlewares/redirect';
 import { configureStore } from '@reduxjs/toolkit';
 
 import { createApi } from '../services/api';
 import { rootReducer } from './root-reducer';
+import { redirectOnOfferError } from './middlewares/redirectOnOfferError';
 
 const api = createApi();
 
@@ -13,5 +13,5 @@ export const store = configureStore({
       thunk: {
         extraArgument: api,
       },
-    }).concat(redirect),
+    }).concat(redirectOnOfferError)
 });

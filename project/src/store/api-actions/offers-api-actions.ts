@@ -5,15 +5,15 @@ import { AxiosInstance } from 'axios';
 import { APIRoute } from '../../const';
 import { FavoriteData } from '../../types/favorite-data';
 
-export const fetchOfferAction = createAsyncThunk<Offer, string, {
+export const fetchOfferAction = createAsyncThunk<Offer | null, string, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
 }>(
   'data/fetchOffer',
   async (hotelId: string, {dispatch, extra: api}) => {
-      const {data} = await api.get<Offer>(`${APIRoute.Hotels}/${hotelId}`);
-      return data;
+    const {data}= await api.get<Offer>(`${APIRoute.Hotels}/${hotelId}`);
+    return data;
   },
 );
 

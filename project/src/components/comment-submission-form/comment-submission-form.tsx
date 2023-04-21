@@ -4,9 +4,8 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import { getOffer, getSubmittingStatus, getSubmittingSuccessStatus } from '../../store/main-data/main-data.selectors';
 import RatingStars from '../rating/rating-stars';
 import Comment from './comment';
-import { getUserAvatarUrl, getUserEmail, getUserId, getUserIsProStatus } from '../../store/user-process/user-process.selectors';
-import { postCommentAction } from '../../store/api-actions/coments-api-actions';
-import { resetSubmittingSuccessStatus } from '../../store/action';
+import { postReviewAction } from '../../store/api-actions/coments-api-actions';
+import { resetSubmittingSuccessStatus } from '../../store/main-data/main-data.slice';
 
 function CommentSubmissionForm(): JSX.Element{
   const dispatch = useAppDispatch();
@@ -16,11 +15,6 @@ function CommentSubmissionForm(): JSX.Element{
   const isSubmitting = useAppSelector(getSubmittingStatus);
   const isSubmittingSuccesStatus = useAppSelector(getSubmittingSuccessStatus);
   const selectedOffer = useAppSelector(getOffer);
-  const email = useAppSelector(getUserEmail);
-  const avatarUrl = useAppSelector(getUserAvatarUrl);
-  const userId = useAppSelector(getUserId);
-  const userIsPro = useAppSelector(getUserIsProStatus);
-  const userName = email?.split('@')[0];
 
   useEffect(() => {
     if (isSubmittingSuccesStatus) {
@@ -31,7 +25,7 @@ function CommentSubmissionForm(): JSX.Element{
   }, [isSubmitting, isSubmittingSuccesStatus, dispatch]);
 
   const onSubmit = useCallback((reviewData: ReviewData) => {
-    dispatch(postCommentAction(reviewData));
+    dispatch(postReviewAction(reviewData));
   }, [dispatch]);
 
   const handleSubmit = useCallback((evt: FormEvent<HTMLFormElement>) => {
@@ -45,7 +39,7 @@ function CommentSubmissionForm(): JSX.Element{
       };
       onSubmit(reviewData);
     }
-  }, [rating, comment, onSubmit, selectedOffer, userName, avatarUrl, userId, userIsPro]);
+  }, [rating, comment, onSubmit, selectedOffer]);
 
   const isSubmitButtonDisabled = useMemo(() => rating === 0 || comment.length < 50 || isSubmitting,
     [rating, comment.length, isSubmitting]);

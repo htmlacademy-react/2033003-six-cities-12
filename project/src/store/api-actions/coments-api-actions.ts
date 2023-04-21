@@ -5,7 +5,7 @@ import { AppDispatch, State } from '../../types/state';
 import { AxiosInstance } from 'axios';
 import { APIRoute } from '../../const';
 
-export const postCommentAction = createAsyncThunk<Review[], ReviewData, {
+export const postReviewAction = createAsyncThunk<Review[], ReviewData, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;

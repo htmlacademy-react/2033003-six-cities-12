@@ -1,4 +1,4 @@
-import { AppRoute, AuthorizationStatus } from '../../const';
+import { AuthorizationStatus } from '../../const';
 import { checkAuthAction, loginAction, logoutAction } from '../api-actions/auth-api-actions';
 import { userProcess } from './user-process.slice';
 import { UserState } from '../../types/state';
@@ -80,7 +80,7 @@ describe('Reducer: user-process', () => {
       userId: null,
       isSubmitting: false
     };
-    
+
     const nextState = userProcess.reducer(expectedState, action);
     expect(nextState.isSubmitting).toBe(false);
   });
@@ -94,10 +94,10 @@ describe('Reducer: user-process', () => {
       userId: null,
       isSubmitting: false
     };
-  
+
     const action = { type: loginAction.fulfilled.type, payload: { isPro: false } };
     const state = userProcess.reducer(initialState, action);
-  
+
     expect(state).toEqual(expectedState);
   });
 

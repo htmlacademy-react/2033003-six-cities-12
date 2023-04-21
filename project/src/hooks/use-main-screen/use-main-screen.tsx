@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction, useState } from 'react';
 import { useAppSelector } from '..';
 import { AuthorizationStatus } from '../../const';
-import { isOffersDataLoading } from '../../store/main-data/main-data.selectors';
+import { isDataLoading } from '../../store/main-data/main-data.selectors';
 import { getLocationName } from '../../store/main-process/main-process.selectors';
 import { getAuthorizationStatus } from '../../store/user-process/user-process.selectors';
 import { City } from '../../types/city';
@@ -23,7 +23,7 @@ function useMainScreen(): UseMainScreenProps {
   const city = filteredAndSortedOffers.find((offer) => offer.city.name === selectedCityName)?.city ?? null;
 
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
-  const isOffersLoading = useAppSelector(isOffersDataLoading);
+  const isOffersLoading = useAppSelector(isDataLoading);
 
   const isLoading = authorizationStatus === AuthorizationStatus.Unknown || isOffersLoading;
 

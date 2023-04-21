@@ -1,4 +1,4 @@
-import { fetchReviewsAction, postCommentAction } from './../api-actions/coments-api-actions';
+import { fetchReviewsAction, postReviewAction } from './../api-actions/coments-api-actions';
 import { DataState } from '../../types/state';
 import { mockOffers, mockReviews } from '../../utils/mocks';
 import { fetchFavoriteOffersAction, fetchNearbyOffersAction, fetchOfferAction, fetchOffersAction, toggleFavoriteAction } from '../api-actions/offers-api-actions';
@@ -12,7 +12,7 @@ describe('Reducers: main-data', () => {
       offers: [],
       nearbyOffers: [],
       reviews: [],
-      isOffersDataLoading: false,
+      isDataLoading: false,
       selectedOffer: null,
       favoriteOffers: [],
       isSubmitting: false,
@@ -22,7 +22,7 @@ describe('Reducers: main-data', () => {
   it('without additional parameters should return initial state', () => {
     expect(mainData.reducer(undefined, {type: 'UNKNOWN_ACTION'}))
       .toEqual({favoriteOffers: [],
-        isOffersDataLoading: false,
+        isDataLoading: false,
         nearbyOffers: [],
         offers: [],
         reviews: [],
@@ -39,7 +39,7 @@ describe('Reducers: main-data', () => {
 
   it('should set offers data loading status', () => {
     const newState = mainData.reducer(initialState, setOffersDataLoadingStatus(true));
-    expect(newState.isOffersDataLoading).toBe(true);
+    expect(newState.isDataLoading).toBe(true);
   });
 
   it('should load selected offer', () => {
@@ -71,7 +71,7 @@ describe('Extra Reducers: main-data', () => {
       offers: [],
       nearbyOffers: [],
       reviews: [],
-      isOffersDataLoading: false,
+      isDataLoading: false,
       selectedOffer: null,
       favoriteOffers: [],
       isSubmitting: false,
@@ -84,26 +84,34 @@ describe('Extra Reducers: main-data', () => {
     const newState = mainData.reducer(initialState, action);
 
     expect(newState.offers).toEqual(payload);
-    expect(newState.isOffersDataLoading).toBe(false);
+    expect(newState.isDataLoading).toBe(false);
   });
 
   it('should handle fetchOffersAction.rejected', () => {
     const action = { type: fetchOffersAction.rejected.type };
     const newState = mainData.reducer(initialState, action);
 
-    expect(newState.isOffersDataLoading).toBe(false);
+    expect(newState.isDataLoading).toBe(false);
   });
 
   it('should handle fetchOffersAction.pending', () => {
     const action = { type: fetchOffersAction.pending.type };
     const newState = mainData.reducer(initialState, action);
 
-    expect(newState.isOffersDataLoading).toBe(true);
+    expect(newState.isDataLoading).toBe(true);
   });
 
   it('should handle fetchOfferAction.fulfilled', () => {
     const payload = mockOffers[0];
     const action = { type: fetchOfferAction.fulfilled.type, payload };
+    const newState = mainData.reducer(initialState, action);
+
+    expect(newState.selectedOffer).toEqual(payload);
+  });
+
+  it('should handle fetchOfferAction.rejected', () => {
+    const payload = null;
+    const action = { type: fetchOfferAction.rejected.type, payload };
     const newState = mainData.reducer(initialState, action);
 
     expect(newState.selectedOffer).toEqual(payload);
@@ -125,30 +133,30 @@ describe('Extra Reducers: main-data', () => {
     expect(newState.reviews).toEqual(payload);
   });
 
-  it('should handle postCommentAction.fulfilled', () => {
+  it('should handle postReviewAction.fulfilled', () => {
     const payload = mockReviews[0];
 
-    const action = { type: postCommentAction.fulfilled.type, payload };
+    const action = { type: postReviewAction.fulfilled.type, payload };
     const newState = mainData.reducer(initialState, action);
     expect(newState.reviews).toEqual(action.payload);
   });
 
-  it('should handle postCommentAction.pending', () => {
-    const action = { type: postCommentAction.pending.type };
+  it('should handle postReviewAction.pending', () => {
+    const action = { type: postReviewAction.pending.type };
     const newState = mainData.reducer(initialState, action);
 
     expect(newState.isSubmitting).toBe(true);
   });
 
-  it("should handle postCommentAction.rejected", () => {
-    const error = { message: "An error occurred" };
+  it('should handle postReviewAction.rejected', () => {
+    const error = { message: 'An error occurred' };
     const action = {
-      type: postCommentAction.rejected.type,
+      type: postReviewAction.rejected.type,
       error,
     };
 
     const newState = mainData.reducer(initialState, action);
-  
+
     expect(newState.isSubmitting).toBe(false);
     expect(newState.isSubmittingSuccess).toBe(false);
     expect(error.message).toEqual(action.error.message);

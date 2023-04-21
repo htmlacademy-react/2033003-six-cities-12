@@ -2,7 +2,7 @@ import { mockOffers, mockReviews, mockUser} from './../../utils/mocks';
 import { APIRoute } from '../../const';
 import { ReviewData } from '../../types/review-data';
 import { mockAPI, mockReviewData, mockStore } from '../../utils/mocks';
-import { fetchReviewsAction, postCommentAction } from './coments-api-actions';
+import { fetchReviewsAction, postReviewAction } from './coments-api-actions';
 import { Review } from '../../types/review';
 
 describe('API Actions: comment actions', () => {
@@ -31,12 +31,12 @@ describe('API Actions: comment actions', () => {
 
       mockAPI.onPost(`${APIRoute.Comments}/${mockReviewData.hotelId}`).reply(200, expectedReview);
 
-      const result = await store.dispatch(postCommentAction(newReviewData));
+      const result = await store.dispatch(postReviewAction(newReviewData));
       const actions = store.getActions().map(({type}) => type);
 
       expect(actions).toEqual([
-        postCommentAction.pending.type,
-        postCommentAction.fulfilled.type
+        postReviewAction.pending.type,
+        postReviewAction.fulfilled.type
       ]);
       expect(result.payload).toEqual(expectedReview);
     });
@@ -44,13 +44,13 @@ describe('API Actions: comment actions', () => {
     it('should fetch reviews from API and return array of reviews', async () => {
       const hotelId = mockReviewData.hotelId;
       const store = mockStore();
-  
+
       mockAPI
         .onGet(`${APIRoute.Comments}/${hotelId}`)
         .reply(200, mockReviews);
-  
+
       const result = await store.dispatch(fetchReviewsAction(hotelId));
-  
+
       const actions = store.getActions();
       expect(actions).toHaveLength(2);
       expect(actions[0].type).toEqual(fetchReviewsAction.pending.type);

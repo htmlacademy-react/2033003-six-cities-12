@@ -11,7 +11,7 @@ export type DataState = {
   offers: Offer[];
   nearbyOffers: Offer[];
   reviews: Review[];
-  isOffersDataLoading: boolean;
+  isDataLoading: boolean;
   selectedOffer: Offer | null;
   favoriteOffers: Offer[];
   isSubmitting: boolean;
