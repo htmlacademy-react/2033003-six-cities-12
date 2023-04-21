@@ -9,7 +9,6 @@ import useMainScreen from '../../hooks/use-main-screen/use-main-screen';
 
 function MainScreen() : JSX.Element {
   const { filteredAndSortedOffers, city, activeOfferId, setActiveOffer, isLoading } = useMainScreen();
-  const MemoizedLocationList = useMemo(() => memo(LocationList), []);
 
   if(!isLoading){
 
@@ -17,7 +16,7 @@ function MainScreen() : JSX.Element {
       <Layout className={`page page--gray page--main ${filteredAndSortedOffers.length === 0 ? 'page--main-empty' : ''}`}>
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
-          <MemoizedLocationList/>
+          <LocationList/>
         </div>
         <div className="cities">
           <div className={`cities__places-container container ${filteredAndSortedOffers.length > 0 ? 'cities__places-container--empty' : ''}`}>

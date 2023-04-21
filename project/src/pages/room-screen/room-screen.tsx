@@ -7,7 +7,7 @@ import RoomGalery from '../../components/room-galery/room-galery';
 import {Offer } from '../../types/offer';
 import { Review } from '../../types/review';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { useEffect } from 'react';
+import { memo, useEffect, useMemo } from 'react';
 import { AuthorizationStatus, compareByDate, sortOffers } from '../../const';
 import CommentSubmissionForm from '../../components/comment-submission-form/comment-submission-form';
 import { getAuthorizationStatus } from '../../store/user-process/user-process.selectors';
@@ -17,6 +17,7 @@ import { getLocationName, getSortingMethod } from '../../store/main-process/main
 import Bookmark from '../../components/bookmark/bookmark';
 import { fetchNearbyOffersAction, fetchOfferAction } from '../../store/api-actions/offers-api-actions';
 import { fetchReviewsAction } from '../../store/api-actions/coments-api-actions';
+import Features from '../../components/features/features';
 
 function RoomScreen(): JSX.Element | null {
   const dispatch = useAppDispatch();
@@ -49,7 +50,7 @@ function RoomScreen(): JSX.Element | null {
       ...nearbyOffers,
       ...(offer ? [offer] : []),
     ];
-
+    const MemoizedOffers = memo(Offers);
     return(
       <Layout className="page">
         <main className="page__main page__main--property">
@@ -68,17 +69,7 @@ function RoomScreen(): JSX.Element | null {
                   <Rating rating={rating}/>
                   <span className="property__rating-value rating__value">{rating}</span>
                 </div>
-                <ul className="property__features">
-                  <li className="property__feature property__feature--entire">
-                    {type}
-                  </li>
-                  <li className="property__feature property__feature--bedrooms">
-                    {bedrooms} Bedrooms
-                  </li>
-                  <li className="property__feature property__feature--adults">
-                    Max {maxAdults} adults
-                  </li>
-                </ul>
+                <Features type={type} bedrooms={bedrooms} maxAdults={maxAdults}/>
                 <div className="property__price">
                   <b className="property__price-value">&euro;{price}</b>
                   <span className="property__price-text">&nbsp;night</span>
@@ -122,7 +113,7 @@ function RoomScreen(): JSX.Element | null {
             <section className="near-places places">
               <h2 className="near-places__title">Other places in the neighbourhood</h2>
               <div className="near-places__list places__list">
-                <Offers isNearby filteredAndSortedOffers={filteredAndSortedOffers}/>
+                <MemoizedOffers isNearby filteredAndSortedOffers={filteredAndSortedOffers}/>
               </div>
             </section>
           </div>

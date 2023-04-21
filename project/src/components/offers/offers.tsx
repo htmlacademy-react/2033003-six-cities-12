@@ -2,6 +2,7 @@ import { Offer } from '../../types/offer';
 import OfferCard from './offer-card';
 import { useAppSelector } from '../../hooks';
 import { getNearbyOffers } from '../../store/main-data/main-data.selectors';
+import { memo } from 'react';
 
 type OffersProps = {
   setActiveOffer?: (id: number) => void;

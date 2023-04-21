@@ -12,14 +12,13 @@ type OffersListProps = {
 
 function OffersList({onSetActiveOffer, filteredAndSortedOffers}: OffersListProps) : JSX.Element {
   const selectedCityName = useAppSelector(getLocationName);
-  const MemoizedSortingOptions = memo(SortingOptions);
   const MemoizedOffers = memo(Offers);
 
   return (
     <section className="cities__places places">
       <h2 className="visually-hidden">Places</h2>
       <b className="places__found">{filteredAndSortedOffers.length} places to stay in {selectedCityName}</b>
-      <MemoizedSortingOptions/>
+      <SortingOptions/>
       <MemoizedOffers setActiveOffer={onSetActiveOffer} filteredAndSortedOffers={filteredAndSortedOffers}/>
     </section>
   );

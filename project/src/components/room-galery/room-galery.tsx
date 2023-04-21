@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { MAX_IMAGES } from '../../const';
 import {Offer } from '../../types/offer';
 type OfferProps = {
@@ -17,4 +18,4 @@ function RoomGalery({offer}: OfferProps): JSX.Element {
     </div>
   );
 }
-export default RoomGalery;
+export default memo(RoomGalery);
