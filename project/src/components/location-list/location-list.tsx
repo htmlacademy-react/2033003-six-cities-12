@@ -15,4 +15,4 @@ function LocationList():JSX.Element{
     </section>
   );
 }
-export default  memo(LocationList);
+export default memo(LocationList);

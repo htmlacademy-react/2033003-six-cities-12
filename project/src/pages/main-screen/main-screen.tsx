@@ -1,4 +1,3 @@
-import { memo, useMemo } from 'react';
 import LocationList from '../../components/location-list/location-list';
 import Map from '../../components/map/map';
 import LoadingScreen from '../../components/loading-screen/loading-screen';

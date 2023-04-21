@@ -7,7 +7,7 @@ import RoomGalery from '../../components/room-galery/room-galery';
 import {Offer } from '../../types/offer';
 import { Review } from '../../types/review';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { memo, useEffect, useMemo } from 'react';
+import { memo, useEffect } from 'react';
 import { AuthorizationStatus, compareByDate, sortOffers } from '../../const';
 import CommentSubmissionForm from '../../components/comment-submission-form/comment-submission-form';
 import { getAuthorizationStatus } from '../../store/user-process/user-process.selectors';
