@@ -25,10 +25,8 @@ function MainScreen() : JSX.Element {
   const isOffersLoading = useAppSelector(isDataLoading);
 
   const isLoading = authorizationStatus === AuthorizationStatus.Unknown || isOffersLoading;
-  console.log(isOffersLoading);
   if(!isLoading){
-  console.log('rendered: ', isLoading);
-    
+
     return(
       <Layout className={`page page--gray page--main ${filteredAndSortedOffers.length === 0 ? 'page--main-empty' : ''}`}>
         <h1 className="visually-hidden">Cities</h1>

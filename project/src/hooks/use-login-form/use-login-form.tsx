@@ -6,6 +6,7 @@ import { loginAction } from '../../store/api-actions/auth-api-actions';
 import { getAuthorizationStatus } from '../../store/user-process/user-process.selectors';
 import { toast } from 'react-toastify';
 import { changeCity } from '../../store/main-process/main-process.slice';
+import { useGoToMain } from '../use-go-main/use-go-main';
 
 type AuthData = {
   login: string;
@@ -45,10 +46,7 @@ function useLoginForm(){
     }
   };
 
-  const handleGoMainClick: MouseEventHandler<HTMLAnchorElement> = (evt) => {
-    evt.preventDefault();
-    navigate(AppRoute.Main);
-  };
+  const handleGoMainClick = useGoToMain();
 
   const quickCity = LOCATIONS[Math.floor(Math.random() * LOCATIONS.length)];
 

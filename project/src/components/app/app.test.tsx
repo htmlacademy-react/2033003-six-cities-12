@@ -9,9 +9,12 @@ import { configureMockStore } from '@jedmao/redux-mock-store';
 import HistoryRouter from '../history-route/history-route';
 import useFilteredAndSortedOffers from '../../hooks/use-filtered-and-sorted-offers/use-filtered-and-sorted-offers';
 import { isDataLoading } from '../../store/main-data/main-data.selectors';
+import { useFetchFavoriteOffers } from '../../hooks/use-fetch-favorite-offers/use-fetch-favorite-offers';
 
 jest.mock('../../hooks/use-filtered-and-sorted-offers/use-filtered-and-sorted-offers', () => jest.fn());
-
+jest.mock('../../hooks/use-fetch-favorite-offers/use-fetch-favorite-offers', () => ({
+  useFetchFavoriteOffers: jest.fn(() => mockOffers),
+}));
 const state = mockState();
 state.user.authorizationStatus = AuthorizationStatus.Auth;
 const mocksStore = configureMockStore();
@@ -38,62 +41,10 @@ describe('App', () => {
   });
 });
 
-// test('renders login screen', () => {
-//   const history = createMemoryHistory();
-//   history.push('/login');
-//   render(
-//     <HistoryRouter history={history}>
-//       <App />
-//     </HistoryRouter>
-//   );
-//   const loginScreenElement = screen.getByText('Login screen');
-//   expect(loginScreenElement).toBeInTheDocument();
-// });
-
-// test('renders favorites screen when logged in', () => {
-//   const history = createMemoryHistory();
-//   history.push('/favorites');
-//   render(
-//     <HistoryRouter history={history}>
-//       <App />
-//     </HistoryRouter>
-//   );
-//   const favoritesScreenElement = screen.getByText('Favorites screen');
-//   expect(favoritesScreenElement).toBeInTheDocument();
-// });
-
-// test('redirects to login screen when not logged in', () => {
-//   const history = createMemoryHistory();
-//   history.push('/favorites');
-//   render(
-//     <HistoryRouter history={history}>
-//       <App />
-//     </HistoryRouter>
-//   );
-//   const loginScreenElement = screen.getByText('Login screen');
-//   expect(loginScreenElement).toBeInTheDocument();
-// });
-
-// test('renders room screen', () => {
-//   const history = createMemoryHistory();
-//   history.push('/room');
-//   render(
-//     <HistoryRouter history={history}>
-//       <App />
-//     </HistoryRouter>
-//   );
-//   const roomScreenElement = screen.getByText('Room screen');
-//   expect(roomScreenElement).toBeInTheDocument();
-// });
-
-// test('renders not found screen', () => {
-//   const history = createMemoryHistory();
-//   history.push('/invalid-url');
-//   render(
-//     <HistoryRouter history={history}>
-//       <App />
-//     </HistoryRouter>
-//   );
-//   const notFoundScreenElement = screen.getByText('Not found screen');
-//   expect(notFoundScreenElement).toBeInTheDocument();
-// });
+it('renders login screen', () => {
+  (useFilteredAndSortedOffers as jest.Mock).mockImplementationOnce(() => mockOffers);
+  history.push(AppRoute.Login);
+  render(fakeApp);
+  const loginScreenElement = screen.getByText(/Sign in/i);
+  expect(loginScreenElement).toBeInTheDocument();
+});

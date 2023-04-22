@@ -1,34 +1,23 @@
 import { Link, useNavigate} from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '../../hooks';
-import { Offer } from '../../types/offer';
 import { AppRoute, AuthorizationStatus } from '../../const';
-import { Fragment, MouseEventHandler, useEffect } from 'react';
-import { getAuthorizationStatus } from '../../store/user-process/user-process.selectors';
-import { getFavoriteOffers } from '../../store/main-data/main-data.selectors';
+import { Fragment, useEffect } from 'react';
 import FavoriteList from '../../components/favorite-list/favorite-list';
 import Layout from '../../components/layout/layout';
-import { fetchFavoriteOffersAction } from '../../store/api-actions/offers-api-actions';
+import { useIsLoggedIn } from '../../hooks/use-is-logged-in/use-is-logged-in';
+import { useGoToMain } from '../../hooks/use-go-main/use-go-main';
+import { useFetchFavoriteOffers } from '../../hooks/use-fetch-favorite-offers/use-fetch-favorite-offers';
 
 function FavoritesScreen() :JSX.Element {
   const navigate = useNavigate();
-  const dispatch = useAppDispatch();
-  const favoriteOffers: Offer[] = useAppSelector(getFavoriteOffers);
-  const isLoggedIn = useAppSelector(getAuthorizationStatus) === AuthorizationStatus.Auth;
-
-  useEffect(() => {
-    dispatch(fetchFavoriteOffersAction());
-  }, [dispatch, favoriteOffers]);
+  const favoriteOffers = useFetchFavoriteOffers();
+  const isLoggedIn = useIsLoggedIn(AuthorizationStatus.Auth);
+  const handleGoMainClick = useGoToMain();
 
   useEffect(() => {
     if (!isLoggedIn) {
       navigate(AppRoute.Login);
     }
   }, [isLoggedIn, navigate]);
-
-  const handleGoMainClick: MouseEventHandler<HTMLAnchorElement> = (evt) => {
-    evt.preventDefault();
-    navigate(AppRoute.Main);
-  };
 
   return(
     <Layout className="page">
