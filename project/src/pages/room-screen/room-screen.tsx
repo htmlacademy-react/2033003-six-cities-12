@@ -23,13 +23,6 @@ function RoomScreen(): JSX.Element | null {
   const dispatch = useAppDispatch();
   const { id } = useParams<{ id: string }>();
 
-  useEffect(() => {
-    if (id) {
-      dispatch(fetchOfferAction(id));
-      dispatch(fetchNearbyOffersAction(id));
-      dispatch(fetchReviewsAction(id));
-    }
-  }, [dispatch, id,]);
   const offer = useAppSelector(getOffer);
   const isLoggedIn = useAppSelector(getAuthorizationStatus) === AuthorizationStatus.Auth;
   const nearbyOffers: Offer[] = useAppSelector(getNearbyOffers);
@@ -42,6 +35,14 @@ function RoomScreen(): JSX.Element | null {
 
   const filteredAndSortedOffers: Offer[] = sortOffers(offers,selectedSortingMethod)
     .filter((offerItem) => offerItem.city.name === selectedCityName);
+
+  useEffect(() => {
+    if (id) {
+      dispatch(fetchOfferAction(id));
+      dispatch(fetchNearbyOffersAction(id));
+      dispatch(fetchReviewsAction(id));
+    }
+  }, [dispatch, id,]);
 
   if (offer) {
     const { title, price, rating, type, isPremium, bedrooms, maxAdults, host, description, goods, city, isFavorite}: Offer = offer;

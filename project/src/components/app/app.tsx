@@ -13,7 +13,6 @@ import browserHistory from '../../browser-history';
 function App(): JSX.Element {
   return (
     <HelmetProvider>
-      <HistoryRouter history={browserHistory}>
         <Routes>
           <Route path={AppRoute.Main} element={<MainScreen/>}/>
           <Route path={AppRoute.Login} element={<LoginScreen/>}/>
@@ -29,7 +28,6 @@ function App(): JSX.Element {
           <Route path={'*'} element={<NotFoundScreen/>}/>
           <Route path={AppRoute.NotFound} element={<NotFoundScreen/>}/>
         </Routes>
-      </HistoryRouter>
     </HelmetProvider>
   );
 }

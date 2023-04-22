@@ -4,13 +4,31 @@ import LoadingScreen from '../../components/loading-screen/loading-screen';
 import OffersEmptyList from '../../components/offers/offers-empty-list';
 import OffersList from '../../components/offers/offers-list';
 import Layout from '../../components/layout/layout';
-import useMainScreen from '../../hooks/use-main-screen/use-main-screen';
+import { store } from '../../store';
+import { fetchOffersAction } from '../../store/api-actions/offers-api-actions';
+import { useState } from 'react';
+import { useAppSelector } from '../../hooks';
+import useFilteredAndSortedOffers from '../../hooks/use-filtered-and-sorted-offers/use-filtered-and-sorted-offers';
+import { Offer } from '../../types/offer';
+import { getAuthorizationStatus } from '../../store/user-process/user-process.selectors';
+import { isDataLoading } from '../../store/main-data/main-data.selectors';
+import { AuthorizationStatus } from '../../const';
+import { getLocationName } from '../../store/main-process/main-process.selectors';
 
 function MainScreen() : JSX.Element {
-  const { filteredAndSortedOffers, city, activeOfferId, setActiveOffer, isLoading } = useMainScreen();
+  const [activeOfferId, setActiveOffer] = useState<number>(-1);
+  const selectedCityName = useAppSelector(getLocationName);
+  const filteredAndSortedOffers: Offer[] = useFilteredAndSortedOffers();
+  const city = filteredAndSortedOffers.find((offer) => offer.city.name === selectedCityName)?.city ?? null;
 
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  const isOffersLoading = useAppSelector(isDataLoading);
+
+  const isLoading = authorizationStatus === AuthorizationStatus.Unknown || isOffersLoading;
+  console.log(isOffersLoading);
   if(!isLoading){
-
+  console.log('rendered: ', isLoading);
+    
     return(
       <Layout className={`page page--gray page--main ${filteredAndSortedOffers.length === 0 ? 'page--main-empty' : ''}`}>
         <h1 className="visually-hidden">Cities</h1>

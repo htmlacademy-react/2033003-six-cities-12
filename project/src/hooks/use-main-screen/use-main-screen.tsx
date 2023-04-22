@@ -16,24 +16,10 @@ type UseMainScreenProps = {
   isLoading: boolean;
 };
 
-function useMainScreen(): UseMainScreenProps {
-  const [activeOfferId, setActiveOffer] = useState<number>(-1);
-  const selectedCityName = useAppSelector(getLocationName);
-  const filteredAndSortedOffers: Offer[] = useFilteredAndSortedOffers();
-  const city = filteredAndSortedOffers.find((offer) => offer.city.name === selectedCityName)?.city ?? null;
+function useMainScreen(){
+  
 
-  const authorizationStatus = useAppSelector(getAuthorizationStatus);
-  const isOffersLoading = useAppSelector(isDataLoading);
 
-  const isLoading = authorizationStatus === AuthorizationStatus.Unknown || isOffersLoading;
-
-  return {
-    filteredAndSortedOffers,
-    city,
-    activeOfferId,
-    setActiveOffer,
-    isLoading,
-  };
 }
 
 export default useMainScreen;

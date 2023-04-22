@@ -109,3 +109,6 @@ export const LOCATIONS = ['Paris','Cologne','Brussels','Amsterdam','Hamburg','Du
 export const commentId = Math.floor(Math.random() * 1000000);
 export const userId = Math.floor(Math.random() * 1000000);
 export const commentDate = new Date().toISOString();
+
+export const MAX_LENGTH_COMMENT = 300;
+export const MIN_LENGTH_COMMENT = 50;

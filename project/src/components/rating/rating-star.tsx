@@ -14,7 +14,7 @@ function RatingStar({ratingItem, rating, onRatingChange}: RatingStarProps): JSX.
 
   return (
     <Fragment>
-      <input
+      <input data-testid="star"
         className="form__rating-input visually-hidden"
         name="rating"
         id={`${ratingItem.value}-stars`}

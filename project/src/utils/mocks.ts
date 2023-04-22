@@ -1,4 +1,4 @@
-import { AccommodationType } from '../const';
+import { AccommodationType, AuthorizationStatus, SortType } from '../const';
 import { Offer } from '../types/offer';
 import { Review } from '../types/review';
 import { ReviewData } from '../types/review-data';
@@ -7,9 +7,10 @@ import MockAdapter from 'axios-mock-adapter';
 import {configureMockStore} from '@jedmao/redux-mock-store';
 import {Action} from 'redux';
 import { createApi } from '../services/api';
-import { State } from '../types/state';
+import { DataState, MainState, State, UserState } from '../types/state';
 import { UserData } from '../types/user-data';
 import { AUTH_TOKEN_KEY_NAME } from '../services/token';
+import { CombinedState } from '@reduxjs/toolkit';
 
 export const mockOffers: Offer[] = [{
   city: {
@@ -78,7 +79,7 @@ export const mockOffers: Offer[] = [{
     'https://12.react.pages.academy/static/hotel/8.jpg',
   ],
   title: 'The Pondhouse - A Magical Place',
-  isFavorite: true,
+  isFavorite: false,
   isPremium: false,
   rating: 4.7,
   type: AccommodationType.Room,
@@ -170,3 +171,30 @@ export const mockStore = configureMockStore<
     Action<string>,
     ThunkDispatch<State, typeof api, Action>
   >(middlewares);
+
+  export const mockState = (): CombinedState<State> => {
+    return {
+      data: {
+        offers: [],
+        nearbyOffers: [],
+        reviews: mockReviews,
+        isDataLoading: false,
+        selectedOffer: null,
+        favoriteOffers: mockOffers,
+        isSubmitting: false,
+        isSubmittingSuccess: false
+      },
+      main: {
+        locationName: 'Paris',
+        sortingMethod: SortType.POPULAR
+      },
+      user: {
+        authorizationStatus: AuthorizationStatus.Unknown,
+      email: '',
+      avatarUrl: '',
+      isPro: false,
+      userId: null,
+      isSubmitting: false
+      },
+    };
+  };
