@@ -8,4 +8,4 @@ export const useGoToMain = (): ((event: React.MouseEvent<HTMLAnchorElement>) => 
     navigate(AppRoute.Main);
   };
   return handleGoMainClick;
-}
+};

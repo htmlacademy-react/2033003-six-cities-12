@@ -1,13 +1,13 @@
 import { memo } from 'react';
+import { MAX_RATING } from '../../const';
 
 type RatingProps = {
   rating: number;
 }
 
 function Rating({rating}: RatingProps) : JSX.Element {
-  const maxRating = 5;
   const roundedRating = Math.floor(rating);
-  const ratingPercentage = (roundedRating / maxRating) * 100;
+  const ratingPercentage = (roundedRating / MAX_RATING) * 100;
   return (
     <div className="place-card__stars rating__stars">
       <span style={{ width: `${ratingPercentage}%` }}></span>

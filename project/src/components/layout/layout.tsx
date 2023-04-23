@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import Header from '../header/header';
 
 type LayoutProps = {
@@ -6,9 +7,10 @@ type LayoutProps = {
 }
 
 function Layout({ children, className }: LayoutProps): JSX.Element {
+  const MemorizedHeader = memo(Header);
   return (
     <div className={className}>
-      <Header/>
+      <MemorizedHeader/>
       {children}
     </div>
   );

@@ -1,16 +1,16 @@
 import { Navigate } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../const';
+import { useIsLoggedIn } from '../../hooks/use-is-logged-in/use-is-logged-in';
 
 type PrivateRouteProps = {
-  authorizationStatus: AuthorizationStatus;
   children: JSX.Element;
 }
 
 function PrivateRoute(props: PrivateRouteProps): JSX.Element {
-  const {authorizationStatus, children} = props;
+  const {children} = props;
 
   return (
-    authorizationStatus === AuthorizationStatus.Auth
+    useIsLoggedIn(AuthorizationStatus.Auth)
       ? children
       : <Navigate to={AppRoute.Login} />
   );

@@ -6,11 +6,12 @@ import RatingStars from '../rating/rating-stars';
 import Comment from './comment';
 import { postReviewAction } from '../../store/api-actions/coments-api-actions';
 import { resetSubmittingSuccessStatus } from '../../store/main-data/main-data.slice';
+import { DEFAULT_COMMENT, DEFAULT_RATING, MIN_LENGTH_COMMENT } from '../../const';
 
 function CommentSubmissionForm(): JSX.Element{
   const dispatch = useAppDispatch();
-  const [rating, setRating] = useState<number>(0);
-  const [comment, setComment] = useState<string>('');
+  const [rating, setRating] = useState<number>(DEFAULT_RATING);
+  const [comment, setComment] = useState<string>(DEFAULT_COMMENT);
 
   const isSubmitting = useAppSelector(getSubmittingStatus);
   const isSubmittingSuccesStatus = useAppSelector(getSubmittingSuccessStatus);
@@ -18,8 +19,8 @@ function CommentSubmissionForm(): JSX.Element{
 
   useEffect(() => {
     if (isSubmittingSuccesStatus) {
-      setRating(0);
-      setComment('');
+      setRating(DEFAULT_RATING);
+      setComment(DEFAULT_COMMENT);
       dispatch(resetSubmittingSuccessStatus);
     }
   }, [isSubmitting, isSubmittingSuccesStatus, dispatch]);
@@ -31,7 +32,7 @@ function CommentSubmissionForm(): JSX.Element{
   const handleSubmit = useCallback((evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
 
-    if (rating !== null && comment.length >= 50) {
+    if (rating !== null && comment.length >= MIN_LENGTH_COMMENT) {
       const reviewData: ReviewData = {
         hotelId: String(selectedOffer?.id),
         comment: comment,
@@ -41,7 +42,7 @@ function CommentSubmissionForm(): JSX.Element{
     }
   }, [rating, comment, onSubmit, selectedOffer]);
 
-  const isSubmitButtonDisabled = useMemo(() => rating === 0 || comment.length < 50 || isSubmitting,
+  const isSubmitButtonDisabled = useMemo(() => rating === 0 || comment.length < MIN_LENGTH_COMMENT || isSubmitting,
     [rating, comment.length, isSubmitting]);
 
   return(
@@ -51,7 +52,7 @@ function CommentSubmissionForm(): JSX.Element{
       <Comment comment={comment} onChange={setComment} />
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
-          To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
+          To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">{MIN_LENGTH_COMMENT} characters</b>.
         </p>
         <button className="reviews__submit form__submit button" type="submit" disabled={isSubmitButtonDisabled}>Submit</button>
       </div>

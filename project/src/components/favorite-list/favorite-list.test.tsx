@@ -1,7 +1,7 @@
-import { render, screen, within } from "@testing-library/react";
-import { mockOffers, mockState, mockStore } from "../../utils/mocks";
-import { Provider } from "react-redux";
-import FavoriteList from "./favorite-list";
+import { render, screen, within } from '@testing-library/react';
+import { mockOffers, mockState, mockStore } from '../../utils/mocks';
+import { Provider } from 'react-redux';
+import FavoriteList from './favorite-list';
 import { MemoryRouter } from 'react-router-dom';
 
 describe('FavoriteList component', () => {

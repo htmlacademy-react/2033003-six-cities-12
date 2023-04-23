@@ -112,3 +112,27 @@ export const commentDate = new Date().toISOString();
 
 export const MAX_LENGTH_COMMENT = 300;
 export const MIN_LENGTH_COMMENT = 50;
+
+export const BOOKMARK_CLASSNAME = {
+  placeCard: {
+    default: 'place-card__bookmark-button',
+    active: 'place-card__bookmark-button--active',
+    icon: 'place-card__bookmark-icon',
+    width: 18,
+    height: 19,
+  },
+  property: {
+    default: 'property__bookmark-button',
+    active: 'property__bookmark-button--active',
+    icon: 'property__bookmark-icon',
+    width: 31,
+    height: 33,
+  },
+};
+
+export const DEFAULT_RATING = 0;
+export const DEFAULT_COMMENT = '';
+
+export const RING_LOADER_COLOR = '#123abc';
+
+export const MAX_RATING = 5;

@@ -8,33 +8,27 @@ import {Offer } from '../../types/offer';
 import { Review } from '../../types/review';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { memo, useEffect } from 'react';
-import { AuthorizationStatus, compareByDate, sortOffers } from '../../const';
+import { AuthorizationStatus, compareByDate } from '../../const';
 import CommentSubmissionForm from '../../components/comment-submission-form/comment-submission-form';
-import { getAuthorizationStatus } from '../../store/user-process/user-process.selectors';
-import { getNearbyOffers, getOffer, getOffers, getReviews} from '../../store/main-data/main-data.selectors';
+import { getNearbyOffers, getOffer, getReviews} from '../../store/main-data/main-data.selectors';
 import Layout from '../../components/layout/layout';
-import { getLocationName, getSortingMethod } from '../../store/main-process/main-process.selectors';
 import Bookmark from '../../components/bookmark/bookmark';
 import { fetchNearbyOffersAction, fetchOfferAction } from '../../store/api-actions/offers-api-actions';
 import { fetchReviewsAction } from '../../store/api-actions/coments-api-actions';
 import Features from '../../components/features/features';
+import { useIsLoggedIn } from '../../hooks/use-is-logged-in/use-is-logged-in';
+import useFilteredAndSortedOffers from '../../hooks/use-filtered-and-sorted-offers/use-filtered-and-sorted-offers';
 
 function RoomScreen(): JSX.Element | null {
   const dispatch = useAppDispatch();
   const { id } = useParams<{ id: string }>();
 
   const offer = useAppSelector(getOffer);
-  const isLoggedIn = useAppSelector(getAuthorizationStatus) === AuthorizationStatus.Auth;
+  const isLoggedIn = useIsLoggedIn(AuthorizationStatus.Auth);
   const nearbyOffers: Offer[] = useAppSelector(getNearbyOffers);
   const offerReviews: Review[] = useAppSelector(getReviews);
   const latestReviews = offerReviews.slice(-10).sort(compareByDate);
-
-  const offers: Offer[] = useAppSelector(getOffers);
-  const selectedCityName = useAppSelector(getLocationName);
-  const selectedSortingMethod = useAppSelector(getSortingMethod);
-
-  const filteredAndSortedOffers: Offer[] = sortOffers(offers,selectedSortingMethod)
-    .filter((offerItem) => offerItem.city.name === selectedCityName);
+  const filteredAndSortedOffers = useFilteredAndSortedOffers();
 
   useEffect(() => {
     if (id) {

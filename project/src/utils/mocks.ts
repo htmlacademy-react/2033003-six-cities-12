@@ -7,7 +7,7 @@ import MockAdapter from 'axios-mock-adapter';
 import {configureMockStore} from '@jedmao/redux-mock-store';
 import {Action} from 'redux';
 import { createApi } from '../services/api';
-import { DataState, MainState, State, UserState } from '../types/state';
+import { State} from '../types/state';
 import { UserData } from '../types/user-data';
 import { AUTH_TOKEN_KEY_NAME } from '../services/token';
 import { CombinedState } from '@reduxjs/toolkit';
@@ -172,29 +172,27 @@ export const mockStore = configureMockStore<
     ThunkDispatch<State, typeof api, Action>
   >(middlewares);
 
-  export const mockState = (): CombinedState<State> => {
-    return {
-      data: {
-        offers: [],
-        nearbyOffers: [],
-        reviews: mockReviews,
-        isDataLoading: false,
-        selectedOffer: null,
-        favoriteOffers: mockOffers,
-        isSubmitting: false,
-        isSubmittingSuccess: false
-      },
-      main: {
-        locationName: 'Paris',
-        sortingMethod: SortType.POPULAR
-      },
-      user: {
-        authorizationStatus: AuthorizationStatus.Unknown,
-      email: '',
-      avatarUrl: '',
-      isPro: false,
-      userId: null,
-      isSubmitting: false
-      },
-    };
-  };
+export const mockState = (): CombinedState<State> => ({
+  data: {
+    offers: [],
+    nearbyOffers: [],
+    reviews: mockReviews,
+    isDataLoading: false,
+    selectedOffer: null,
+    favoriteOffers: mockOffers,
+    isSubmitting: false,
+    isSubmittingSuccess: false
+  },
+  main: {
+    locationName: 'Paris',
+    sortingMethod: SortType.POPULAR
+  },
+  user: {
+    authorizationStatus: AuthorizationStatus.Unknown,
+    email: '',
+    avatarUrl: '',
+    isPro: false,
+    userId: null,
+    isSubmitting: false
+  },
+});

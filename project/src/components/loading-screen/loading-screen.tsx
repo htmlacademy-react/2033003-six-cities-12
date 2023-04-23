@@ -1,4 +1,5 @@
 import {RingLoader} from 'react-spinners';
+import { RING_LOADER_COLOR } from '../../const';
 
 const loadingStyle = {
   display: 'flex',
@@ -10,7 +11,7 @@ const loadingStyle = {
 function LoadingScreen():JSX.Element {
   return (
     <div style={loadingStyle}>
-      <RingLoader size={150} color={'#123abc'} loading/>
+      <RingLoader size={150} color={RING_LOADER_COLOR} loading/>
     </div>
   );
 }

@@ -4,8 +4,6 @@ import LoadingScreen from '../../components/loading-screen/loading-screen';
 import OffersEmptyList from '../../components/offers/offers-empty-list';
 import OffersList from '../../components/offers/offers-list';
 import Layout from '../../components/layout/layout';
-import { store } from '../../store';
-import { fetchOffersAction } from '../../store/api-actions/offers-api-actions';
 import { useState } from 'react';
 import { useAppSelector } from '../../hooks';
 import useFilteredAndSortedOffers from '../../hooks/use-filtered-and-sorted-offers/use-filtered-and-sorted-offers';

@@ -1,15 +1,11 @@
-import { MouseEventHandler } from 'react';
 import { Link } from 'react-router-dom';
+import { useGoToMain } from '../../hooks/use-go-main/use-go-main';
 
-
-type HeaderLogoProps = {
-  onGoMainClick: MouseEventHandler<HTMLAnchorElement>;
-}
-
-function HeaderLogo({onGoMainClick}: HeaderLogoProps): JSX.Element {
+function HeaderLogo(): JSX.Element {
+  const handleGoMainClick = useGoToMain();
   return (
     <div className="header__left">
-      <Link className="header__logo-link" to="#" onClick={onGoMainClick}>
+      <Link className="header__logo-link" to="#" onClick={handleGoMainClick}>
         <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41"/>
       </Link>
     </div>
