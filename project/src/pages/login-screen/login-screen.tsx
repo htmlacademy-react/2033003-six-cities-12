@@ -1,9 +1,12 @@
 import { Link } from 'react-router-dom';
 import useLoginForm from '../../hooks/use-login-form/use-login-form';
 import Header from '../../components/header/header';
+import { useAppSelector } from '../../hooks';
+import { getSubmittingStatus } from '../../store/user-process/user-process.selectors';
 
 function LoginScreen() : JSX.Element {
-  const { loginRef, passwordRef, isSubmitting, handleSubmit, handleQuickCityClick, quickCity } = useLoginForm();
+  const { loginRef, passwordRef, handleSubmit, handleQuickCityClick, quickCity } = useLoginForm();
+  const isSubmitting = useAppSelector(getSubmittingStatus);
 
   return(
     <div className="page page--gray page--login">
@@ -15,11 +18,11 @@ function LoginScreen() : JSX.Element {
             <form className="login__form form" action="" onSubmit={handleSubmit}>
               <div className="login__input-wrapper form__input-wrapper">
                 <label className="visually-hidden">E-mail</label>
-                <input ref={loginRef} className="login__input form__input" type="email" name="email" placeholder="Email" required/>
+                <input data-testid="login" ref={loginRef} className="login__input form__input" type="email" name="email" placeholder="Email" required/>
               </div>
               <div className="login__input-wrapper form__input-wrapper">
                 <label className="visually-hidden">Password</label>
-                <input ref={passwordRef} className="login__input form__input" type="password" name="password" placeholder="Password" required/>
+                <input data-testid="password" ref={passwordRef} className="login__input form__input" type="password" name="password" placeholder="Password" required/>
               </div>
               <button className="login__submit form__submit button" type="submit" disabled={isSubmitting}>Sign in</button>
             </form>

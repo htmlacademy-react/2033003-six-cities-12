@@ -1,6 +1,7 @@
 import { Offer } from './types/offer';
 import { Rating } from './types/rating';
 import { Review } from './types/review';
+import { UserData } from './types/user-data';
 
 export const SortType = {
   POPULAR: 'Popular',
@@ -68,20 +69,23 @@ export const sortOffers = (offers: Offer[], sortingMethod: string): Offer[] => {
   }
 };
 
-export const compareByDate = (a: Review, b: Review) =>
-  new Date(b.date).getTime() - new Date(a.date).getTime();
+export const compareByDate = (a: Review, b: Review) => {
+  const dateA = a.date ? new Date(a.date).getTime() : 0;
+  const dateB = b.date ? new Date(b.date).getTime() : 0;
+  return dateB - dateA;
+};
 
-export const generateNewReview = (comment: string, rating: string, avatarUrl: string, name: string): Review => {
+export const generateNewReview = (comment: string, rating: number, user: UserData, id: string | undefined, date: string | undefined): Review => {
   const newReview: Review = {
     comment: comment,
-    date: new Date().toISOString(),
-    id: Math.floor(Math.random() * 1000000),
+    date: date,
+    id: Number(id),
     rating: Number(rating),
     user: {
-      avatarUrl: avatarUrl,
-      id: Math.floor(Math.random() * 1000000),
-      isPro: false,
-      name: name,
+      avatarUrl: user.avatarUrl,
+      id: user.id,
+      isPro: user.isPro,
+      name: user.name,
     },
   };
   return newReview;
@@ -101,3 +105,34 @@ export const isValidPassword = (password: string): boolean => {
 };
 
 export const LOCATIONS = ['Paris','Cologne','Brussels','Amsterdam','Hamburg','Dusseldorf'];
+
+export const commentId = Math.floor(Math.random() * 1000000);
+export const userId = Math.floor(Math.random() * 1000000);
+export const commentDate = new Date().toISOString();
+
+export const MAX_LENGTH_COMMENT = 300;
+export const MIN_LENGTH_COMMENT = 50;
+
+export const BOOKMARK_CLASSNAME = {
+  placeCard: {
+    default: 'place-card__bookmark-button',
+    active: 'place-card__bookmark-button--active',
+    icon: 'place-card__bookmark-icon',
+    width: 18,
+    height: 19,
+  },
+  property: {
+    default: 'property__bookmark-button',
+    active: 'property__bookmark-button--active',
+    icon: 'property__bookmark-icon',
+    width: 31,
+    height: 33,
+  },
+};
+
+export const DEFAULT_RATING = 0;
+export const DEFAULT_COMMENT = '';
+
+export const RING_LOADER_COLOR = '#123abc';
+
+export const MAX_RATING = 5;

@@ -9,7 +9,7 @@ function FavoriteList() :JSX.Element {
   const cities: string[] = Array.from(new Set(favoriteOffers.map((offer) => offer.city.name)));
 
   return(
-    <ul className="favorites__list">
+    <ul className="favorites__list" data-testid="favorites-list">
       {cities.map((city) => (
         <li key={city} className="favorites__locations-items">
           <div className="favorites__locations locations locations--current">

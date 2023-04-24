@@ -1,11 +1,12 @@
-import { FormEvent, MouseEventHandler, useEffect, useRef, useState } from 'react';
+import { FormEvent, MouseEventHandler, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '..';
+import { useAppDispatch } from '..';
 import { AppRoute, AuthorizationStatus, LOCATIONS, isValidPassword } from '../../const';
 import { loginAction } from '../../store/api-actions/auth-api-actions';
-import { getAuthorizationStatus } from '../../store/user-process/user-process.selectors';
 import { toast } from 'react-toastify';
 import { changeCity } from '../../store/main-process/main-process.slice';
+import { useGoToMain } from '../use-go-main/use-go-main';
+import { useIsLoggedIn } from '../use-is-logged-in/use-is-logged-in';
 
 type AuthData = {
   login: string;
@@ -18,10 +19,7 @@ function useLoginForm(){
 
   const loginRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
-
-  const [isSubmitting, setIsSubmitting] = useState(false);
-
-  const isLoggedIn = useAppSelector(getAuthorizationStatus) === AuthorizationStatus.Auth;
+  const isLoggedIn = useIsLoggedIn(AuthorizationStatus.Auth);
 
   useEffect(() => {
     if (isLoggedIn) {
@@ -30,20 +28,11 @@ function useLoginForm(){
   }, [isLoggedIn, navigate]);
 
   const onSubmit = (authData: AuthData) => {
-    setIsSubmitting(true);
-
     if (!isValidPassword(authData.password)) {
       toast.warn('Password must contain at least one letter and one number.');
-      setIsSubmitting(false);
       return;
     }
-
-    dispatch(loginAction(authData))
-      .then(() => {
-        setIsSubmitting(false);
-        navigate(AppRoute.Main);
-      })
-      .catch(() => setIsSubmitting(false));
+    dispatch(loginAction(authData));
   };
 
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
@@ -57,10 +46,7 @@ function useLoginForm(){
     }
   };
 
-  const handleGoMainClick: MouseEventHandler<HTMLAnchorElement> = (evt) => {
-    evt.preventDefault();
-    navigate(AppRoute.Main);
-  };
+  const handleGoMainClick = useGoToMain();
 
   const quickCity = LOCATIONS[Math.floor(Math.random() * LOCATIONS.length)];
 
@@ -74,7 +60,6 @@ function useLoginForm(){
   return {
     loginRef,
     passwordRef,
-    isSubmitting,
     handleSubmit,
     handleGoMainClick,
     handleQuickCityClick,

@@ -11,15 +11,20 @@ export type DataState = {
   offers: Offer[];
   nearbyOffers: Offer[];
   reviews: Review[];
-  isOffersDataLoading: boolean;
+  isDataLoading: boolean;
   selectedOffer: Offer | null;
   favoriteOffers: Offer[];
+  isSubmitting: boolean;
+  isSubmittingSuccess: boolean;
 }
 
 export type UserState = {
   authorizationStatus: string;
-  email: string;
+  email: string | undefined;
   avatarUrl: string;
+  userId: number | null;
+  isPro: boolean;
+  isSubmitting: boolean;
 }
 
 export type AppState = {

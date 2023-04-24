@@ -1,51 +1,48 @@
-import { FormEvent, useCallback, useMemo, useState } from 'react';
+import { FormEvent, useCallback, useEffect, useMemo, useState } from 'react';
 import { ReviewData } from '../../types/review-data';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import {toast} from 'react-toastify';
-import { getOffer } from '../../store/main-data/main-data.selectors';
+import { getOffer, getSubmittingStatus, getSubmittingSuccessStatus } from '../../store/main-data/main-data.selectors';
 import RatingStars from '../rating/rating-stars';
 import Comment from './comment';
-import { getUserAvatarUrl, getUserEmail } from '../../store/user-process/user-process.selectors';
-import { postCommentAction } from '../../store/api-actions/coments-api-actions';
+import { postReviewAction } from '../../store/api-actions/coments-api-actions';
+import { resetSubmittingSuccessStatus } from '../../store/main-data/main-data.slice';
+import { DEFAULT_COMMENT, DEFAULT_RATING, MIN_LENGTH_COMMENT } from '../../const';
 
 function CommentSubmissionForm(): JSX.Element{
   const dispatch = useAppDispatch();
-  const [rating, setRating] = useState<number>(0);
-  const [comment, setComment] = useState<string>('');
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [rating, setRating] = useState<number>(DEFAULT_RATING);
+  const [comment, setComment] = useState<string>(DEFAULT_COMMENT);
 
+  const isSubmitting = useAppSelector(getSubmittingStatus);
+  const isSubmittingSuccesStatus = useAppSelector(getSubmittingSuccessStatus);
   const selectedOffer = useAppSelector(getOffer);
-  const email = useAppSelector(getUserEmail);
-  const avatarUrl = useAppSelector(getUserAvatarUrl);
-  const userName = email.split('@')[0];
+
+  useEffect(() => {
+    if (isSubmittingSuccesStatus) {
+      setRating(DEFAULT_RATING);
+      setComment(DEFAULT_COMMENT);
+      dispatch(resetSubmittingSuccessStatus);
+    }
+  }, [isSubmitting, isSubmittingSuccesStatus, dispatch]);
 
   const onSubmit = useCallback((reviewData: ReviewData) => {
-    setIsSubmitting(true);
-    dispatch(postCommentAction(reviewData)).then(() => {
-      setRating(0);
-      setComment('');
-      setIsSubmitting(false);
-    }).catch((ex: string | null) => {
-      toast.warn(ex);
-      setIsSubmitting(false);
-    });
+    dispatch(postReviewAction(reviewData));
   }, [dispatch]);
 
   const handleSubmit = useCallback((evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
 
-    if (rating !== null && comment.length >= 50) {
-      onSubmit({
+    if (rating !== null && comment.length >= MIN_LENGTH_COMMENT) {
+      const reviewData: ReviewData = {
         hotelId: String(selectedOffer?.id),
-        comment,
-        rating: String(rating),
-        avatarUrl,
-        name: userName
-      });
+        comment: comment,
+        rating: Number(rating)
+      };
+      onSubmit(reviewData);
     }
-  }, [rating, comment, onSubmit, selectedOffer, userName, avatarUrl]);
+  }, [rating, comment, onSubmit, selectedOffer]);
 
-  const isSubmitButtonDisabled = useMemo(() => rating === 0 || comment.length < 50 || isSubmitting,
+  const isSubmitButtonDisabled = useMemo(() => rating === 0 || comment.length < MIN_LENGTH_COMMENT || isSubmitting,
     [rating, comment.length, isSubmitting]);
 
   return(
@@ -55,7 +52,7 @@ function CommentSubmissionForm(): JSX.Element{
       <Comment comment={comment} onChange={setComment} />
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
-          To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
+          To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">{MIN_LENGTH_COMMENT} characters</b>.
         </p>
         <button className="reviews__submit form__submit button" type="submit" disabled={isSubmitButtonDisabled}>Submit</button>
       </div>

@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { LOCATIONS } from '../../const';
 import { useAppSelector } from '../../hooks';
 import { getLocationName } from '../../store/main-process/main-process.selectors';
@@ -14,4 +15,4 @@ function LocationList():JSX.Element{
     </section>
   );
 }
-export default LocationList;
+export default memo(LocationList);

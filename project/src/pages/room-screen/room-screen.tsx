@@ -7,20 +7,28 @@ import RoomGalery from '../../components/room-galery/room-galery';
 import {Offer } from '../../types/offer';
 import { Review } from '../../types/review';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { useEffect } from 'react';
-import { AuthorizationStatus, compareByDate, sortOffers } from '../../const';
+import { memo, useEffect } from 'react';
+import { AuthorizationStatus, compareByDate } from '../../const';
 import CommentSubmissionForm from '../../components/comment-submission-form/comment-submission-form';
-import { getAuthorizationStatus } from '../../store/user-process/user-process.selectors';
-import { getNearbyOffers, getOffer, getOffers, getReviews } from '../../store/main-data/main-data.selectors';
+import { getNearbyOffers, getOffer, getReviews} from '../../store/main-data/main-data.selectors';
 import Layout from '../../components/layout/layout';
-import { getLocationName, getSortingMethod } from '../../store/main-process/main-process.selectors';
 import Bookmark from '../../components/bookmark/bookmark';
 import { fetchNearbyOffersAction, fetchOfferAction } from '../../store/api-actions/offers-api-actions';
-import { fetchReviewsAction } from '../../store/api-actions/reviews-api-actions';
+import { fetchReviewsAction } from '../../store/api-actions/coments-api-actions';
+import Features from '../../components/features/features';
+import { useIsLoggedIn } from '../../hooks/use-is-logged-in/use-is-logged-in';
+import useFilteredAndSortedOffers from '../../hooks/use-filtered-and-sorted-offers/use-filtered-and-sorted-offers';
 
 function RoomScreen(): JSX.Element | null {
   const dispatch = useAppDispatch();
   const { id } = useParams<{ id: string }>();
+
+  const offer = useAppSelector(getOffer);
+  const isLoggedIn = useIsLoggedIn(AuthorizationStatus.Auth);
+  const nearbyOffers: Offer[] = useAppSelector(getNearbyOffers);
+  const offerReviews: Review[] = useAppSelector(getReviews);
+  const latestReviews = offerReviews.slice(-10).sort(compareByDate);
+  const filteredAndSortedOffers = useFilteredAndSortedOffers();
 
   useEffect(() => {
     if (id) {
@@ -28,29 +36,16 @@ function RoomScreen(): JSX.Element | null {
       dispatch(fetchNearbyOffersAction(id));
       dispatch(fetchReviewsAction(id));
     }
-  }, [dispatch, id]);
+  }, [dispatch, id,]);
 
-  const isLoggedIn = useAppSelector(getAuthorizationStatus) === AuthorizationStatus.Auth;
-  const nearbyOffers: Offer[] = useAppSelector(getNearbyOffers);
-  const offer: Offer | null | undefined = useAppSelector(getOffer);
-  const offerReviews: Review[] = useAppSelector(getReviews);
-  const latestReviews = offerReviews.slice(-10).sort(compareByDate);
-
-  const offers: Offer[] = useAppSelector(getOffers);
-  const selectedCityName = useAppSelector(getLocationName);
-  const selectedSortingMethod = useAppSelector(getSortingMethod);
-
-  const filteredAndSortedOffers: Offer[] = sortOffers(offers,selectedSortingMethod)
-    .filter((offerItem) => offerItem.city.name === selectedCityName);
-
-  if(offer){
+  if (offer) {
     const { title, price, rating, type, isPremium, bedrooms, maxAdults, host, description, goods, city, isFavorite}: Offer = offer;
     const offerId = offer.id;
     const nearbyOffersWithCurrent: Offer[] = [
       ...nearbyOffers,
       ...(offer ? [offer] : []),
     ];
-
+    const MemoizedOffers = memo(Offers);
     return(
       <Layout className="page">
         <main className="page__main page__main--property">
@@ -69,17 +64,7 @@ function RoomScreen(): JSX.Element | null {
                   <Rating rating={rating}/>
                   <span className="property__rating-value rating__value">{rating}</span>
                 </div>
-                <ul className="property__features">
-                  <li className="property__feature property__feature--entire">
-                    {type}
-                  </li>
-                  <li className="property__feature property__feature--bedrooms">
-                    {bedrooms} Bedrooms
-                  </li>
-                  <li className="property__feature property__feature--adults">
-                    Max {maxAdults} adults
-                  </li>
-                </ul>
+                <Features type={type} bedrooms={bedrooms} maxAdults={maxAdults}/>
                 <div className="property__price">
                   <b className="property__price-value">&euro;{price}</b>
                   <span className="property__price-text">&nbsp;night</span>
@@ -123,14 +108,15 @@ function RoomScreen(): JSX.Element | null {
             <section className="near-places places">
               <h2 className="near-places__title">Other places in the neighbourhood</h2>
               <div className="near-places__list places__list">
-                <Offers isNearby filteredAndSortedOffers={filteredAndSortedOffers}/>
+                <MemoizedOffers isNearby filteredAndSortedOffers={filteredAndSortedOffers}/>
               </div>
             </section>
           </div>
         </main>
       </Layout>
     );
+  }else{
+    return null;
   }
-  return null;
 }
 export default RoomScreen;

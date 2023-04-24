@@ -1,12 +1,12 @@
 export type Review = {
   comment: string;
-  date: string;
-  id: number;
+  date: string | undefined;
+  id: number | undefined;
   rating: number;
   user: {
     avatarUrl: string;
-    id: number;
+    id: number | null;
     isPro: boolean;
-    name: string;
+    name: string | undefined;
   };
 };

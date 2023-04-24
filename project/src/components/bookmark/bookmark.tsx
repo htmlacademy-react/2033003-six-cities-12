@@ -1,26 +1,8 @@
 import { memo } from 'react';
-import { useAppSelector } from '../../hooks';
-import { getAuthorizationStatus } from '../../store/user-process/user-process.selectors';
-import { AppRoute, AuthorizationStatus } from '../../const';
+import { AppRoute, AuthorizationStatus, BOOKMARK_CLASSNAME } from '../../const';
 import { useNavigate } from 'react-router-dom';
 import useFavorites from '../../hooks/use-favorites/use-favorites';
-
-const BOOKMARK_CLASSNAME = {
-  placeCard: {
-    default: 'place-card__bookmark-button',
-    active: 'place-card__bookmark-button--active',
-    icon: 'place-card__bookmark-icon',
-    width: 18,
-    height: 19,
-  },
-  property: {
-    default: 'property__bookmark-button',
-    active: 'property__bookmark-button--active',
-    icon: 'property__bookmark-icon',
-    width: 31,
-    height: 33,
-  },
-};
+import { useIsLoggedIn } from '../../hooks/use-is-logged-in/use-is-logged-in';
 
 type FavoritesPlacesProps = {
   offerId: number;
@@ -30,7 +12,7 @@ type FavoritesPlacesProps = {
 
 function Bookmark({offerId, isFavorite, isProperty}: FavoritesPlacesProps) :JSX.Element {
   const navigate = useNavigate();
-  const isLoggedIn = useAppSelector(getAuthorizationStatus) === AuthorizationStatus.Auth;
+  const isLoggedIn = useIsLoggedIn(AuthorizationStatus.Auth);
   const { isFavorite: isOfferFavorite, toggleFavorite } = useFavorites(offerId, isFavorite);
 
   const placeCardDefaultClass = isProperty

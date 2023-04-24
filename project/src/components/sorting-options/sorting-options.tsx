@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { memo, useCallback } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import SortingDropdown from './sorting-dropdown';
 import { getSortingMethod } from '../../store/main-process/main-process.selectors';
@@ -22,4 +22,4 @@ function SortingOptions(): JSX.Element {
   );
 }
 
-export default SortingOptions;
+export default memo(SortingOptions);

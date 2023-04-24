@@ -3,16 +3,18 @@ import { Review } from '../../types/review';
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { DataState } from '../../types/state';
 import { fetchFavoriteOffersAction, fetchNearbyOffersAction, fetchOfferAction, fetchOffersAction, toggleFavoriteAction } from '../api-actions/offers-api-actions';
-import { fetchReviewsAction } from '../api-actions/reviews-api-actions';
-import { postCommentAction } from '../api-actions/coments-api-actions';
+import { fetchReviewsAction, postReviewAction } from '../api-actions/coments-api-actions';
+import { toast } from 'react-toastify';
 
-const initialState: DataState = {
+export const initialState: DataState = {
   offers: [],
   nearbyOffers: [],
   reviews: [],
-  isOffersDataLoading: false,
+  isDataLoading: false,
   selectedOffer: null,
-  favoriteOffers: []
+  favoriteOffers: [],
+  isSubmitting: false,
+  isSubmittingSuccess: false,
 };
 
 export const mainData = createSlice({
@@ -23,7 +25,7 @@ export const mainData = createSlice({
       state.offers = action.payload;
     },
     setOffersDataLoadingStatus: (state, action: PayloadAction<boolean>) => {
-      state.isOffersDataLoading = action.payload;
+      state.isDataLoading = action.payload;
     },
     loadOffer: (state, action: PayloadAction<Offer>) => {
       state.selectedOffer = action.payload;
@@ -37,21 +39,27 @@ export const mainData = createSlice({
     addReview: (state, action: PayloadAction<Review>) => {
       state.reviews.push(action.payload);
     },
+    resetSubmittingSuccessStatus: (state, action: PayloadAction<boolean>) => {
+      state.isSubmittingSuccess = false;
+    }
   },
   extraReducers: (builder) => {
     builder
       .addCase(fetchOffersAction.fulfilled, (state, action) => {
         state.offers = action.payload;
-        state.isOffersDataLoading = false;
+        state.isDataLoading = false;
       })
       .addCase(fetchOffersAction.rejected, (state, action) => {
-        state.isOffersDataLoading = false;
+        state.isDataLoading = false;
       })
       .addCase(fetchOffersAction.pending, (state) => {
-        state.isOffersDataLoading = true;
+        state.isDataLoading = true;
       })
       .addCase(fetchOfferAction.fulfilled, (state, action) => {
         state.selectedOffer = action.payload;
+      })
+      .addCase(fetchOfferAction.rejected, (state, action) => {
+        state.selectedOffer = null;
       })
       .addCase(fetchNearbyOffersAction.fulfilled, (state, action) => {
         state.nearbyOffers = action.payload;
@@ -59,8 +67,18 @@ export const mainData = createSlice({
       .addCase(fetchReviewsAction.fulfilled, (state, action) => {
         state.reviews = action.payload;
       })
-      .addCase(postCommentAction.fulfilled, (state, action) => {
-        state.reviews.push(action.payload);
+      .addCase(postReviewAction.pending, (state, action) => {
+        state.isSubmitting = true;
+      })
+      .addCase(postReviewAction.fulfilled, (state, action) => {
+        state.reviews = action.payload;
+        state.isSubmitting = false;
+        state.isSubmittingSuccess = true;
+      })
+      .addCase(postReviewAction.rejected, (state, action) => {
+        state.isSubmitting = false;
+        state.isSubmittingSuccess = false;
+        toast.warn(action.error.message);
       })
       .addCase(toggleFavoriteAction.fulfilled, (state, action) => {
         const index = state.offers.findIndex((offer) => offer.id === action.payload.id);
@@ -80,5 +98,6 @@ export const {
   loadOffer,
   loadNearbyOffers,
   loadReviews,
-  addReview
+  addReview,
+  resetSubmittingSuccessStatus
 } = mainData.actions;
