@@ -5,7 +5,7 @@ import { getLocationName } from '../../store/main-process/main-process.selectors
 import Location from './location';
 
 function LocationList():JSX.Element{
-  const selectedCityName = useAppSelector(getLocationName);
+  const selectedCityName: string = useAppSelector(getLocationName);
   return(
     <section className="locations container">
       <ul className="locations__list tabs__list">

@@ -6,7 +6,7 @@ import browserHistory from '../../browser-history';
 export const redirectOnOfferError: Middleware = () => (next) => (action: Action) => {
   if (fetchOfferAction.rejected.match(action)) {
     next(action);
-    browserHistory.push(AppRoute.NotFound);
+    browserHistory.replace(AppRoute.NotFound);
   }
 
   return next(action);
