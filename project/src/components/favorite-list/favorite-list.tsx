@@ -2,7 +2,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { getFavoriteOffers } from '../../store/main-data/main-data.selectors';
 import { Offer } from '../../types/offer';
-import FavoritePlaces from './favorite-places';
+import FavoritePlaces from '../favorite-places/favorite-places';
 import { AppRoute } from '../../const';
 import { MouseEvent } from 'react';
 import { changeCity } from '../../store/main-process/main-process.slice';

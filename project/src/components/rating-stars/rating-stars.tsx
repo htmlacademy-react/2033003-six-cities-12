@@ -1,5 +1,5 @@
 import { ratings } from '../../const';
-import RatingStar from './rating-star';
+import RatingStar from '../rating-star/rating-star';
 
 type RatingStarsProps = {
   rating: number;

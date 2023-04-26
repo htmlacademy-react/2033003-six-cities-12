@@ -1,8 +1,8 @@
 import LocationList from '../../components/location-list/location-list';
 import Map from '../../components/map/map';
 import LoadingScreen from '../../components/loading-screen/loading-screen';
-import OffersEmptyList from '../../components/offers/offers-empty-list';
-import OffersList from '../../components/offers/offers-list';
+import OffersEmptyList from '../../components/offers-empty-list/offers-empty-list';
+import OffersList from '../../components/offers-list/offers-list';
 import Layout from '../../components/layout/layout';
 import { useState } from 'react';
 import { useAppSelector } from '../../hooks';
