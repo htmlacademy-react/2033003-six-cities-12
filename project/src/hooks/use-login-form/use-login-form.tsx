@@ -7,6 +7,7 @@ import { toast } from 'react-toastify';
 import { changeCity } from '../../store/main-process/main-process.slice';
 import { useGoToMain } from '../use-go-main/use-go-main';
 import { useIsLoggedIn } from '../use-is-logged-in/use-is-logged-in';
+import useHandleQuickCityClick from '../use-handle-quick-city-click/use-handle-quick-city-click';
 
 type AuthData = {
   login: string;
@@ -50,12 +51,7 @@ function useLoginForm(){
 
   const quickCity = LOCATIONS[Math.floor(Math.random() * LOCATIONS.length)];
 
-  const handleQuickCityClick: MouseEventHandler<HTMLAnchorElement> = (evt) => {
-    evt.preventDefault();
-    navigate(AppRoute.Main);
-
-    dispatch(changeCity(quickCity));
-  };
+  const handleQuickCityClick = useHandleQuickCityClick(quickCity);
 
   return {
     loginRef,
