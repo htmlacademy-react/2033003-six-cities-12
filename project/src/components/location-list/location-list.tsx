@@ -2,7 +2,7 @@ import { memo } from 'react';
 import { LOCATIONS } from '../../const';
 import { useAppSelector } from '../../hooks';
 import { getLocationName } from '../../store/main-process/main-process.selectors';
-import Location from './location';
+import Location from '../location/location';
 
 function LocationList():JSX.Element{
   const selectedCityName: string = useAppSelector(getLocationName);
