@@ -1,8 +1,8 @@
-import { APIRoute } from '../../const';
-import { checkAuthAction, loginAction, logoutAction } from './auth-api-actions';
-import { AuthData } from '../../types/auth-data';
-import { AUTH_TOKEN_KEY_NAME } from '../../services/token';
-import { mockAPI, mockStore } from '../../utils/mocks';
+import { APIRoute } from '../../../const';
+import { checkAuthAction, loginAction, logoutAction } from '../auth-api-actions/auth-api-actions';
+import { AuthData } from '../../../types/auth-data';
+import { AUTH_TOKEN_KEY_NAME } from '../../../services/token';
+import { mockAPI, mockStore } from '../../../utils/mocks';
 
 
 describe('API Actions: user actions', () => {

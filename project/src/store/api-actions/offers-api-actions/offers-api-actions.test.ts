@@ -1,6 +1,6 @@
-import { mockAPI, mockOffers, mockStore } from '../../utils/mocks';
-import { fetchOfferAction } from './offers-api-actions';
-import { APIRoute } from '../../const';
+import { mockAPI, mockOffers, mockStore } from '../../../utils/mocks';
+import { fetchOfferAction } from '../offers-api-actions/offers-api-actions';
+import { APIRoute } from '../../../const';
 
 describe('fetchOfferAction', () => {
 

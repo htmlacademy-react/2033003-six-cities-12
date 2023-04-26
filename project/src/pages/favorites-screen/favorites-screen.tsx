@@ -6,7 +6,7 @@ import { Fragment, useEffect } from 'react';
 import { getFavoriteOffers } from '../../store/main-data/main-data.selectors';
 import FavoriteList from '../../components/favorite-list/favorite-list';
 import Layout from '../../components/layout/layout';
-import { fetchFavoriteOffersAction } from '../../store/api-actions/offers-api-actions';
+import { fetchFavoriteOffersAction } from '../../store/api-actions/offers-api-actions/offers-api-actions';
 import { useIsLoggedIn } from '../../hooks/use-is-logged-in/use-is-logged-in';
 import { useGoToMain } from '../../hooks/use-go-main/use-go-main';
 

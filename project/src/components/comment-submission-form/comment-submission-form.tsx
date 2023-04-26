@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import { getOffer, getSubmittingStatus, getSubmittingSuccessStatus } from '../../store/main-data/main-data.selectors';
 import RatingStars from '../rating-stars/rating-stars';
 import Comment from '../comment/comment';
-import { postReviewAction } from '../../store/api-actions/coments-api-actions';
+import { postReviewAction } from '../../store/api-actions/coments-api-actions/coments-api-actions';
 import { resetSubmittingSuccessStatus } from '../../store/main-data/main-data.slice';
 import { DEFAULT_COMMENT, DEFAULT_RATING, MIN_LENGTH_COMMENT } from '../../const';
 

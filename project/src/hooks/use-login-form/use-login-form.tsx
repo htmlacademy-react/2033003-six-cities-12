@@ -2,7 +2,7 @@ import { FormEvent, MouseEventHandler, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch } from '..';
 import { AppRoute, AuthorizationStatus, LOCATIONS, isValidPassword } from '../../const';
-import { loginAction } from '../../store/api-actions/auth-api-actions';
+import { loginAction } from '../../store/api-actions/auth-api-actions/auth-api-actions';
 import { toast } from 'react-toastify';
 import { changeCity } from '../../store/main-process/main-process.slice';
 import { useGoToMain } from '../use-go-main/use-go-main';

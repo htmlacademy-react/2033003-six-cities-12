@@ -3,7 +3,7 @@ import { mockAPI, mockOffers, mockState, mockStore } from '../../utils/mocks';
 import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
 import FavoritesScreen from './favorites-screen';
-import { fetchNearbyOffersAction } from '../../store/api-actions/offers-api-actions';
+import { fetchNearbyOffersAction } from '../../store/api-actions/offers-api-actions/offers-api-actions';
 import { APIRoute } from '../../const';
 
 const state = mockState();

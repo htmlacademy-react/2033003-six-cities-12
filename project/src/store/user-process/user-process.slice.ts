@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { AuthorizationStatus } from '../../const';
 import { UserState } from '../../types/state';
-import { checkAuthAction, loginAction, logoutAction } from '../api-actions/auth-api-actions';
+import { checkAuthAction, loginAction, logoutAction } from '../api-actions/auth-api-actions/auth-api-actions';
 
 export const initialState: UserState = {
   authorizationStatus: AuthorizationStatus.Unknown,
