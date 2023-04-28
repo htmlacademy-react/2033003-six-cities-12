@@ -13,7 +13,7 @@ type FavoritesPlacesProps = {
 function Bookmark({offerId, isFavorite, isProperty}: FavoritesPlacesProps) :JSX.Element {
   const navigate = useNavigate();
   const isLoggedIn = useIsLoggedIn(AuthorizationStatus.Auth);
-  const { isFavorite: isOfferFavorite, toggleFavorite } = useFavorites(offerId, isFavorite);
+  const { isOfferFavorite, toggleFavorite } = useFavorites(offerId, isFavorite);
 
   const placeCardDefaultClass = isProperty
     ? BOOKMARK_CLASSNAME.property.default

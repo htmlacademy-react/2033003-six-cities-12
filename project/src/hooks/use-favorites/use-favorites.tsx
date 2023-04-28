@@ -19,7 +19,7 @@ function useFavorites(offerId: number, initialIsFavorite: boolean) {
     setIsOfferFavorite(newStatus);
   };
 
-  return { isFavorite: isOfferFavorite, toggleFavorite };
+  return { isOfferFavorite, toggleFavorite };
 }
 
 export default useFavorites;
