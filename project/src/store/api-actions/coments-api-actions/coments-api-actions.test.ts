@@ -1,9 +1,9 @@
-import { mockOffers, mockReviews, mockUser} from './../../utils/mocks';
-import { APIRoute } from '../../const';
-import { ReviewData } from '../../types/review-data';
-import { mockAPI, mockReviewData, mockStore } from '../../utils/mocks';
-import { fetchReviewsAction, postReviewAction } from './coments-api-actions';
-import { Review } from '../../types/review';
+import { mockOffers, mockReviews, mockUser} from '../../../utils/mocks';
+import { APIRoute } from '../../../const';
+import { ReviewData } from '../../../types/review-data';
+import { mockAPI, mockReviewData, mockStore } from '../../../utils/mocks';
+import { fetchReviewsAction, postReviewAction } from '../coments-api-actions/coments-api-actions';
+import { Review } from '../../../types/review';
 
 describe('API Actions: comment actions', () => {
   afterEach(() => {

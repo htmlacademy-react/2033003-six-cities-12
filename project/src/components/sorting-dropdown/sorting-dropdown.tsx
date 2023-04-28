@@ -1,5 +1,5 @@
 import { Fragment, useState } from 'react';
-import SortingOption from './sorting-option';
+import SortingOption from '../sorting-option/sorting-option';
 
 type SortingDropdownProps = {
   options: string[];

@@ -2,9 +2,9 @@ import { FormEvent, useCallback, useEffect, useMemo, useState } from 'react';
 import { ReviewData } from '../../types/review-data';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { getOffer, getSubmittingStatus, getSubmittingSuccessStatus } from '../../store/main-data/main-data.selectors';
-import RatingStars from '../rating/rating-stars';
-import Comment from './comment';
-import { postReviewAction } from '../../store/api-actions/coments-api-actions';
+import RatingStars from '../rating-stars/rating-stars';
+import Comment from '../comment/comment';
+import { postReviewAction } from '../../store/api-actions/coments-api-actions/coments-api-actions';
 import { resetSubmittingSuccessStatus } from '../../store/main-data/main-data.slice';
 import { DEFAULT_COMMENT, DEFAULT_RATING, MIN_LENGTH_COMMENT } from '../../const';
 

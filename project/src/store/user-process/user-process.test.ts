@@ -1,5 +1,5 @@
 import { AuthorizationStatus } from '../../const';
-import { checkAuthAction, loginAction, logoutAction } from '../api-actions/auth-api-actions';
+import { checkAuthAction, loginAction, logoutAction } from '../api-actions/auth-api-actions/auth-api-actions';
 import { userProcess } from './user-process.slice';
 import { UserState } from '../../types/state';
 

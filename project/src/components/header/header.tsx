@@ -5,8 +5,8 @@ import { Offer } from '../../types/offer';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { getUserAvatarUrl, getUserEmail } from '../../store/user-process/user-process.selectors';
 import { getOffers } from '../../store/main-data/main-data.selectors';
-import { logoutAction } from '../../store/api-actions/auth-api-actions';
-import HeaderLogo from './header-logo';
+import { logoutAction } from '../../store/api-actions/auth-api-actions/auth-api-actions';
+import HeaderLogo from '../header-logo/header-logo';
 import SignIn from '../sign-in/sign-in';
 import SignOut from '../sign-out/sign-out';
 import { useIsLoggedIn } from '../../hooks/use-is-logged-in/use-is-logged-in';
@@ -40,7 +40,7 @@ function Header({isLoginScreen}: HeaderProps): JSX.Element {
   };
 
   return (
-    <header className="header">
+    <header className="header" data-testid="header">
       <div className="container">
         <div className="header__wrapper">
           <HeaderLogo/>

@@ -2,7 +2,7 @@ import { AnyAction, Dispatch} from '@reduxjs/toolkit';
 import { redirectOnOfferError } from './redirectOnOfferError';
 import browserHistory from '../../browser-history';
 import { AppRoute } from '../../const';
-import { fetchOfferAction } from '../api-actions/offers-api-actions';
+import { fetchOfferAction } from '../api-actions/offers-api-actions/offers-api-actions';
 import { mockStore } from '../../utils/mocks';
 
 describe('redirectOnOfferError middleware', () => {

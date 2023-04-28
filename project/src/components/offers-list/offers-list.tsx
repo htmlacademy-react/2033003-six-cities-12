@@ -2,7 +2,7 @@ import { memo } from 'react';
 import { useAppSelector } from '../../hooks';
 import { getLocationName } from '../../store/main-process/main-process.selectors';
 import SortingOptions from '../sorting-options/sorting-options';
-import Offers from './offers';
+import Offers from '../offers/offers';
 import { Offer } from '../../types/offer';
 
 type OffersListProps = {

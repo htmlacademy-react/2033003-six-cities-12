@@ -13,8 +13,8 @@ import CommentSubmissionForm from '../../components/comment-submission-form/comm
 import { getNearbyOffers, getOffer, getReviews} from '../../store/main-data/main-data.selectors';
 import Layout from '../../components/layout/layout';
 import Bookmark from '../../components/bookmark/bookmark';
-import { fetchNearbyOffersAction, fetchOfferAction } from '../../store/api-actions/offers-api-actions';
-import { fetchReviewsAction } from '../../store/api-actions/coments-api-actions';
+import { fetchNearbyOffersAction, fetchOfferAction } from '../../store/api-actions/offers-api-actions/offers-api-actions';
+import { fetchReviewsAction } from '../../store/api-actions/coments-api-actions/coments-api-actions';
 import Features from '../../components/features/features';
 import { useIsLoggedIn } from '../../hooks/use-is-logged-in/use-is-logged-in';
 import useFilteredAndSortedOffers from '../../hooks/use-filtered-and-sorted-offers/use-filtered-and-sorted-offers';

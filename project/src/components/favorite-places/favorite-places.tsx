@@ -1,7 +1,7 @@
 import { Offer } from '../../types/offer';
 import { useAppSelector } from '../../hooks';
 import { getFavoriteOffers } from '../../store/main-data/main-data.selectors';
-import FavoriteItem from './favorite-item';
+import FavoriteItem from '../favorite-item/favorite-item';
 
 type FavoritePlacesProps = {
   city: string;

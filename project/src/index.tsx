@@ -5,8 +5,8 @@ import App from './components/app/app';
 import { store } from './store';
 import {ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { fetchOffersAction } from './store/api-actions/offers-api-actions';
-import { checkAuthAction } from './store/api-actions/auth-api-actions';
+import { fetchOffersAction } from './store/api-actions/offers-api-actions/offers-api-actions';
+import { checkAuthAction } from './store/api-actions/auth-api-actions/auth-api-actions';
 import HistoryRouter from './components/history-router/history-router';
 import browserHistory from './browser-history';
 

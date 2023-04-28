@@ -1,5 +1,5 @@
 import { Action, Middleware } from '@reduxjs/toolkit';
-import { fetchOfferAction } from '../api-actions/offers-api-actions';
+import { fetchOfferAction } from '../api-actions/offers-api-actions/offers-api-actions';
 import { AppRoute } from '../../const';
 import browserHistory from '../../browser-history';
 

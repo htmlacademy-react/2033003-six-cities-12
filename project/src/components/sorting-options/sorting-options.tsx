@@ -1,6 +1,6 @@
 import { memo, useCallback } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import SortingDropdown from './sorting-dropdown';
+import SortingDropdown from '../sorting-dropdown/sorting-dropdown';
 import { getSortingMethod } from '../../store/main-process/main-process.selectors';
 import { changeSorting } from '../../store/main-process/main-process.slice';
 import { OPTIONS } from '../../const';
